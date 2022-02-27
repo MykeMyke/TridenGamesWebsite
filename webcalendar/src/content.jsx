@@ -33,23 +33,3 @@ const Content = () => {
 };
 
 export default Content;
-// export default function BasicGrid() {
-//   return (
-//     <Box sx={{ flexGrow: 1 }}>
-//       <Grid container spacing={3}>
-//         <Grid item xs={12} sm={6} md={4} lg={3}>
-//           <Card />
-//         </Grid>
-//         <Grid item xs={12} sm={6} md={4} lg={3}>
-//           <Card />
-//         </Grid>
-//         <Grid item xs={12} sm={6} md={4} lg={3}>
-//           <Card />
-//         </Grid>
-//         <Grid item xs={12} sm={6} md={4} lg={3}>
-//           <Card />
-//         </Grid>
-//       </Grid>
-//     </Box>
-//   );
-// }
