@@ -2,9 +2,10 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Game from "./calendarCard";
 
-export default function FullDescPopover() {
+export default function FullDescPopover(props) {
+  const { desc } = props;
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -40,7 +41,7 @@ export default function FullDescPopover() {
         }}
       >
         <Typography variant="body2" sx={{ p: 1 }}>
-          Adventure Summary:
+          Adventure Summary: {desc}
           {/* NEED TO READ MAPPED GAME.DESCRIPTIONFULL HERE */}
         </Typography>
       </Popover>

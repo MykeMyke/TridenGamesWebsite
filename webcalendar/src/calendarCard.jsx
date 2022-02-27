@@ -56,7 +56,7 @@ const Game = (props) => {
         <Typography variant="h6" color="text.secondary" sx={{ pt: 0.2 }}>
           {AdvName}
         </Typography>
-        <FullDescPopover info={`#${Game.DescriptionFull}`} />
+        <FullDescPopover desc={DescriptionFull} />
         <Divider variant="middle" sx={{ mb: 1 }} />
         <Typography variant="subtitle2" color="text.secondary" display="block">
           DM: {DM}
