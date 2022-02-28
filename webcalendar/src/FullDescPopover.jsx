@@ -40,9 +40,17 @@ export default function FullDescPopover(props) {
           horizontal: "left",
         }}
       >
-        <Typography variant="body2" sx={{ p: 1 }}>
-          Adventure Summary: {desc}
-          {/* NEED TO READ MAPPED GAME.DESCRIPTIONFULL HERE */}
+        <Typography
+          variant="body2"
+          sx={{ p: 1, maxWidth: "200px", pb: 0, bgcolor: "#42a5f515" }}
+        >
+          <strong>Adventure Summary:</strong>
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{ p: 1, maxWidth: "200px", bgcolor: "#42a5f515" }}
+        >
+          {desc}
         </Typography>
       </Popover>
     </div>

@@ -9,7 +9,7 @@ export default [
     MaxPlayers: "6",
     WaitlistCount: "0",
     DescriptionFull:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, a minima ullam veritatis sed vero consequuntur animi velit consequatur voluptatem recusandae accusantium ratione sunt? Odio, ab earum? Neque, natus ab.",
+      "ALPHA Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, a minima ullam veritatis sed vero consequuntur animi velit consequatur voluptatem recusandae accusantium ratione sunt? Odio, ab earum? Neque, natus ab.",
     DM: "Clark",
     Warnings: "Animal Cruelty",
   },
@@ -23,7 +23,7 @@ export default [
     MaxPlayers: "6",
     WaitlistCount: "1",
     DescriptionFull:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, a minima ullam veritatis sed vero consequuntur animi velit consequatur voluptatem recusandae accusantium ratione sunt? Odio, ab earum? Neque, natus ab.",
+      "BRAVO Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, a minima ullam veritatis sed vero consequuntur animi velit consequatur voluptatem recusandae accusantium ratione sunt? Odio, ab earum? Neque, natus ab.",
     DM: "Griffmeister",
     Warnings:
       "Loads of combar and exploration. Minimal RP. 3hour max with hard cut off if not complete.",
@@ -38,7 +38,7 @@ export default [
     MaxPlayers: "6",
     WaitlistCount: "0",
     DescriptionFull:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, a minima ullam veritatis sed vero consequuntur animi velit consequatur voluptatem recusandae accusantium ratione sunt? Odio, ab earum? Neque, natus ab.",
+      "CHARLIE Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, a minima ullam veritatis sed vero consequuntur animi velit consequatur voluptatem recusandae accusantium ratione sunt? Odio, ab earum? Neque, natus ab.",
     DM: "Johnny",
     Warnings:
       "death (murder by consuming flesh), “madness,” abduction, imprisonment, illness, loss of self.",
@@ -53,7 +53,7 @@ export default [
     MaxPlayers: "Y",
     WaitlistCount: "Z",
     DescriptionFull:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, a minima ullam veritatis sed vero consequuntur animi velit consequatur voluptatem recusandae accusantium ratione sunt? Odio, ab earum? Neque, natus ab.",
+      "DELTA Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, a minima ullam veritatis sed vero consequuntur animi velit consequatur voluptatem recusandae accusantium ratione sunt? Odio, ab earum? Neque, natus ab.",
     DM: "DM Alias",
     Warnings: "Any content / trigger warnings.",
   },
