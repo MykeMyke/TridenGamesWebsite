@@ -4,24 +4,24 @@ import { Box, typography } from "@mui/system";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { CardActions } from "@mui/material";
+import { CardActions, deprecatedPropType } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import FullDescPopover from "./FullDescPopover";
 
 const Game = (props) => {
   const {
-    AdvCode,
-    AdvName,
-    Date,
-    Time,
-    Duration,
-    CurrentPlayers,
-    MaxPlayers,
-    WaitlistCount,
-    DescriptionFull,
-    DM,
-    Warnings,
+    module,
+    name,
+    datetime,
+    // Time,
+    length,
+    number_of_players,
+    max_players,
+    // WaitlistCount,
+    description,
+    dm,
+    warnings,
   } = props;
   return (
     <Card sx={{ maxWidth: 450 }}>
@@ -35,31 +35,31 @@ const Game = (props) => {
           {/* NEED TO REFACTOR AS GRID ITEMS */}
           <Box>
             <Typography variant="h6" color="text.secondary" marginRight={3}>
-              {Date}
+              {datetime}
             </Typography>
             <Typography
               variant="subtitle2"
               color="text.secondary"
               display="block"
             >
-              {Game.Time}
+              TBD
             </Typography>
             <Typography variant="subtitle2" color="text.secondary">
-              {Duration}
+              {length}
             </Typography>
           </Box>
           <Typography variant="subtitle" color="text.secondary">
-            {AdvCode}
+            {module}
           </Typography>
         </Grid>
         <Divider variant="middle" sx={{ mt: 1 }} />
         <Typography variant="h6" color="text.secondary" sx={{ pt: 0.2 }}>
-          {AdvName}
+          {name}
         </Typography>
-        <FullDescPopover desc={DescriptionFull} />
+        <FullDescPopover desc={description} />
         <Divider variant="middle" sx={{ mb: 1 }} />
         <Typography variant="subtitle2" color="text.secondary" display="block">
-          DM: {DM}
+          DM: {dm}
         </Typography>
         <Typography
           variant="subtitle2"
@@ -70,7 +70,7 @@ const Game = (props) => {
           Content Warnings:
         </Typography>
         <Typography variant="subtitle2" color="text.secondary" display="block">
-          {Warnings}
+          {warnings}
         </Typography>{" "}
       </CardContent>
       {/* </CardActionArea> */}
@@ -81,7 +81,7 @@ const Game = (props) => {
               Players
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {CurrentPlayers} / {MaxPlayers}
+              {number_of_players} / {max_players}
             </Typography>
           </Box>
           <Divider orientation="vertical" variant="middle" flexItem />
@@ -90,7 +90,7 @@ const Game = (props) => {
               Waitlist
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {WaitlistCount}
+              TBD
             </Typography>
           </Box>
         </Grid>

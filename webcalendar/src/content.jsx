@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import DjangoDataImport from "./gameData";
+import useFetch from "./useFetch";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -15,6 +15,15 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Content = () => {
+  const {
+    data: ImportedGameData,
+    loading,
+    error,
+    refetch,
+  } = useFetch(
+    "https://triden.digitaldemiplane.com/invisibleservant/api/games"
+  );
+
   const buildCalendarCard = (djangoGameData) => {
     return (
       <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -25,7 +34,7 @@ const Content = () => {
 
   return (
     <Grid container spacing={3}>
-      {DjangoDataImport.map((djangoGamaData) =>
+      {ImportedGameData.map((djangoGamaData) =>
         buildCalendarCard(djangoGamaData)
       )}
     </Grid>
