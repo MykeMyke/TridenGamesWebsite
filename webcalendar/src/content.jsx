@@ -18,16 +18,16 @@ export default function Content() {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    getGames().then(result => setData(result.data))
+    getGames().then(result => {setData(result.data)})
   }, [])
 
   return (
     <Grid container spacing={3}>
-      { data.map((game) => {
+      { data.map((game) => (
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <Game {...game} />
       </Grid>
-      })}
+      ))}
     </Grid>
   );
 };
