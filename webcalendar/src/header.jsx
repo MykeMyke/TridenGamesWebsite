@@ -39,7 +39,7 @@ const Header = () => {
           >
             Triden Upcoming Games
           </Typography>
-          /* DISCORD ICON NOT WORKING */
+          {/* DISCORD ICON NOT WORKING */}
           {/* <FontAwesomeIcon icon="fa-discord" /> */}
           <Button
             variant="contained"
