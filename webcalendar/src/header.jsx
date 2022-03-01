@@ -6,10 +6,14 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-// import DiscordIcon from "@mui/icons-material/Discord";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { fadiscord } from "@fortawesome/free-solid-svg-icons";
-import FlagIcon from "@mui/icons-material/Flag";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  solid,
+  regular,
+  brands,
+} from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Grid } from "@mui/material";
+
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -17,7 +21,7 @@ import FlagIcon from "@mui/icons-material/Flag";
 /* NEED TO APPLY GLOBAL STYLING FIRST THEN MOVE */
 const Header = () => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ justifyContent: "space-between" }}>
       <AppBar position="fixed">
         <Toolbar>
           {/* PUT A MENU HERE? */}
@@ -30,6 +34,21 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton> */}
+          <Box
+            sx={{
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body" textAlign="center" alignself="center">
+              Luxon DateTime
+            </Typography>
+            <Typography variant="body2" textAlign="center" alignself="center">
+              All times shown in local
+            </Typography>
+          </Box>
+
           <Typography
             variant="h6"
             component="div"
@@ -43,11 +62,13 @@ const Header = () => {
           {/* <FontAwesomeIcon icon="fa-discord" /> */}
           <Button
             variant="contained"
-            startIcon={<FlagIcon />}
             href="https://discord.gg/JDB6BYTK9T"
             target="_blank"
           >
-            Join Triden on Discord
+            <Box sx={{ mr: 1.5 }}>
+              <FontAwesomeIcon icon={brands("discord")} size="2x" />
+            </Box>
+            <strong>Join Triden</strong>
           </Button>
         </Toolbar>
       </AppBar>
