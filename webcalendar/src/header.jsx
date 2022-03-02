@@ -13,6 +13,7 @@ import {
   brands,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Grid } from "@mui/material";
+import { now } from "./currentTime";
 
 <link
   rel="stylesheet"
@@ -42,10 +43,10 @@ const Header = () => {
             }}
           >
             <Typography variant="body" textAlign="center" alignself="center">
-              Luxon DateTime
+              Loaded at:
             </Typography>
             <Typography variant="body2" textAlign="center" alignself="center">
-              All times shown in local
+              {/* {now} */}
             </Typography>
           </Box>
 
