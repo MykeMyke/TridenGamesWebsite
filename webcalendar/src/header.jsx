@@ -13,7 +13,7 @@ import {
   brands,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Grid } from "@mui/material";
-import { now } from "./currentTime";
+import { now } from "./currentTime.mjs";
 
 <link
   rel="stylesheet"

@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 import { styled } from "@mui/material/styles";
-import { Paper, Grid } from '@mui/material'
+import { Paper, Grid } from "@mui/material";
 
-import {getGames} from './api/games'
+import { getGames } from "./api/games";
 import Game from "./calendarCard";
+import { DateTime } from "luxon";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -15,19 +16,34 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Content() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    getGames().then(result => {setData(result.data)})
-  }, [])
+    getGames().then((result) => {
+      setData(result.data);
+    });
+  }, []);
+
+  const sorted = data.sort((a, b) => {
+    a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
+  });
+
+  const translate = sorted.forEach((data) => {
+    const readableWeekday = DateTime.fromISO(data.date).toFormat("ccc");
+    const readableDate = DateTime.fromISO(data.date).toLocaleString(
+      DateTime.DATETIME_FULL
+    );
+    data["displayDate"] =
+      `${readableWeekday.toString()}` + " " + `${readableDate.toString()}`;
+  });
 
   return (
     <Grid container spacing={3}>
-      { data.map((game) => (
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <Game {...game} />
-      </Grid>
+      {data.map((game) => (
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Game {...game} />
+        </Grid>
       ))}
     </Grid>
   );
-};
+}
