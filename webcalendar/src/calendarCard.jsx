@@ -7,7 +7,9 @@ import Typography from "@mui/material/Typography";
 import { CardActions, deprecatedPropType } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
+
 import FullDescPopover from "./FullDescPopover";
+import { toLocalString } from "./utils/formatting";
 
 const Game = (props) => {
   const {
@@ -22,7 +24,6 @@ const Game = (props) => {
     description,
     dm,
     warnings,
-    displayDate,
   } = props;
   return (
     <Card sx={{ maxWidth: 450 }}>
@@ -36,7 +37,7 @@ const Game = (props) => {
           {/* NEED TO REFACTOR AS GRID ITEMS */}
           <Box>
             <Typography variant="h6" color="text.secondary" marginRight={3}>
-              {displayDate}
+              {toLocalString(datetime)}
             </Typography>
             <Typography
               variant="subtitle2"
