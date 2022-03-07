@@ -10,20 +10,22 @@ import Divider from "@mui/material/Divider";
 
 import FullDescPopover from "./FullDescPopover";
 import { toLocalString } from "./utils/formatting";
+import { checkTier } from "./utils/tier";
 
 const Game = (props) => {
   const {
     module,
     name,
     datetime,
-    // Time,
     length,
     number_of_players,
     max_players,
-    // WaitlistCount,
+    //number_of_waitlisted,
     description,
     dm,
     warnings,
+    level_min,
+    level_max,
   } = props;
   return (
     <Card sx={{ maxWidth: 450 }}>
@@ -39,19 +41,19 @@ const Game = (props) => {
             <Typography variant="h6" color="text.secondary" marginRight={3}>
               {toLocalString(datetime)}
             </Typography>
-            <Typography
-              variant="subtitle2"
-              color="text.secondary"
-              display="block"
-            >
-              TBD
-            </Typography>
             <Typography variant="subtitle2" color="text.secondary">
               {length}
             </Typography>
           </Box>
           <Typography variant="subtitle" color="text.secondary">
             {module}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            display="block"
+          >
+            {checkTier(level_min, level_max)}
           </Typography>
         </Grid>
         <Divider variant="middle" sx={{ mt: 1 }} />

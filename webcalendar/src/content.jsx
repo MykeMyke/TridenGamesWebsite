@@ -3,7 +3,6 @@ import { styled } from "@mui/material/styles";
 import { Paper, Grid } from "@mui/material";
 import { getGames } from "./api/games";
 import Game from "./calendarCard";
-import { DateTime } from "luxon";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,13 +17,18 @@ export default function Content() {
 
   useEffect(() => {
     getGames().then((result) => {
-      setData(result.data.sort((a, b) => {return new Date(b.datetime) - new Date(a.datetime)}))
+      setData(
+        result.data.sort((a, b) => {
+          return new Date(a.datetime) - new Date(b.datetime);
+        })
+      );
     });
   }, []);
-
+  //Only filtering for future games at present
+  const filteredData = data.filter((x) => Date.parse(x.datetime) > new Date());
   return (
-    <Grid container spacing={3}>
-      {data.map((gameData) => (
+    <Grid container spacing={3} justify="center" sx={{ pl: 2 }}>
+      {filteredData.map((gameData) => (
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <Game {...gameData} />
         </Grid>
