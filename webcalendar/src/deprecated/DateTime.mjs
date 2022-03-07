@@ -1,6 +1,6 @@
 import React from "react";
 import { DateTime } from "luxon";
-import { data } from "./content";
+// import { data } from "./content.jsx";
 
 const sorted_datetime = data.sort((a, b) => {
   return a.datetime < b.datetime ? -1 : a.datetime > b.datetime ? 1 : 0;

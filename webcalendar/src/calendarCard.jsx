@@ -22,6 +22,7 @@ const Game = (props) => {
     description,
     dm,
     warnings,
+    displayDate,
   } = props;
   return (
     <Card sx={{ maxWidth: 450 }}>
@@ -35,7 +36,7 @@ const Game = (props) => {
           {/* NEED TO REFACTOR AS GRID ITEMS */}
           <Box>
             <Typography variant="h6" color="text.secondary" marginRight={3}>
-              {datetime}
+              {displayDate}
             </Typography>
             <Typography
               variant="subtitle2"

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 import { styled } from "@mui/material/styles";
 import { Paper, Grid } from "@mui/material";
-
 import { getGames } from "./api/games";
 import Game from "./calendarCard";
 import { DateTime } from "luxon";
+//import { dataProcessed } from "./DateTime.mjs";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,22 +25,23 @@ export default function Content() {
 
   const sorted = data.sort((a, b) => {
     a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
+    return sorted;
   });
 
-  const translate = sorted.forEach((data) => {
-    const readableWeekday = DateTime.fromISO(data.date).toFormat("ccc");
-    const readableDate = DateTime.fromISO(data.date).toLocaleString(
+  const translate = sorted.forEach((game) => {
+    const readableWeekday = DateTime.fromISO(game.date).toFormat("ccc");
+    const readableDate = DateTime.fromISO(game.date).toLocaleString(
       DateTime.DATETIME_FULL
     );
-    data["displayDate"] =
+    sorted["displayDate"] =
       `${readableWeekday.toString()}` + " " + `${readableDate.toString()}`;
   });
 
   return (
     <Grid container spacing={3}>
-      {data.map((game) => (
+      {sorted.map((gameData) => (
         <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Game {...game} />
+          <Game {...gameData} />
         </Grid>
       ))}
     </Grid>
