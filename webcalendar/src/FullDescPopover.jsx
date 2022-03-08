@@ -27,6 +27,7 @@ export default function FullDescPopover(props) {
         onClick={handleClick}
         size="small"
         sx={{ pt: 0.2, pb: 0, mb: 1.5 }}
+        color="secondary"
       >
         Details
       </Button>
@@ -42,13 +43,13 @@ export default function FullDescPopover(props) {
       >
         <Typography
           variant="body2"
-          sx={{ p: 1, maxWidth: "200px", pb: 0, bgcolor: "#42a5f515" }}
+          sx={{ p: 1, maxWidth: "200px", pb: 0, bgcolor: "#e6e6e675" }}
         >
           <strong>Adventure Summary:</strong>
         </Typography>
         <Typography
           variant="body2"
-          sx={{ p: 1, maxWidth: "200px", bgcolor: "#42a5f515" }}
+          sx={{ p: 1, maxWidth: "200px", bgcolor: "#e6e6e675" }}
         >
           {desc}
         </Typography>

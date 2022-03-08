@@ -36,6 +36,7 @@ const Header = () => {
             target="_blank"
             alignSelf="center"
             textAlign="center"
+            color="accent"
           >
             <Box sx={{ mr: 1.5 }}>
               <AddBoxIcon fontSize="large" />
@@ -50,6 +51,7 @@ const Header = () => {
             variant="contained"
             href="https://discord.gg/tridengames"
             target="_blank"
+            color="accent"
           >
             <Box sx={{ mr: 1.5 }}>
               <FontAwesomeIcon icon={brands("discord")} size="2x" />
