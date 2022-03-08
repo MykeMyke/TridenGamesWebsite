@@ -32,7 +32,7 @@ const Header = () => {
           </IconButton> */}
           <Button
             variant="contained"
-            href="https://triden.digitaldemiplane.com/invisibleservant/bot_documentation/"
+            href="https://triden.digitaldemiplane.com/invisibleservant/admin/core/game/add/"
             target="_blank"
             alignSelf="center"
             textAlign="center"
