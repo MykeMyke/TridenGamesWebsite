@@ -5,11 +5,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-// import DiscordIcon from "@mui/icons-material/Discord";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { fadiscord } from "@fortawesome/free-solid-svg-icons";
-import FlagIcon from "@mui/icons-material/Flag";
+import Menu from "@mui/material/Menu";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { brands } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Grid } from "@mui/material";
+
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -17,10 +18,9 @@ import FlagIcon from "@mui/icons-material/Flag";
 /* NEED TO APPLY GLOBAL STYLING FIRST THEN MOVE */
 const Header = () => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ justifyContent: "space-between" }}>
       <AppBar position="fixed">
         <Toolbar>
-          {/* PUT A MENU HERE? */}
           {/* <IconButton
             size="large"
             edge="start"
@@ -30,24 +30,31 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography
-            variant="h6"
-            component="div"
-            alignSelf="center"
-            textAlign="center"
-            sx={{ flexGrow: 1 }}
-          >
-            Triden Upcoming Games
-          </Typography>
-          {/* DISCORD ICON NOT WORKING */}
-          {/* <FontAwesomeIcon icon="fa-discord" /> */}
           <Button
             variant="contained"
-            startIcon={<FlagIcon />}
-            href="https://discord.gg/JDB6BYTK9T"
+            href="https://triden.digitaldemiplane.com/invisibleservant/bot_documentation/"
+            target="_blank"
+            alignSelf="center"
+            textAlign="center"
+          >
+            <Box sx={{ mr: 1.5 }}>
+              <AddBoxIcon fontSize="large" />
+            </Box>
+            Create a Game
+          </Button>
+
+          <Box textAlign="center" sx={{ flexGrow: 1 }}>
+            <Typography variant="h5">Upcoming Games</Typography>
+          </Box>
+          <Button
+            variant="contained"
+            href="https://discord.gg/tridengames"
             target="_blank"
           >
-            Join Triden on Discord
+            <Box sx={{ mr: 1.5 }}>
+              <FontAwesomeIcon icon={brands("discord")} size="2x" />
+            </Box>
+            Join Triden
           </Button>
         </Toolbar>
       </AppBar>
