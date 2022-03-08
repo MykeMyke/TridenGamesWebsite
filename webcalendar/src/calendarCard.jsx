@@ -28,7 +28,7 @@ const Game = (props) => {
     level_max,
   } = props;
   return (
-    <Card sx={{ maxWidth: 450 }}>
+    <Card raised="true" sx={{ maxWidth: 450 }}>
       <CardContent sx={{ pt: 0.75, pb: 0.2, "&:last-child": { pb: 0 } }}>
         <Grid
           container
@@ -38,26 +38,22 @@ const Game = (props) => {
         >
           {/* NEED TO REFACTOR AS GRID ITEMS */}
           <Box>
-            <Typography variant="h6" color="text.secondary" marginRight={3}>
+            <Typography variant="h6" color="text.primary" marginRight={3}>
               {toLocalString(datetime)}
             </Typography>
             <Typography variant="subtitle2" color="text.secondary">
               {length}
             </Typography>
           </Box>
-          <Typography variant="subtitle" color="text.secondary">
+          <Typography variant="subtitle" color="text.primary">
             {module}
           </Typography>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            display="block"
-          >
+          <Typography variant="subtitle2" color="text.primary" display="block">
             {checkTier(level_min, level_max)}
           </Typography>
         </Grid>
         <Divider variant="middle" sx={{ mt: 1 }} />
-        <Typography variant="h6" color="text.secondary" sx={{ pt: 0.2 }}>
+        <Typography variant="h6" color="text.primary" sx={{ pt: 0.2 }}>
           {name}
         </Typography>
         <FullDescPopover desc={description} />
@@ -81,19 +77,19 @@ const Game = (props) => {
       <CardActions sx={{ py: 0 }}>
         <Grid container direction="row" justifyContent="space-between">
           <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Players
             </Typography>
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="h6" color="text.primary">
               {number_of_players} / {max_players}
             </Typography>
           </Box>
           <Divider orientation="vertical" variant="middle" flexItem />
           <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Waitlist
             </Typography>
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="h6" color="text.primary">
               TBD
             </Typography>
           </Box>

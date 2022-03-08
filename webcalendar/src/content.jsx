@@ -4,6 +4,7 @@ import { Paper, Grid, Typography } from "@mui/material";
 import { getGames } from "./api/games";
 import Game from "./calendarCard";
 import Container from "@mui/material/Container";
+import { checkDaysToGo } from "./utils/daysToGo";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -27,14 +28,16 @@ export default function Content() {
   }, []);
   //Only filtering for future games at present
   const filteredData = data.filter((x) => Date.parse(x.datetime) > new Date());
+  const lastDate = filteredData.map((a) => a.datetime).reverse()[0];
 
   return (
     <>
       <Container sx={{ mb: 3 }}>
-        <Typography variant="h5">
-          There are {filteredData.length} games scheduled in the near future
+        <Typography variant="h5" color="text.primary">
+          There are <strong>{filteredData.length} games</strong> scheduled in
+          the next {checkDaysToGo(lastDate)}
         </Typography>
-        <Typography variant="subtitle1">
+        <Typography variant="subtitle1" color="text.primary">
           Signups take place on{" "}
           <a href="https://discord.gg/tridengames">the Triden Discord server</a>
           .
