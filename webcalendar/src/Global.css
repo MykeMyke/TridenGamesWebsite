@@ -2,8 +2,8 @@
   background: linear-gradient(
     180deg,
     hsl(0, 0%, 98%),
-    hsl(0, 0%, 95%),
     hsl(0, 0%, 90%),
+    hsl(0, 0%, 80%),
     hsl(0, 0%, 40%)
   );
   background-attachment: fixed;
@@ -17,5 +17,9 @@
 }
 
 h6 a:hover {
-  color: #a00000;
+  color: hsl(0, 100%, 31%);
+}
+
+.HeaderButton:hover {
+  color: hsl(0, 0%, 80%);
 }
