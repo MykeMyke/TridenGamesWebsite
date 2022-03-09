@@ -1,4 +1,4 @@
-import "./App.css";
+import "./Global.css";
 import Header from "./header";
 import Content from "./content";
 import Grid from "@mui/material/Grid";
@@ -8,7 +8,7 @@ import TridenTheme from "./theme";
 function App() {
   return (
     <ThemeProvider theme={TridenTheme}>
-      <Grid container direction="column">
+      <Grid container direction="column" className="Background">
         <Grid item>
           <Header />
         </Grid>
@@ -16,7 +16,7 @@ function App() {
           item
           container
           sx={{
-            pt: 10,
+            pt: 11,
           }}
         >
           <Grid item xs={false} sm={2} />
