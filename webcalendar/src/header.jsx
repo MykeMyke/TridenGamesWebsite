@@ -30,26 +30,31 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton> */}
+          <Box textAlign="left" sx={{ flexGrow: 1 }}>
+            <Typography variant="h5">Upcoming Games</Typography>
+          </Box>
           <Button
             variant="contained"
             href="https://triden.digitaldemiplane.com/invisibleservant/admin/core/game/add/"
             target="_blank"
             alignSelf="center"
             textAlign="center"
+            color="accent"
+            sx={{ height: "50px", my: 1.5, mr: 1 }}
+            className="zoom"
           >
             <Box sx={{ mr: 1.5 }}>
-              <AddBoxIcon fontSize="large" />
+              <AddBoxIcon fontSize="large" sx={{ pb: 0 }} />
             </Box>
             Create a Game
           </Button>
-
-          <Box textAlign="center" sx={{ flexGrow: 1 }}>
-            <Typography variant="h5">Upcoming Games</Typography>
-          </Box>
           <Button
             variant="contained"
             href="https://discord.gg/tridengames"
             target="_blank"
+            color="accent"
+            sx={{ height: "50px", my: 1.5 }}
+            className="zoom"
           >
             <Box sx={{ mr: 1.5 }}>
               <FontAwesomeIcon icon={brands("discord")} size="2x" />
