@@ -59,7 +59,7 @@ export default function Content() {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container spacing={3} justify="center" sx={{ pl: 2 }}>
+      <Grid container spacing={3} justify="center" sx={{ pl: 2, mb: 3 }}>
         {filteredData.map((gameData) => (
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Game {...gameData} />

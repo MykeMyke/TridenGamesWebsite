@@ -16,6 +16,16 @@ const TridenTheme = createTheme({
       main: accentColor,
     },
   },
+
+  typography: {
+    suffix: {
+      // fontFamily: "Roboto","Helvetica",
+      fontWeight: 500,
+      fontSize: "0.72rem",
+      lineHeight: 1.3,
+      letterSpacing: "0.002em",
+    },
+  },
 });
 
 export default TridenTheme;

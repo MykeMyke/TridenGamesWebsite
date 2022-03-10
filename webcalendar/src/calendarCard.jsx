@@ -11,6 +11,7 @@ import Divider from "@mui/material/Divider";
 import FullDescPopover from "./FullDescPopover";
 import { toLocalString } from "./utils/formatting";
 import { checkTier } from "./utils/tier";
+import { ReleaseDate } from "./utils/releasedate";
 
 const Game = (props) => {
   const {
@@ -26,7 +27,10 @@ const Game = (props) => {
     warnings,
     level_min,
     level_max,
+    datetime_release,
+    datetime_open_release,
   } = props;
+
   return (
     <Card raised="true" sx={{ maxWidth: 450 }}>
       <CardContent sx={{ pt: 0.75, pb: 0.2, "&:last-child": { pb: 0 } }}>
@@ -36,7 +40,6 @@ const Game = (props) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          {/* NEED TO REFACTOR AS GRID ITEMS */}
           <Box>
             <Typography variant="h6" color="text.primary" marginRight={3}>
               {toLocalString(datetime)}
@@ -45,7 +48,7 @@ const Game = (props) => {
               {length}
             </Typography>
           </Box>
-          <Typography variant="subtitle" color="text.primary">
+          <Typography variant="subtitle" color="text.primary" sx={{ mr: 1 }}>
             {module}
           </Typography>
           <Typography variant="subtitle2" color="text.primary" display="block">
@@ -71,7 +74,7 @@ const Game = (props) => {
         </Typography>
         <Typography variant="subtitle2" color="text.secondary" display="block">
           {warnings}
-        </Typography>{" "}
+        </Typography>
       </CardContent>
       {/* </CardActionArea> */}
       <CardActions sx={{ py: 0 }}>
@@ -94,6 +97,11 @@ const Game = (props) => {
             </Typography>
           </Box>
         </Grid>
+      </CardActions>
+      <CardActions sx={{ pt: 0.2 }}>
+        <Typography variant="suffix" color="text.secondary">
+          {ReleaseDate(datetime_release, datetime_open_release)}
+        </Typography>
       </CardActions>
     </Card>
   );
