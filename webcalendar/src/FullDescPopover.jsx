@@ -43,13 +43,18 @@ export default function FullDescPopover(props) {
       >
         <Typography
           variant="body2"
-          sx={{ p: 1, maxWidth: "200px", pb: 0, bgcolor: "#e6e6e675" }}
+          sx={{
+            p: 1,
+            maxWidth: "200px",
+            pb: 0,
+            bgcolor: "hsla(0, 100%, 31%, 0.05)",
+          }}
         >
           <strong>Adventure Summary:</strong>
         </Typography>
         <Typography
           variant="body2"
-          sx={{ p: 1, maxWidth: "200px", bgcolor: "#e6e6e675" }}
+          sx={{ p: 1, maxWidth: "200px", bgcolor: "hsla(0, 100%, 31%, 0.05)" }}
         >
           {desc}
         </Typography>

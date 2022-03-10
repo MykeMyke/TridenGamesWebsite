@@ -20,9 +20,9 @@ const Game = (props) => {
     length,
     number_of_players,
     max_players,
-    //number_of_waitlisted,
+    number_of_waitlisted,
     description,
-    dm,
+    dm_name,
     warnings,
     level_min,
     level_max,
@@ -59,7 +59,7 @@ const Game = (props) => {
         <FullDescPopover desc={description} />
         <Divider variant="middle" sx={{ mb: 1 }} />
         <Typography variant="subtitle2" color="text.secondary" display="block">
-          DM: {dm}
+          DM: {dm_name}
         </Typography>
         <Typography
           variant="subtitle2"
@@ -90,7 +90,7 @@ const Game = (props) => {
               Waitlist
             </Typography>
             <Typography variant="h6" color="text.primary">
-              TBD
+              {number_of_waitlisted}
             </Typography>
           </Box>
         </Grid>

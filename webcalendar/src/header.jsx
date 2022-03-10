@@ -1,3 +1,4 @@
+import "./Global.css";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -41,7 +42,7 @@ const Header = () => {
             textAlign="center"
             color="accent"
             sx={{ height: "50px", my: 1.5, mr: 1 }}
-            className="zoom"
+            className="HeaderButton"
           >
             <Box sx={{ mr: 1.5 }}>
               <AddBoxIcon fontSize="large" sx={{ pb: 0 }} />
@@ -54,7 +55,7 @@ const Header = () => {
             target="_blank"
             color="accent"
             sx={{ height: "50px", my: 1.5 }}
-            className="zoom"
+            className="HeaderButton"
           >
             <Box sx={{ mr: 1.5 }}>
               <FontAwesomeIcon icon={brands("discord")} size="2x" />
