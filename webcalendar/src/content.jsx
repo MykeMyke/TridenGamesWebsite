@@ -52,7 +52,7 @@ export default function Content() {
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
             Signups take place on{" "}
-            <a href="https://discord.gg/tridengames">
+            <a href="https://discord.gg/tridengames" target="_blank">
               the Triden Discord server
             </a>
             .

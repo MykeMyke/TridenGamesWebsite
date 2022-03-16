@@ -40,6 +40,7 @@ export default function FullDescPopover(props) {
           vertical: "bottom",
           horizontal: "left",
         }}
+        BackdropProps={{ invisible: false }}
       >
         <Typography
           variant="body2"
