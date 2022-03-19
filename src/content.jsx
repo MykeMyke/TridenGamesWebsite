@@ -4,7 +4,6 @@ import { styled } from "@mui/material/styles";
 import { Box, Paper, Grid, Typography } from "@mui/material";
 import { getGames } from "./api/games";
 import Game from "./calendarCard";
-import Container from "@mui/material/Container";
 import { checkDaysToGo } from "./utils/daysToGo";
 import TridenAvatar from "./img/TridenAvatar2048.png";
 
