@@ -1,19 +1,11 @@
 import "./Global.css";
 import React, { useState, useEffect } from "react";
-import { styled } from "@mui/material/styles";
-import { Box, Paper, Grid, Typography } from "@mui/material";
+
+import { Grid, Typography } from "@mui/material";
 import { getGames } from "./api/games";
 import Game from "./calendarCard";
 import { checkDaysToGo } from "./utils/daysToGo";
 import TridenAvatar from "./img/TridenAvatar2048.png";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 
 export default function Content() {
   const [data, setData] = useState([]);
@@ -32,7 +24,7 @@ export default function Content() {
   const lastDate = filteredData.map((a) => a.datetime).reverse()[0];
 
   return (
-    <>
+    <React.Fragment>
       <Grid
         container
         spacing={1}
@@ -51,7 +43,7 @@ export default function Content() {
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
             Signups take place on{" "}
-            <a href="https://discord.gg/tridengames" target="_blank">
+            <a href="https://discord.gg/tridengames" target="_blank" rel="noreferrer">
               the Triden Discord server
             </a>
             .
@@ -65,6 +57,6 @@ export default function Content() {
           </Grid>
         ))}
       </Grid>
-    </>
+    </React.Fragment>
   );
 }
