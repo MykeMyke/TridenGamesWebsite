@@ -39,11 +39,15 @@ export default function Content() {
         <Grid item xs={9}>
           <Typography variant="h5" color="text.primary">
             There are <strong>{filteredData.length} games</strong> scheduled in
-            the next {checkDaysToGo(lastDate)}
+            the next {checkDaysToGo(lastDate)} days
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
             Signups take place on{" "}
-            <a href="https://discord.gg/tridengames" target="_blank" rel="noreferrer">
+            <a
+              href="https://discord.gg/tridengames"
+              target="_blank"
+              rel="noreferrer"
+            >
               the Triden Discord server
             </a>
             .
