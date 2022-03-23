@@ -41,7 +41,7 @@ const Game = (props) => {
           alignItems="center"
         >
           <Box>
-            <Typography variant="h6" color="text.primary" marginRight={3}>
+            <Typography variant="cardmain" color="text.primary" marginRight={3}>
               {toLocalString(datetime)}
             </Typography>
             <Typography variant="subtitle2" color="text.secondary">
@@ -55,8 +55,13 @@ const Game = (props) => {
             {checkTier(level_min, level_max)}
           </Typography>
         </Grid>
-        <Divider variant="middle" sx={{ mt: 1 }} />
-        <Typography variant="h6" color="text.primary" sx={{ pt: 0.2 }}>
+        <Divider
+          variant="middle"
+          sx={{
+            my: 0.6,
+          }}
+        />
+        <Typography variant="cardmain" color="text.primary">
           {name}
         </Typography>
         <FullDescPopover desc={description} />

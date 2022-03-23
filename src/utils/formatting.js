@@ -1,6 +1,6 @@
-import moment from "moment"
+import moment from "moment";
 
 export function toLocalString(dateTime) {
-    let dt = moment(dateTime)
-    return dt.format('LLLL')
+  let dt = moment(dateTime);
+  return dt.format("llll");
 }

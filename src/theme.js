@@ -25,6 +25,13 @@ const TridenTheme = createTheme({
       lineHeight: 1.3,
       letterSpacing: "0.002em",
     },
+    cardmain: {
+      // fontFamily: "Roboto","Helvetica",
+      fontWeight: 500,
+      fontSize: "1.20rem",
+      lineHeight: 1.3,
+      letterSpacing: "0.004em",
+    },
   },
 });
 
