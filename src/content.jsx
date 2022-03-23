@@ -31,7 +31,7 @@ export default function Content() {
         direction="row"
         alignItems="center"
         justifyContent="flex-start"
-        sx={{ ml: 1, mb: 2 }}
+        sx={{ mb: 2 }}
       >
         <Grid item>
           <img src={TridenAvatar} alt="Triden Games" className="Logo" />
