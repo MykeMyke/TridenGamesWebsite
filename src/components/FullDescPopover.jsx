@@ -26,7 +26,7 @@ export default function FullDescPopover(props) {
         variant="contained"
         onClick={handleClick}
         size="small"
-        sx={{ pt: 0.2, pb: 0, mt: 0.4, mb: 1.5 }}
+        sx={{ pt: 0.2, pb: 0, mt: 0.4, mb: 1.1 }}
         color="secondary"
       >
         Details

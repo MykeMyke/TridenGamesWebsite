@@ -8,7 +8,7 @@ import { checkDaysToGo } from "../utils/daysToGo";
 import TridenAvatar from "../img/TridenAvatar2048.png";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 
-export default function Content() {
+export default function Calendar() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Content() {
         justifyContent="flex-start"
         sx={{ mb: 2 }}
       >
-        <Grid item>
+        <Grid item sx={{ ml: 1.5 }}>
           <img src={TridenAvatar} alt="Triden Games" className="Logo" />
         </Grid>
         <Grid item xs={9}>
@@ -43,7 +43,7 @@ export default function Content() {
             the next {checkDaysToGo(lastDate)} days
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
-            Signups take place on{" "}
+            Signups to games on{" "}
             <a
               href="https://discord.gg/tridengames"
               target="_blank"
@@ -59,7 +59,7 @@ export default function Content() {
         container
         spacing={3}
         justify="center"
-        sx={{ pl: 2, mb: 3, position: "relative" }}
+        sx={{ px: 2, mb: 3, position: "relative" }}
       >
         {filteredData.map((gameData) => (
           <Grid item xs={12} sm={6} md={4} lg={3}>

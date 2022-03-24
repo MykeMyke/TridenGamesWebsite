@@ -3,8 +3,9 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import { NavLink } from "react-router-dom";
 
 <link
   rel="stylesheet"
@@ -16,20 +17,77 @@ const Header = () => {
     <Box sx={{ justifyContent: "space-between" }}>
       <AppBar position="fixed">
         <Toolbar>
-          <Box textAlign="left" sx={{ flexGrow: 1 }}>
-            <Typography variant="h5">Upcoming Games</Typography>
-          </Box>
+          <Grid
+            container
+            direction="row"
+            spacing={2}
+            textAlign="center"
+            alignItems="center"
+            sx={{ mb: 0.6 }}
+          >
+            <Grid item>
+              <NavLink
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? "red" : "White",
+                    fontSize: "1.3rem",
+                    fontWeight: 600,
+                  };
+                }}
+                to="/"
+                activeClassName="is-active"
+              >
+                Home
+              </NavLink>
+            </Grid>
+            <Grid item>
+              <NavLink
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? "red" : "White",
+                    fontSize: "1.3rem",
+                    fontWeight: 600,
+                  };
+                }}
+                to="/about"
+                activeClassName="is-active"
+              >
+                About
+              </NavLink>
+            </Grid>
+            <Grid item>
+              <NavLink
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? "red" : "White",
+                    fontSize: "1.3rem",
+                    fontWeight: 600,
+                  };
+                }}
+                to="/calendar"
+                activeClassName="is-active"
+              >
+                Games <br></br>Calendar
+              </NavLink>
+            </Grid>
+          </Grid>
 
           <Button
             variant="contained"
             href="https://discord.gg/tridengames"
             target="_blank"
             color="accent"
-            sx={{ height: "50px", my: 1.5 }}
+            sx={{
+              width: "124px",
+              py: 0.5,
+              px: 0.2,
+              lineHeight: "1.2",
+              my: 1.5,
+              textAlign: "center",
+            }}
             className="HeaderButton"
           >
-            <Box sx={{ mr: 1.5 }}></Box>
-            Join Triden
+            Join our Discord
           </Button>
         </Toolbar>
       </AppBar>
