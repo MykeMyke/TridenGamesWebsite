@@ -1,11 +1,12 @@
-import "./Global.css";
+import "../styles/Global.css";
 import React, { useState, useEffect } from "react";
 
-import { Grid, Typography } from "@mui/material";
-import { getGames } from "./api/games";
-import Game from "./calendarCard";
-import { checkDaysToGo } from "./utils/daysToGo";
-import TridenAvatar from "./img/TridenAvatar2048.png";
+import { Fab, Grid, Typography } from "@mui/material";
+import { getGames } from "../api/games";
+import Game from "../components/calendarCard";
+import { checkDaysToGo } from "../utils/daysToGo";
+import TridenAvatar from "../img/TridenAvatar2048.png";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 export default function Content() {
   const [data, setData] = useState([]);
@@ -54,12 +55,30 @@ export default function Content() {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container spacing={3} justify="center" sx={{ pl: 2, mb: 3 }}>
+      <Grid
+        container
+        spacing={3}
+        justify="center"
+        sx={{ pl: 2, mb: 3, position: "relative" }}
+      >
         {filteredData.map((gameData) => (
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Game {...gameData} />
           </Grid>
         ))}
+        <box>
+          <Fab
+            variant="extended"
+            color="primary"
+            aria-label="add"
+            sx={{ position: "fixed", bottom: "1%", right: "10%" }}
+            href="https://triden.digitaldemiplane.com/invisibleservant/admin/core/game/add/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <AddBoxIcon fontSize="large" sx={{ mr: 1 }} /> Create a Game
+          </Fab>
+        </box>
       </Grid>
     </React.Fragment>
   );

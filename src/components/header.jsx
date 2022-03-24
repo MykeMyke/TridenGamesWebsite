@@ -1,11 +1,10 @@
-import "./Global.css";
+import "../styles/Global.css";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 
 <link
   rel="stylesheet"
@@ -20,21 +19,7 @@ const Header = () => {
           <Box textAlign="left" sx={{ flexGrow: 1 }}>
             <Typography variant="h5">Upcoming Games</Typography>
           </Box>
-          <Button
-            variant="contained"
-            href="https://triden.digitaldemiplane.com/invisibleservant/admin/core/game/add/"
-            target="_blank"
-            alignSelf="center"
-            textAlign="center"
-            color="accent"
-            sx={{ height: "50px", my: 1.5, mr: 1 }}
-            className="HeaderButton"
-          >
-            <Box sx={{ mr: 1.5 }}>
-              <AddBoxIcon fontSize="large" sx={{ pb: 0 }} />
-            </Box>
-            Create a Game
-          </Button>
+
           <Button
             variant="contained"
             href="https://discord.gg/tridengames"
@@ -43,9 +28,7 @@ const Header = () => {
             sx={{ height: "50px", my: 1.5 }}
             className="HeaderButton"
           >
-            <Box sx={{ mr: 1.5 }}>
-
-            </Box>
+            <Box sx={{ mr: 1.5 }}></Box>
             Join Triden
           </Button>
         </Toolbar>

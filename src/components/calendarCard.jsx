@@ -9,9 +9,9 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 
 import FullDescPopover from "./FullDescPopover";
-import { toLocalString } from "./utils/formatting";
-import { checkTier } from "./utils/tier";
-import { ReleaseDate } from "./utils/releasedate";
+import { toLocalString } from "../utils/formatting";
+import { checkTier } from "../utils/tier";
+import { ReleaseDate } from "../utils/releasedate";
 
 const Game = (props) => {
   const {
