@@ -64,7 +64,7 @@ const Game = (props) => {
         <Typography variant="cardmain" color="text.primary">
           {name}
         </Typography>
-        <FullDescPopover desc={description} />
+        <FullDescPopover game={props} />
         <Divider variant="middle" sx={{ mb: 1 }} />
         <Typography variant="subtitle2" color="text.secondary" display="block">
           DM: {dm_name}

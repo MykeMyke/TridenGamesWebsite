@@ -2,9 +2,11 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import CalendarLink from "./CalendarLink";
 
 export default function FullDescPopover(props) {
-  const { desc } = props;
+  const { game } = props;
+  const desc = game.description;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -60,6 +62,7 @@ export default function FullDescPopover(props) {
           {desc}
         </Typography>
       </Popover>
+      <CalendarLink game={game} />
     </div>
   );
 }
