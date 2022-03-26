@@ -1,10 +1,12 @@
 import * as React from "react";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CalendarLink from "./CalendarLink";
+import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 
-export default function FullDescPopover(props) {
+export default function CalendarAddPopover(props) {
   const { game } = props;
   const desc = game.description;
 
@@ -28,10 +30,10 @@ export default function FullDescPopover(props) {
         variant="contained"
         onClick={handleClick}
         size="small"
-        sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1 }}
+        sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1, minWidth: "30px" }}
         color="secondary"
       >
-        Details
+        📆
       </Button>
       <Popover
         id={id}
@@ -44,23 +46,27 @@ export default function FullDescPopover(props) {
         }}
         BackdropProps={{ invisible: false }}
       >
-        <Typography
-          variant="body2"
-          sx={{
-            p: 1,
-            maxWidth: "200px",
-            pb: 0,
-            bgcolor: "hsla(0, 100%, 31%, 0.05)",
-          }}
-        >
-          <strong>Adventure Summary:</strong>
-        </Typography>
-        <Typography
-          variant="body2"
-          sx={{ p: 1, maxWidth: "200px", bgcolor: "hsla(0, 100%, 31%, 0.05)" }}
-        >
-          {desc}
-        </Typography>
+        <Grid container direction="column" sx={{ px: 1, py: 1 }}>
+          <Typography variant="cardmain">Add game to Calendars:</Typography>
+          <Divider
+            variant="middle"
+            sx={{
+              mt: 1.2,
+              mb: 0.6,
+            }}
+          />
+          <CalendarLink game={game} />
+          <Divider
+            variant="middle"
+            sx={{
+              mt: 1.2,
+              mb: 0.6,
+            }}
+          />
+          <a href="" target="_blank" rel="noreferrer">
+            Google (coming soon)
+          </a>{" "}
+        </Grid>
       </Popover>
     </div>
   );
