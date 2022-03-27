@@ -2,11 +2,12 @@ import "./styles/Global.css";
 import Grid from "@mui/material/Grid";
 import { ThemeProvider } from "@emotion/react";
 import TridenTheme from "./styles/theme";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/header";
 import Home from "./pages/Home";
+import Benefits from "./pages/Benefits";
 import Calendar from "./pages/Calendar";
-import About from "./pages/About";
+import Team from "./pages/Team";
 import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
 
@@ -22,15 +23,16 @@ function App() {
             item
             container
             sx={{
-              pt: 11,
+              py: 10,
             }}
           >
             <Grid item xs={false} sm={2} />
             <Grid item xs={12} sm={8}>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
+                <Route path="/team" element={<Team />} />
                 <Route path="/calendar" element={<Calendar />} />
+                <Route path="/benefits" element={<Benefits />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>

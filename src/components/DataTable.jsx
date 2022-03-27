@@ -10,7 +10,7 @@ const DataTable = ({ rows, columns, loading, sx }) => {
       columns={columns}
       loading={loading}
       sx={sx}
-      checkboxSelection
+      // checkboxSelection
       pagination
       pageSize={pageSize}
       onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}

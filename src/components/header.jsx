@@ -20,7 +20,7 @@ const Header = () => {
           <Grid
             container
             direction="row"
-            spacing={2}
+            spacing={2.5}
             textAlign="center"
             alignItems="center"
             sx={{ mb: 0.6 }}
@@ -30,14 +30,15 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.3rem",
-                    fontWeight: 600,
+                    fontSize: "1.2rem",
+                    fontWeight: 400,
+                    textDecoration: "none",
                   };
                 }}
                 to="/"
                 activeClassName="is-active"
               >
-                Home
+                About <br></br>Triden
               </NavLink>
             </Grid>
             <Grid item>
@@ -45,14 +46,15 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.3rem",
-                    fontWeight: 600,
+                    fontSize: "1.2rem",
+                    fontWeight: 400,
+                    textDecoration: "none",
                   };
                 }}
-                to="/about"
+                to="/team"
                 activeClassName="is-active"
               >
-                About
+                Meet The <br></br>Team
               </NavLink>
             </Grid>
             <Grid item>
@@ -60,8 +62,25 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.3rem",
-                    fontWeight: 600,
+                    fontSize: "1.2rem",
+                    fontWeight: 400,
+                    textDecoration: "none",
+                  };
+                }}
+                to="/benefits"
+                activeClassName="is-active"
+              >
+                Member <br></br>Benefits
+              </NavLink>
+            </Grid>
+            <Grid item>
+              <NavLink
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? "red" : "White",
+                    fontSize: "1.2rem",
+                    fontWeight: 400,
+                    textDecoration: "none",
                   };
                 }}
                 to="/calendar"
