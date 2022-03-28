@@ -51,6 +51,22 @@ const Header = () => {
                     textDecoration: "none",
                   };
                 }}
+                to="/calendar"
+                activeClassName="is-active"
+              >
+                Games <br></br>Calendar
+              </NavLink>
+            </Grid>
+            <Grid item>
+              <NavLink
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? "red" : "White",
+                    fontSize: "1.2rem",
+                    fontWeight: 400,
+                    textDecoration: "none",
+                  };
+                }}
                 to="/team"
                 activeClassName="is-active"
               >
@@ -73,28 +89,13 @@ const Header = () => {
                 Member <br></br>Benefits
               </NavLink>
             </Grid>
-            <Grid item>
-              <NavLink
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? "red" : "White",
-                    fontSize: "1.2rem",
-                    fontWeight: 400,
-                    textDecoration: "none",
-                  };
-                }}
-                to="/calendar"
-                activeClassName="is-active"
-              >
-                Games <br></br>Calendar
-              </NavLink>
-            </Grid>
           </Grid>
 
           <Button
             variant="contained"
             href="https://discord.gg/tridengames"
             target="_blank"
+            rel="noreferrer"
             color="accent"
             sx={{
               width: "124px",

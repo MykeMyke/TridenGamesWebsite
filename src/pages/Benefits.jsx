@@ -1,7 +1,11 @@
 import React from "react";
 
 function Benefits() {
-  return <div>The Member Benefits page is under construction</div>;
+  return (
+    <React.Fragment>
+      <div>The Member Benefits page is under construction</div>
+    </React.Fragment>
+  );
 }
 
 export default Benefits;

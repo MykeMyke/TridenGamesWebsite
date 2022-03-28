@@ -16,6 +16,10 @@
   max-height: 140px;
 }
 
+.MainBanner {
+  max-width: 100%;
+}
+
 h6 a:hover {
   color: hsl(0, 100%, 31%);
 }
