@@ -2,7 +2,6 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import CalendarLink from "./CalendarLink";
 
 export default function FullDescPopover(props) {
   const { game } = props;

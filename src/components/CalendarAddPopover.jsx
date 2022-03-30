@@ -5,7 +5,6 @@ import CalendarLink from "./CalendarLink";
 
 export default function CalendarAddPopover(props) {
   const { game } = props;
-  const desc = game.description;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 

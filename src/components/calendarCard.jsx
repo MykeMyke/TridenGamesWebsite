@@ -23,7 +23,6 @@ const Game = (props) => {
     number_of_players,
     max_players,
     number_of_waitlisted,
-    description,
     dm_name,
     warnings,
     level_min,

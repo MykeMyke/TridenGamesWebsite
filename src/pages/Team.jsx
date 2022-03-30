@@ -1,5 +1,4 @@
 import React from "react";
-import { Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import Staff from "../img/20220214_Triden Roles and Responsibilities.jpg";
 
