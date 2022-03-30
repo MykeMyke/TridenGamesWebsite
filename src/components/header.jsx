@@ -20,7 +20,7 @@ const Header = () => {
           <Grid
             container
             direction="row"
-            spacing={2.5}
+            spacing={1.8}
             textAlign="center"
             alignItems="center"
             sx={{ mb: 0.6 }}
