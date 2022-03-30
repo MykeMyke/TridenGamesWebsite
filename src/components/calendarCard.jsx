@@ -24,7 +24,6 @@ const Game = (props) => {
     max_players,
     number_of_waitlisted,
     dm_name,
-    warnings,
     level_min,
     level_max,
     datetime_release,
