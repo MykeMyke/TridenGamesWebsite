@@ -98,12 +98,13 @@ const Header = () => {
             rel="noreferrer"
             color="accent"
             sx={{
-              width: "124px",
+              width: "85px",
               py: 0.5,
-              px: 0.2,
+              px: 0,
               lineHeight: "1.2",
               my: 1.5,
               textAlign: "center",
+              fontSize: "0.75rem",
             }}
             className="HeaderButton"
           >
