@@ -1,31 +1,46 @@
-import "./Global.css";
-import Header from "./header";
-import Content from "./content";
+import "./styles/Global.css";
 import Grid from "@mui/material/Grid";
 import { ThemeProvider } from "@emotion/react";
-import TridenTheme from "./theme";
+import TridenTheme from "./styles/theme";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/header";
+import Home from "./pages/Home";
+import Benefits from "./pages/Benefits";
+import Calendar from "./pages/Calendar";
+import Team from "./pages/Team";
+import Dashboard from "./pages/Dashboard";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
     <ThemeProvider theme={TridenTheme}>
-      <Grid container direction="column" className="Background">
-        <Grid item>
-          <Header />
-        </Grid>
-        <Grid
-          item
-          container
-          sx={{
-            pt: 11,
-          }}
-        >
-          <Grid item xs={false} sm={2} />
-          <Grid item xs={12} sm={8}>
-            <Content />
+      <Router>
+        <Grid container direction="column" className="Background">
+          <Grid item>
+            <Header />
           </Grid>
-          <Grid item xs={false} sm={2} />
+          <Grid
+            item
+            container
+            sx={{
+              py: 10,
+            }}
+          >
+            <Grid item xs={false} sm={2} />
+            <Grid item xs={12} sm={8}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/benefits" element={<Benefits />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="*" element={<ErrorPage />} />
+              </Routes>
+            </Grid>
+            <Grid item xs={false} sm={2} />
+          </Grid>
         </Grid>
-      </Grid>
+      </Router>
     </ThemeProvider>
   );
 }

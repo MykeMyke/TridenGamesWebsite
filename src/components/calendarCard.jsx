@@ -9,9 +9,10 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 
 import FullDescPopover from "./FullDescPopover";
-import { toLocalString } from "./utils/formatting";
-import { checkTier } from "./utils/tier";
-import { ReleaseDate } from "./utils/releasedate";
+import CalendarAddPopover from "./CalendarAddPopover";
+import { toLocalString } from "../utils/formatting";
+import { checkTier } from "../utils/tier";
+import { ReleaseDate } from "../utils/releasedate";
 
 const Game = (props) => {
   const {
@@ -64,7 +65,15 @@ const Game = (props) => {
         <Typography variant="cardmain" color="text.primary">
           {name}
         </Typography>
-        <FullDescPopover desc={description} />
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          sx={{ mt: 0.2 }}
+        >
+          <FullDescPopover game={props} /> <CalendarAddPopover game={props} />
+        </Grid>
         <Divider variant="middle" sx={{ mb: 1 }} />
         <Typography variant="subtitle2" color="text.secondary" display="block">
           DM: {dm_name}

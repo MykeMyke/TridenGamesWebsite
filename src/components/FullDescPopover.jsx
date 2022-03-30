@@ -2,9 +2,11 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import CalendarLink from "./CalendarLink";
 
 export default function FullDescPopover(props) {
-  const { desc } = props;
+  const { game } = props;
+  const desc = game.description;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -26,7 +28,7 @@ export default function FullDescPopover(props) {
         variant="contained"
         onClick={handleClick}
         size="small"
-        sx={{ pt: 0.2, pb: 0, mt: 0.4, mb: 1.5 }}
+        sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1 }}
         color="secondary"
       >
         Details
@@ -48,14 +50,16 @@ export default function FullDescPopover(props) {
             p: 1,
             maxWidth: "200px",
             pb: 0,
-            bgcolor: "hsla(0, 100%, 31%, 0.05)",
           }}
         >
           <strong>Adventure Summary:</strong>
         </Typography>
         <Typography
           variant="body2"
-          sx={{ p: 1, maxWidth: "200px", bgcolor: "hsla(0, 100%, 31%, 0.05)" }}
+          sx={{
+            p: 1,
+            maxWidth: "200px",
+          }}
         >
           {desc}
         </Typography>
