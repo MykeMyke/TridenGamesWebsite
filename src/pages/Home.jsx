@@ -34,7 +34,7 @@ function Home() {
           <Typography
             variant="subtitle1"
             color="text.primary"
-            sx={{ mt: 2, mb: 3 }}
+            sx={{ mt: 2, mb: 4 }}
           >
             We are a community server for D&D 5e, organised on{" "}
             <strong>
@@ -49,7 +49,14 @@ function Home() {
             . We support players, DMs, cartographers, authors and any other way
             people can think of to enjoy this hobby of ours!
           </Typography>
-          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 3 }}>
+          <Typography
+            variant="h4"
+            color="text.primary"
+            sx={{ mb: 1, textAlign: "center" }}
+          >
+            For Players
+          </Typography>
+          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 4 }}>
             We run 30+ Adventurer's League games every month, with a schedule of
             games from our Resident DMs released in advance every month. Check
             out{" "}
@@ -59,15 +66,45 @@ function Home() {
             . There are also a number of campaigns being run at any time, and
             special events like Epics being run several times a year.
           </Typography>
-          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 3 }}>
+          <Typography
+            variant="h4"
+            color="text.primary"
+            sx={{ mb: 1, textAlign: "center" }}
+          >
+            For DMs
+          </Typography>
+          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 4 }}>
+            We have an extensive library of adventure modules (150+), as well as
+            maps, art and music to help you level up your production value. We
+            also have custom toolsets and our own bot to make running games as
+            easy as possible. <strong>More fun, less faff!</strong>
+          </Typography>
+          <Typography
+            variant="h4"
+            color="text.primary"
+            sx={{ mb: 1, textAlign: "center" }}
+          >
+            For Creatives
+          </Typography>
+          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 4 }}>
+            Our staff and experienced members of the community support the
+            various interests of the community on a day-to-day basis - whether
+            you like to make maps, write adventures or produce art; there is
+            support and projects to get involved in!
+          </Typography>
+          <Typography
+            variant="h4"
+            color="text.primary"
+            sx={{ mb: 1, textAlign: "center" }}
+          >
+            For You!
+          </Typography>
+          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 2 }}>
             We have an{" "}
             <strong>
               <a href="/team">amazing staff</a>
             </strong>{" "}
-            that take care of their own areas on a day-to-day basis.
-          </Typography>
-          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 2 }}>
-            We offer{" "}
+            that help provide the best experience possible. We also offer{" "}
             <strong>
               <a href="/benefits">awesome benefits</a>
             </strong>{" "}
