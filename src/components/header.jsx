@@ -30,7 +30,7 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.2rem",
+                    fontSize: "1.0rem",
                     fontWeight: 400,
                     textDecoration: "none",
                   };
@@ -46,7 +46,7 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.2rem",
+                    fontSize: "1.0rem",
                     fontWeight: 400,
                     textDecoration: "none",
                   };
@@ -62,7 +62,7 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.2rem",
+                    fontSize: "1.0rem",
                     fontWeight: 400,
                     textDecoration: "none",
                   };
@@ -78,7 +78,7 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.2rem",
+                    fontSize: "1.0rem",
                     fontWeight: 400,
                     textDecoration: "none",
                   };

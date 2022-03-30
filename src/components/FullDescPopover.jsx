@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 export default function FullDescPopover(props) {
   const { game } = props;
   const desc = game.description;
+  const warnings = game.warnings;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -43,6 +44,25 @@ export default function FullDescPopover(props) {
         }}
         BackdropProps={{ invisible: false }}
       >
+        <Typography
+          variant="body2"
+          sx={{
+            p: 1,
+            maxWidth: "200px",
+            pb: 0,
+          }}
+        >
+          <strong>Content Warnings:</strong>
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            p: 1,
+            maxWidth: "200px",
+          }}
+        >
+          {warnings}
+        </Typography>
         <Typography
           variant="body2"
           sx={{

@@ -52,7 +52,7 @@ export default function Calendar() {
               the Triden Discord server
             </a>
             .
-          </Typography>
+          </Typography>{" "}
         </Grid>
       </Grid>
       <Grid
@@ -80,6 +80,9 @@ export default function Calendar() {
           </Fab>
         </box>
       </Grid>
+      <Typography variant="subtitle1" color="text.primary" sx={{ mt: 12 }}>
+        <a href="/dashboard">Admin Dashboard</a>.
+      </Typography>
     </React.Fragment>
   );
 }

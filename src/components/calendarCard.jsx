@@ -74,10 +74,10 @@ const Game = (props) => {
           <FullDescPopover game={props} /> <CalendarAddPopover game={props} />
         </Grid>
         <Divider variant="middle" sx={{ mb: 1 }} />
-        <Typography variant="subtitle2" color="text.secondary" display="block">
+        <Typography variant="subtitle2" color="text.primary" display="block">
           DM: {dm_name}
         </Typography>
-        <Typography
+        {/* <Typography
           variant="subtitle2"
           color="text.secondary"
           display="block"
@@ -87,7 +87,7 @@ const Game = (props) => {
         </Typography>
         <Typography variant="subtitle2" color="text.secondary" display="block">
           {warnings}
-        </Typography>
+        </Typography> */}
       </CardContent>
       {/* </CardActionArea> */}
       <CardActions sx={{ py: 0 }}>
