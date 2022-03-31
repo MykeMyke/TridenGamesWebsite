@@ -38,7 +38,11 @@ export default function Calendar() {
           <img src={TridenAvatar} alt="Triden Games" className="Logo" />
         </Grid>
         <Grid item xs={9}>
-          <Typography variant="h5" color="text.primary">
+          <Typography
+            variant="h5"
+            color="text.primary"
+            sx={{ fontSize: "1.2rem" }}
+          >
             There are <strong>{filteredData.length} games</strong> scheduled in
             the next {checkDaysToGo(lastDate)} days
           </Typography>

@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
   rel="stylesheet"
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
 />;
-/* NEED TO APPLY GLOBAL STYLING FIRST THEN MOVE */
+
 const Header = () => {
   return (
     <Box sx={{ justifyContent: "space-between" }}>
@@ -30,7 +30,7 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.0rem",
+                    fontSize: "0.85rem",
                     fontWeight: 400,
                     textDecoration: "none",
                   };
@@ -46,7 +46,7 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.0rem",
+                    fontSize: "0.85rem",
                     fontWeight: 400,
                     textDecoration: "none",
                   };
@@ -62,7 +62,7 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.0rem",
+                    fontSize: "0.85rem",
                     fontWeight: 400,
                     textDecoration: "none",
                   };
@@ -78,7 +78,7 @@ const Header = () => {
                 style={({ isActive }) => {
                   return {
                     color: isActive ? "red" : "White",
-                    fontSize: "1.0rem",
+                    fontSize: "0.85rem",
                     fontWeight: 400,
                     textDecoration: "none",
                   };
