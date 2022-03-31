@@ -34,7 +34,7 @@ export default function Calendar() {
         justifyContent="flex-start"
         sx={{ mb: 2 }}
       >
-        <Grid item sx={{ ml: 1.5 }}>
+        <Grid item sx={{ ml: 1.5, pr: 1.5 }}>
           <img src={TridenAvatar} alt="Triden Games" className="Logo" />
         </Grid>
         <Grid item xs={9}>
