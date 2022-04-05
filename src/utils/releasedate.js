@@ -12,6 +12,8 @@ export function ReleaseDate(patreonDate, generalDate) {
   } else if (moment(patreonDate) > moment()) {
     ReleaseDate =
       "Releases to Patreon Members on " + toLocalString(patreonDate);
+  } else if (moment(generalDate) > moment()) {
+    ReleaseDate = "Releases to everybody on " + toLocalString(generalDate);
   } else {
     ReleaseDate = "Something strange is going on with these dates...";
   }
