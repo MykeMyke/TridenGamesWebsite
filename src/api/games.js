@@ -1,7 +1,8 @@
-import axios from 'axios'
+import axios from "axios";
 
 export function getGames() {
-    let url = 'https://triden.digitaldemiplane.com/invisibleservant/api/games/'
+  let url =
+    "https://unseen-servant.digitaldemiplane.com/invisibleservant/api/games/";
 
-    return axios.get(url)
+  return axios.get(url);
 }
