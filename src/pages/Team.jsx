@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import Staff from "../img/20220214_Triden Roles and Responsibilities.jpg";
+import Staff from "../img/20220610_Triden Roles and Responsibilities.jpg";
 
 function Team() {
   return (

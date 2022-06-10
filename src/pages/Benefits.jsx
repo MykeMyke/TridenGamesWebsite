@@ -18,7 +18,7 @@ function Benefits() {
       >
         <Grid item>
           <Typography variant="h4" sx={{ my: 1, textAlign: "center" }}>
-            The big question: "Do I need pay?"
+            The big question: "Do I need to pay?"
           </Typography>
           <Typography variant="body1" sx={{ mb: 2 }}>
             "No" is the simple answer. Anybody can sign up to any of the games

@@ -1,11 +1,9 @@
 .Background {
   background: linear-gradient(
     180deg,
-    hsl(0, 0%, 98%),
-    hsl(0, 0%, 90%),
-    hsl(0, 0%, 85%),
     hsl(0, 0%, 80%),
-    hsl(0, 0%, 70%)
+    hsl(0, 0%, 100%),
+    hsl(0, 0%, 100%)
   );
   background-attachment: fixed;
   height: 100%;
