@@ -39,7 +39,7 @@ function Home() {
             We are a community server for D&D 5e, organised on{" "}
             <strong>
               <a
-                href="https://discord.gg/tridengames"
+                href="https://discord.gg/JDB6BYTK9T"
                 target="_blank"
                 rel="noreferrer"
               >

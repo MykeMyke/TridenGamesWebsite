@@ -49,7 +49,7 @@ export default function Calendar() {
           <Typography variant="subtitle1" color="text.primary">
             Signups to games on{" "}
             <a
-              href="https://discord.gg/tridengames"
+              href="https://discord.gg/JDB6BYTK9T"
               target="_blank"
               rel="noreferrer"
             >

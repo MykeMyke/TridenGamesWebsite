@@ -93,7 +93,7 @@ const Header = () => {
 
           <Button
             variant="contained"
-            href="https://discord.gg/tridengames"
+            href="https://discord.gg/JDB6BYTK9T"
             target="_blank"
             rel="noreferrer"
             color="accent"
