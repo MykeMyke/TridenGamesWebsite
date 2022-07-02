@@ -9,36 +9,28 @@ import CreativesImage from "../img/DeanSpencer-spotcol-vargtank.png";
 import YouImage from "../img/DeanSpencer-spotcol-elfenchanter.png";
 import { Divider } from "@mui/material";
 
-function ForWho({ title, content, imageUrl, imageAlt="Triden Games"}) {
-
+function ForWho({ title, content, imageUrl, imageAlt = "Triden Games" }) {
   return (
-          <div
-            alignItems="center"
-            className="forWho"
-          >
-            <div className="title">
-              <Typography
-                variant="h3"
-                color="text.primary"
-                sx={{ mb: 1, textAlign: "center" }}
-              >
-                {title}
-              </Typography>
-            </div>
-            <div class="sidebar">
-              <img src={imageUrl} alt={imageAlt} className="Art" />
-            </div>
-            <div class="content">
-              <Typography
-                variant="subtitle1"
-                color="text.primary"
-                sx={{ mb: 4 }}
-              >
-                {content}
-              </Typography>
-            </div>
-          </div>
-  )
+    <div alignItems="center" className="forWho">
+      <div className="title">
+        <Typography
+          variant="h3"
+          color="text.primary"
+          sx={{ mb: 1, textAlign: "center" }}
+        >
+          {title}
+        </Typography>
+      </div>
+      <div class="sidebar">
+        <img src={imageUrl} alt={imageAlt} className="Art" />
+      </div>
+      <div class="content">
+        <Typography variant="subtitle1" color="text.primary" sx={{ mb: 4 }}>
+          {content}
+        </Typography>
+      </div>
+    </div>
+  );
 }
 
 function Home() {
@@ -67,11 +59,7 @@ function Home() {
               my: 0.6,
             }}
           />
-          <Typography
-            variant="subtitle1"
-            color="text.primary"
-            sx={{ mt: 2, mb: 4 }}
-          >
+          <Typography variant="h5" color="text.primary" sx={{ mt: 2, mb: 8 }}>
             We are a community server for D&D 5e, organised on{" "}
             <strong>
               <a
@@ -85,31 +73,54 @@ function Home() {
             . We support players, DMs, cartographers, authors and any other way
             people can think of to enjoy this hobby of ours!
           </Typography>
-          <ForWho title="For Players"
+          <ForWho
+            title="For Players"
             imageUrl={PlayerImage}
-            content={<>We run 30+ Adventurer's League games every month, with a
-              schedule of games from our Resident DMs released in advance
-              every month. Check out{" "}
-              <strong>
-                <a href="/calendar">our calendar of games</a>
-              </strong>
-              . There are also a number of campaigns being run at any time,
-                and special events like Epics being run several times a year.</>} />
-          <ForWho title="For DMs"
+            content={
+              <>
+                We run 30+ Adventurer's League games every month, with a
+                schedule of games from our Resident DMs released in advance
+                every month. Check out{" "}
+                <strong>
+                  <a href="/calendar">our calendar of games</a>
+                </strong>
+                . There are also a number of campaigns being run at any time,
+                and special events like Epics being run several times a year.
+              </>
+            }
+          />
+          <ForWho
+            title="For DMs"
             imageUrl={DMImage}
-            content={<>We have an extensive library of adventure modules (150+), as
+            content={
+              <>
+                We have an extensive library of adventure modules (150+), as
                 well as maps, art and music to help you level up your production
                 value. We also have custom toolsets and our own bot to make
                 running games as easy as possible.{" "}
-                <strong>More fun, less faff!</strong></>}
+                <strong>More fun, less faff!</strong>
+              </>
+            }
           />
-          <ForWho title="For Creatives" imageUrl={CreativesImage}
-            content={<>                Our staff and experienced members of the community support the
-              various interests of the community on a day-to-day basis -
-              whether you like to make maps, write adventures or produce art;
-              we offer support and projects to get involved in!
-            </>} />
-          <ForWho title="For You" imageUrl={YouImage} content={<>We have an{" "}
+          <ForWho
+            title="For Creatives"
+            imageUrl={CreativesImage}
+            content={
+              <>
+                {" "}
+                Our staff and experienced members of the community support the
+                various interests of the community on a day-to-day basis -
+                whether you like to make maps, write adventures or produce art;
+                we offer support and projects to get involved in!
+              </>
+            }
+          />
+          <ForWho
+            title="For You"
+            imageUrl={YouImage}
+            content={
+              <>
+                We have an{" "}
                 <strong>
                   <a href="/team">amazing staff</a>
                 </strong>{" "}
@@ -119,7 +130,10 @@ function Home() {
                 </strong>{" "}
                 for those who help us not only continue but grow - thank you to
                 all our Patreon members, and everybody in the community that
-                volunteer their time and talent.</>}/>
+                volunteer their time and talent.
+              </>
+            }
+          />
           <Divider
             variant="middle"
             sx={{
