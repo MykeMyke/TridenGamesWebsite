@@ -16,7 +16,7 @@ const columns = [
         variant="contained"
         color="primary"
         size="small"
-        href={`https://unseen-servant.digitaldemiplane.com/unseenservant/admin/core/game/${params.value}/change/`}
+        href={`https://unseen-servant.digitaldemiplane.com/admin/core/game/${params.value}/change/`}
         target="_blank"
         rel="noreferrer"
       >
