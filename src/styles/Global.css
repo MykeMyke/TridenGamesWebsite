@@ -59,25 +59,25 @@ h6 a:hover {
 
 .forWho .content {
   grid-area: content;
-  padding: 1em
+  padding: 1em;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 900px) {
   .forWho:nth-child(odd) {
     display: grid;
     grid-template-areas:
-    "header header header"
-    "..... sidebar ......"
-    "content content content";
-}
+      "header header header"
+      "..... sidebar ......"
+      "content content content";
+  }
 
-.forWho:nth-child(even) {
+  .forWho:nth-child(even) {
     display: grid;
     grid-template-areas:
-    "header header header"
-    "..... sidebar ......"
-    "content content content";
-}
+      "header header header"
+      "..... sidebar ......"
+      "content content content";
+  }
 
   .forWho .Art {
     max-width: 15vw;
@@ -85,4 +85,3 @@ h6 a:hover {
     max-height: 150px;
   }
 }
-
