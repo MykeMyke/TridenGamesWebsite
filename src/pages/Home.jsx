@@ -9,6 +9,38 @@ import CreativesImage from "../img/DeanSpencer-spotcol-vargtank.png";
 import YouImage from "../img/DeanSpencer-spotcol-elfenchanter.png";
 import { Divider } from "@mui/material";
 
+function ForWho({ title, content, imageUrl, imageAlt="Triden Games"}) {
+
+  return (
+          <div
+            alignItems="center"
+            className="forWho"
+          >
+            <div className="title">
+              <Typography
+                variant="h3"
+                color="text.primary"
+                sx={{ mb: 1, textAlign: "center" }}
+              >
+                {title}
+              </Typography>
+            </div>
+            <div class="sidebar">
+              <img src={imageUrl} alt={imageAlt} className="Art" />
+            </div>
+            <div class="content">
+              <Typography
+                variant="subtitle1"
+                color="text.primary"
+                sx={{ mb: 4 }}
+              >
+                {content}
+              </Typography>
+            </div>
+          </div>
+  )
+}
+
 function Home() {
   return (
     <React.Fragment>
@@ -53,122 +85,31 @@ function Home() {
             . We support players, DMs, cartographers, authors and any other way
             people can think of to enjoy this hobby of ours!
           </Typography>
-          <Grid
-            container
-            spacing={2}
-            direction="row"
-            alignItems="center"
-            justifyContent="flex-start"
-          >
-            <Grid item xs="auto">
-              <img src={PlayerImage} alt="Triden Games" className="Art" />
-            </Grid>
-            <Grid item xs>
-              <Typography
-                variant="h3"
-                color="text.primary"
-                sx={{ mb: 1, textAlign: "center" }}
-              >
-                For Players
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="text.primary"
-                sx={{ mb: 4 }}
-              >
-                We run 30+ Adventurer's League games every month, with a
-                schedule of games from our Resident DMs released in advance
-                every month. Check out{" "}
-                <strong>
-                  <a href="/calendar">our calendar of games</a>
-                </strong>
-                . There are also a number of campaigns being run at any time,
-                and special events like Epics being run several times a year.
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            spacing={2}
-            direction="row"
-            alignItems="center"
-            justifyContent="flex-start"
-          >
-            <Grid item xs>
-              <Typography
-                variant="h3"
-                color="text.primary"
-                sx={{ mb: 1, textAlign: "center" }}
-              >
-                For DMs
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="text.primary"
-                sx={{ mb: 4 }}
-              >
-                We have an extensive library of adventure modules (150+), as
+          <ForWho title="For Players"
+            imageUrl={PlayerImage}
+            content={<>We run 30+ Adventurer's League games every month, with a
+              schedule of games from our Resident DMs released in advance
+              every month. Check out{" "}
+              <strong>
+                <a href="/calendar">our calendar of games</a>
+              </strong>
+              . There are also a number of campaigns being run at any time,
+                and special events like Epics being run several times a year.</>} />
+          <ForWho title="For DMs"
+            imageUrl={DMImage}
+            content={<>We have an extensive library of adventure modules (150+), as
                 well as maps, art and music to help you level up your production
                 value. We also have custom toolsets and our own bot to make
                 running games as easy as possible.{" "}
-                <strong>More fun, less faff!</strong>
-              </Typography>
-            </Grid>
-            <Grid item xs="auto">
-              <img src={DMImage} alt="Triden Games" className="Art" />
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            spacing={2}
-            direction="row"
-            alignItems="center"
-            justifyContent="flex-start"
-          >
-            <Grid item xs="auto">
-              <img src={CreativesImage} alt="Triden Games" className="Art" />
-            </Grid>
-            <Grid item xs>
-              <Typography
-                variant="h3"
-                color="text.primary"
-                sx={{ mb: 1, textAlign: "center" }}
-              >
-                For Creatives
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="text.primary"
-                sx={{ mb: 4 }}
-              >
-                Our staff and experienced members of the community support the
-                various interests of the community on a day-to-day basis -
-                whether you like to make maps, write adventures or produce art;
-                we offer support and projects to get involved in!
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            spacing={2}
-            direction="row"
-            alignItems="center"
-            justifyContent="flex-start"
-          >
-            <Grid item xs>
-              <Typography
-                variant="h3"
-                color="text.primary"
-                sx={{ mb: 1, textAlign: "center" }}
-              >
-                For You!
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="text.primary"
-                sx={{ mb: 2 }}
-              >
-                We have an{" "}
+                <strong>More fun, less faff!</strong></>}
+          />
+          <ForWho title="For Creatives" imageUrl={CreativesImage}
+            content={<>                Our staff and experienced members of the community support the
+              various interests of the community on a day-to-day basis -
+              whether you like to make maps, write adventures or produce art;
+              we offer support and projects to get involved in!
+            </>} />
+          <ForWho title="For You" imageUrl={YouImage} content={<>We have an{" "}
                 <strong>
                   <a href="/team">amazing staff</a>
                 </strong>{" "}
@@ -178,13 +119,7 @@ function Home() {
                 </strong>{" "}
                 for those who help us not only continue but grow - thank you to
                 all our Patreon members, and everybody in the community that
-                volunteer their time and talent.
-              </Typography>
-            </Grid>
-            <Grid item xs="auto">
-              <img src={YouImage} alt="Triden Games" className="Art" />
-            </Grid>
-          </Grid>
+                volunteer their time and talent.</>}/>
           <Divider
             variant="middle"
             sx={{
