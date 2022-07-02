@@ -1,0 +1,17 @@
+/* it would really be nice to know how to override react-big-calendar sass properly
+or use theme-in-js as themes.js does, but ah well */
+/* define primary colors */
+$primary_1: #630000; //same as in theme.js
+
+/* use the variables */
+.rbc-event {
+    background-color: $primary_1;   
+}
+
+.rbc-event.rbc-selected {
+    background-color: $primary_1;   
+}
+
+.rbc-background-event {
+    background-color: $primary_1;   
+}

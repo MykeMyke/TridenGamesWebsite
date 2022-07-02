@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/header";
 import Home from "./pages/Home";
 import Benefits from "./pages/Benefits";
-import Calendar from "./pages/Calendar";
+import EventsCalendar from "./pages/EventsCalendar";
 import Team from "./pages/Team";
 import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
@@ -31,7 +31,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/team" element={<Team />} />
-                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/calendar" element={<EventsCalendar />} />
                 <Route path="/benefits" element={<Benefits />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="*" element={<ErrorPage />} />
