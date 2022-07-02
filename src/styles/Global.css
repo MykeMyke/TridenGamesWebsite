@@ -15,6 +15,12 @@
   max-height: 140px;
 }
 
+.Art {
+  max-width: 15vw;
+  min-width: 200px;
+  max-height: 300px;
+}
+
 .MainBanner {
   max-width: 100%;
 }
@@ -25,4 +31,57 @@ h6 a:hover {
 
 .HeaderButton:hover {
   color: hsl(0, 0%, 80%);
+}
+
+.forWho:nth-child(odd) {
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar content";
+}
+
+.forWho:nth-child(even) {
+  display: grid;
+  grid-template-areas:
+    "header sidebar"
+    "content sidebar";
+}
+
+.forWho .title {
+  grid-area: header;
+  justify-content: center;
+  align-self: end;
+}
+
+.forWho .sidebar {
+  grid-area: sidebar;
+}
+
+.forWho .content {
+  grid-area: content;
+  padding: 1em;
+}
+
+@media only screen and (max-width: 900px) {
+  .forWho:nth-child(odd) {
+    display: grid;
+    grid-template-areas:
+      "header header header"
+      "..... sidebar ......"
+      "content content content";
+  }
+
+  .forWho:nth-child(even) {
+    display: grid;
+    grid-template-areas:
+      "header header header"
+      "..... sidebar ......"
+      "content content content";
+  }
+
+  .forWho .Art {
+    max-width: 15vw;
+    min-width: 100px;
+    max-height: 150px;
+  }
 }
