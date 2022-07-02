@@ -3,6 +3,10 @@ import React from "react";
 import { Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import MainBanner from "../img/Banner2.png";
+import PlayerImage from "../img/DeanSpencer-spotcol-signalfire.png";
+import DMImage from "../img/DeanSpencer-spotcol-magicbook.png";
+import CreativesImage from "../img/DeanSpencer-spotcol-vargtank.png";
+import YouImage from "../img/DeanSpencer-spotcol-elfenchanter.png";
 import { Divider } from "@mui/material";
 
 function Home() {
@@ -49,75 +53,151 @@ function Home() {
             . We support players, DMs, cartographers, authors and any other way
             people can think of to enjoy this hobby of ours!
           </Typography>
-          <Typography
-            variant="h4"
-            color="text.primary"
-            sx={{ mb: 1, textAlign: "center" }}
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
           >
-            For Players
-          </Typography>
-          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 4 }}>
-            We run 30+ Adventurer's League games every month, with a schedule of
-            games from our Resident DMs released in advance every month. Check
-            out{" "}
-            <strong>
-              <a href="/calendar">our calendar of games</a>
-            </strong>
-            . There are also a number of campaigns being run at any time, and
-            special events like Epics being run several times a year.
-          </Typography>
-          <Typography
-            variant="h4"
-            color="text.primary"
-            sx={{ mb: 1, textAlign: "center" }}
+            <Grid item xs="auto">
+              <img src={PlayerImage} alt="Triden Games" className="Art" />
+            </Grid>
+            <Grid item xs>
+              <Typography
+                variant="h3"
+                color="text.primary"
+                sx={{ mb: 1, textAlign: "center" }}
+              >
+                For Players
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.primary"
+                sx={{ mb: 4 }}
+              >
+                We run 30+ Adventurer's League games every month, with a
+                schedule of games from our Resident DMs released in advance
+                every month. Check out{" "}
+                <strong>
+                  <a href="/calendar">our calendar of games</a>
+                </strong>
+                . There are also a number of campaigns being run at any time,
+                and special events like Epics being run several times a year.
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
           >
-            For DMs
-          </Typography>
-          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 4 }}>
-            We have an extensive library of adventure modules (150+), as well as
-            maps, art and music to help you level up your production value. We
-            also have custom toolsets and our own bot to make running games as
-            easy as possible. <strong>More fun, less faff!</strong>
-          </Typography>
-          <Typography
-            variant="h4"
-            color="text.primary"
-            sx={{ mb: 1, textAlign: "center" }}
+            <Grid item xs>
+              <Typography
+                variant="h3"
+                color="text.primary"
+                sx={{ mb: 1, textAlign: "center" }}
+              >
+                For DMs
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.primary"
+                sx={{ mb: 4 }}
+              >
+                We have an extensive library of adventure modules (150+), as
+                well as maps, art and music to help you level up your production
+                value. We also have custom toolsets and our own bot to make
+                running games as easy as possible.{" "}
+                <strong>More fun, less faff!</strong>
+              </Typography>
+            </Grid>
+            <Grid item xs="auto">
+              <img src={DMImage} alt="Triden Games" className="Art" />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
           >
-            For Creatives
-          </Typography>
-          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 4 }}>
-            Our staff and experienced members of the community support the
-            various interests of the community on a day-to-day basis - whether
-            you like to make maps, write adventures or produce art; there is
-            support and projects to get involved in!
-          </Typography>
-          <Typography
-            variant="h4"
-            color="text.primary"
-            sx={{ mb: 1, textAlign: "center" }}
+            <Grid item xs="auto">
+              <img src={CreativesImage} alt="Triden Games" className="Art" />
+            </Grid>
+            <Grid item xs>
+              <Typography
+                variant="h3"
+                color="text.primary"
+                sx={{ mb: 1, textAlign: "center" }}
+              >
+                For Creatives
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.primary"
+                sx={{ mb: 4 }}
+              >
+                Our staff and experienced members of the community support the
+                various interests of the community on a day-to-day basis -
+                whether you like to make maps, write adventures or produce art;
+                we offer support and projects to get involved in!
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
           >
-            For You!
-          </Typography>
-          <Typography variant="subtitle1" color="text.primary" sx={{ mb: 2 }}>
-            We have an{" "}
-            <strong>
-              <a href="/team">amazing staff</a>
-            </strong>{" "}
-            that help provide the best experience possible. We also offer{" "}
-            <strong>
-              <a href="/benefits">awesome benefits</a>
-            </strong>{" "}
-            for those who help us not only continue but grow - thank you to all
-            our Patreon members, and everybody in the community that volunteer
-            their time and talent.
-          </Typography>
+            <Grid item xs>
+              <Typography
+                variant="h3"
+                color="text.primary"
+                sx={{ mb: 1, textAlign: "center" }}
+              >
+                For You!
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.primary"
+                sx={{ mb: 2 }}
+              >
+                We have an{" "}
+                <strong>
+                  <a href="/team">amazing staff</a>
+                </strong>{" "}
+                that help provide the best experience possible. We also offer{" "}
+                <strong>
+                  <a href="/benefits">awesome benefits</a>
+                </strong>{" "}
+                for those who help us not only continue but grow - thank you to
+                all our Patreon members, and everybody in the community that
+                volunteer their time and talent.
+              </Typography>
+            </Grid>
+            <Grid item xs="auto">
+              <img src={YouImage} alt="Triden Games" className="Art" />
+            </Grid>
+          </Grid>
           <Divider
             variant="middle"
             sx={{
               my: 0.6,
             }}
           />
+          <Typography
+            color="text.secondary"
+            sx={{ mt: 3, fontSize: "0.72rem", textAlign: "center" }}
+          >
+            Some artwork © Dean Spencer, used with permission. All rights
+            reserved.
+          </Typography>
         </Grid>
       </Grid>
     </React.Fragment>
