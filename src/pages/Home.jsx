@@ -144,7 +144,7 @@ function Home() {
             color="text.secondary"
             sx={{ mt: 3, fontSize: "0.72rem", textAlign: "center" }}
           >
-            Some artwork © Dean Spencer, used with permission. All rights
+            Stock artwork © Dean Spencer, used with permission. All rights
             reserved.
           </Typography>
         </Grid>
