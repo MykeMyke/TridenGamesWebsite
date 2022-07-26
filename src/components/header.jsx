@@ -74,6 +74,22 @@ const Header = () => {
               </NavLink>
             </Grid>
             <Grid item>
+            <NavLink
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? "red" : "White",
+                    fontSize: "0.85rem",
+                    fontWeight: 400,
+                    textDecoration: "none",
+                  };
+                }}
+                to="/dms"
+                activeClassName="is-active"
+              >
+                Resident <br></br>DMs
+              </NavLink>
+              </Grid>
+            <Grid item>
               <NavLink
                 style={({ isActive }) => {
                   return {
