@@ -21,7 +21,7 @@ export default function ResDMs() {
         you would use the same pattern if you wanted to put thi son the meet the team page underneath the image
         importing the data above, and looping here */}
         {resDMbios.map((resDMinfo) => (
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Grid item xs={12} md={6}>
             <ResDmBio {...resDMinfo} key={`bio_${resDMinfo.name}`} />
           </Grid>
         ))}

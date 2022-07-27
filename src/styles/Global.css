@@ -85,3 +85,69 @@ h6 a:hover {
     max-height: 150px;
   }
 }
+
+.resDMbioCard {
+  display: grid;
+  padding: 1em;
+  grid-template-areas:
+    "name name"
+    "image location"
+    "image superpowers"
+    "image favMonster"
+    "favMoment favMoment"
+    "otherInterests links";
+}
+
+.resDMbioCard .name {
+  grid-area: name;
+}
+
+.resDMbioCard .image {
+  grid-area: image;
+}
+
+.resDMbioCard .location {
+  grid-area: location;
+}
+
+.resDMbioCard .superpowers {
+  grid-area: superpowers;
+}
+
+.resDMbioCard .favMonster {
+  grid-area: favMonster;
+}
+
+.resDMbioCard .favMoment {
+  grid-area: favMoment;
+}
+
+.resDMbioCard .otherInterests {
+  grid-area: otherInterests;
+}
+
+.resDMbioCard .links {
+  grid-area: links;
+}
+
+@media only screen and (max-width: 400px) {
+  .resDMbioCard {
+    display: grid;
+    padding: 1em;
+    grid-template-areas:
+      "name"
+      "image"
+      "location"
+      "superpowers"
+      "otherInterests"
+      "links";
+  }
+
+  .resDMbioCard .favMonster {
+    display: none;
+  }
+
+  .resDMbioCard .favMoment {
+    display: none;
+  }
+}
