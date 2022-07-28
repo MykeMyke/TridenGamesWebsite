@@ -7,10 +7,12 @@ export const resDMbios = [
     favMoment:
       "A high level melee character was beating up on a Kraken. So rather than deal with the threat, the Kraken opted to throw them out to sea whenever they came close enough... Everybody laughs. Repeat!",
     otherInterests: "Live Music Photography, Pro D&D Adventure Author",
+    link1name: "Triden Games",
+    link2name: "",
     link1: "www.tridengames.com",
     link2: "",
     location: "Aberdeen, Scotland",
-    image: "",
+    image: "img/ResDMs/MykeMyke.png",
   },
   {
     name: "Liam James ",
@@ -21,10 +23,12 @@ export const resDMbios = [
       "Counterspelling the cleric's healing magic and then eating the fighter's brain. She had been losing her faith while in Maladomini, but in that darkest moment she called on her god for divine intervention and he answered her prayers.",
     otherInterests:
       "Book blogger and reviewer. I also run DnD sessions with authors and publishing professionals. ",
+    link1name: "My Link Tree",
+    link2name: "",
     link1: "https://linktr.ee/wormholesandbookworms",
     link2: "",
     location: "Newcastle, England",
-    image: "",
+    image: "img/ResDMs/Liam-James.png",
   },
   {
     name: "Griffmeister",
@@ -33,10 +37,12 @@ export const resDMbios = [
     favMoment:
       "Running a group of old uni mate dnd noobs through Rise of Tiamat during lockdown and creating 6 new dnd addicts in the process.",
     otherInterests: "Rugby, lash, board games, video games and family.",
+    link1name: "Game Therapy",
+    link2name: "",
     link1: "www.game-therapy.org",
     link2: "",
     location: "London, England",
-    image: "",
+    image: "img/ResDMs/Griffmeister.png",
   },
   {
     name: "J",
@@ -46,10 +52,12 @@ export const resDMbios = [
       "Having a vampire successfully charm a sorcerer who then cast Slow on her unwitting party. The absolutely ridiculous struggle they faced trying to kill the vampire in the darkness - whilst thusly sabotaged - was hilarious, but alarming too!",
     otherInterests:
       "Reading, art, gaming and collecting Ball-Jointed Dolls (that I paint by commission).",
+    link1name: "My Adventure on DMsGuild",
+    link2name: "Flickr",
     link1: "https://www.dmsguild.com/product/393912/WBWDCMOM01-One-Moment",
     link2: "https://flic.kr/p/phB2z2",
     location: "Singapore",
-    image: "",
+    image: "img/ResDMs/J.png",
   },
   {
     name: "Corgibutt",
@@ -60,10 +68,12 @@ export const resDMbios = [
       "Hearing my players' voices cracking over voice chat because they're getting emotional and invested in what's going on in the adventure. Then I see them creating new characters or changing their current ones' alignment/class/subclass because of the story.",
     otherInterests:
       "Editing character VTT tokens (by commission), Singing bad karaoke, Influencing newbies to try D&D",
+    link1name: "My Ko-fi",
+    link2name: "Leave me a Review",
     link1: "https://bit.ly/FeedTheCorgi",
     link2: "https://bit.ly/ReviewTheCorgi",
     location: "Manila, Philippines",
-    image: "",
+    image: "img/ResDMs/Corgibutt.png",
   },
   {
     name: "Shane H",
@@ -73,10 +83,12 @@ export const resDMbios = [
       "Having a Paladin player tell me, after dealing with an Archfey I was running, that the Fey broke their character and tricked them into breaking their oath and going against everything they believed in. All through roleplay only, with no rolls involved. ",
     otherInterests:
       "Motorbikes, reading, Vtt map making, live music, gym, video games, travelling. ",
+    link1name: "",
+    link2name: "",
     link1: "",
     link2: "",
     location: "Dublin, Ireland",
-    image: "",
+    image: "img/ResDMs/Shane-H.png",
   },
   {
     name: "Kuta",
@@ -84,10 +96,12 @@ export const resDMbios = [
     favMonster: "",
     favMoment: "",
     otherInterests: "",
+    link1name: "",
+    link2name: "",
     link1: "",
     link2: "",
     location: "",
-    image: "",
+    image: "img/ResDMs/Placeholder.png",
   },
   {
     name: "Clark",
@@ -97,10 +111,12 @@ export const resDMbios = [
     favMoment: "",
     otherInterests:
       "Playing live music, growing spicy peppers, designing digital art, collecting comic books, and watching Futurama ",
+    link1name: "",
+    link2name: "",
     link1: "",
     link2: "",
     location: "Meridian, MS, USA",
-    image: "",
+    image: "img/ResDMs/Clark.png",
   },
   {
     name: "Daran",
@@ -109,10 +125,12 @@ export const resDMbios = [
     favMoment:
       "A party befriending a spectator to the point of throwing it a birthday party, unaware that it's the target of their next quest. As players slowly figured out what they were being asked to do, one by one they blurted out: Ohhh noooooo!",
     otherInterests: "Biking, hiking, travel, science",
+    link1name: "",
+    link2name: "",
     link1: "",
     link2: "",
     location: "Chicago, IL, USA",
-    image: "",
+    image: "img/ResDMs/Daran.png",
   },
   {
     name: "Lexi",
@@ -120,9 +138,11 @@ export const resDMbios = [
     favMonster: "",
     favMoment: "",
     otherInterests: "",
+    link1name: "",
+    link2name: "",
     link1: "",
     link2: "",
     location: "",
-    image: "",
+    image: "img/ResDMs/Placeholder.png",
   },
 ];
