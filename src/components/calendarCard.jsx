@@ -76,17 +76,6 @@ const Game = (props) => {
         <Typography variant="subtitle2" color="text.primary" display="block">
           DM: {dm_name}
         </Typography>
-        {/* <Typography
-          variant="subtitle2"
-          color="text.secondary"
-          display="block"
-          sx={{ pt: 0.5 }}
-        >
-          Content Warnings:
-        </Typography>
-        <Typography variant="subtitle2" color="text.secondary" display="block">
-          {warnings}
-        </Typography> */}
       </CardContent>
       {/* </CardActionArea> */}
       <CardActions sx={{ py: 0 }}>
