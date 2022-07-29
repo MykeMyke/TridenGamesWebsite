@@ -7,12 +7,15 @@ import Typography from "@mui/material/Typography";
 import { CardActions } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
 
 import FullDescPopover from "./FullDescPopover";
 import CalendarAddPopover from "./CalendarAddPopover";
 import { toLocalString } from "../utils/formatting";
 import { checkTier } from "../utils/tier";
 import { ReleaseDate } from "../utils/releasedate";
+import { checkPlaying } from "../utils/checkPlaying";
+import { checkWaitlisted } from "../utils/checkWaitlisted";
 
 const Game = (props) => {
   const {
@@ -20,14 +23,13 @@ const Game = (props) => {
     name,
     datetime,
     length,
-    number_of_players,
     max_players,
-    number_of_waitlisted,
     dm_name,
     level_min,
     level_max,
     datetime_release,
     datetime_open_release,
+    players,
   } = props;
 
   return (
@@ -77,24 +79,29 @@ const Game = (props) => {
           DM: {dm_name}
         </Typography>
       </CardContent>
-      {/* </CardActionArea> */}
       <CardActions sx={{ py: 0 }}>
         <Grid container direction="row" justifyContent="space-between">
-          <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
-            <Typography variant="body1" color="text.primary">
-              Players
-            </Typography>
-            <Typography variant="h6" color="text.primary">
-              {number_of_players} / {max_players}
-            </Typography>
-          </Box>
+          <Tooltip
+            // title={<React.Fragment>{checkPlaying(players)}</React.Fragment>}
+            title="works with text but not with fragment - I'm trying to display the list of player names (list management not yet in the line above)"
+            placement="top-start"
+          >
+            <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
+              <Typography variant="body1" color="text.primary">
+                Players
+              </Typography>
+              <Typography variant="h6" color="text.primary">
+                {checkPlaying(players).length} / {max_players}
+              </Typography>
+            </Box>
+          </Tooltip>
           <Divider orientation="vertical" variant="middle" flexItem />
           <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
             <Typography variant="body1" color="text.primary">
               Waitlist
             </Typography>
             <Typography variant="h6" color="text.primary">
-              {number_of_waitlisted}
+              {checkWaitlisted(players).length}
             </Typography>
           </Box>
         </Grid>
