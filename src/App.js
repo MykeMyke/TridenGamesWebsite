@@ -10,7 +10,6 @@ import Calendar from "./pages/Calendar";
 import Team from "./pages/Team";
 import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
-import ResDMs from "./pages/ResDMs";
 
 function App() {
   return (
@@ -32,7 +31,6 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/team" element={<Team />} />
-                <Route path="/dms" element={<ResDMs />} />
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/benefits" element={<Benefits />} />
                 <Route path="/dashboard" element={<Dashboard />} />

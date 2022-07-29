@@ -1,5 +1,20 @@
 export const resDMbios = [
   {
+    name: "Clark",
+    superpowers:
+      "Reflavoring and reskinning things to develop character concepts",
+    favMonster: "Illithilich",
+    favMoment: "",
+    otherInterests:
+      "Playing live music, growing spicy peppers, designing digital art, collecting comic books, and watching Futurama ",
+    link1name: "",
+    link2name: "",
+    link1: "",
+    link2: "",
+    location: "Meridian, MS, USA",
+    image: "img/ResDMs/Clark.png",
+  },
+  {
     name: "MykeMyke",
     superpowers:
       "Refined Roll20 automation and slick Theatre of the Mind sequences",
@@ -92,31 +107,16 @@ export const resDMbios = [
   },
   {
     name: "Kuta",
-    superpowers: "",
-    favMonster: "",
+    superpowers: "Puns",
+    favMonster: "Bronze Dragon",
     favMoment: "",
-    otherInterests: "",
+    otherInterests: "Sports officiating, poker, travel",
     link1name: "",
     link2name: "",
     link1: "",
     link2: "",
-    location: "",
+    location: "CAL, USA",
     image: "img/ResDMs/Placeholder.png",
-  },
-  {
-    name: "Clark",
-    superpowers:
-      "Reflavoring and reskinning things to develop character concepts",
-    favMonster: "Illithilich",
-    favMoment: "",
-    otherInterests:
-      "Playing live music, growing spicy peppers, designing digital art, collecting comic books, and watching Futurama ",
-    link1name: "",
-    link2name: "",
-    link1: "",
-    link2: "",
-    location: "Meridian, MS, USA",
-    image: "img/ResDMs/Clark.png",
   },
   {
     name: "Daran",
@@ -133,16 +133,19 @@ export const resDMbios = [
     image: "img/ResDMs/Daran.png",
   },
   {
-    name: "Lexi",
-    superpowers: "",
-    favMonster: "",
-    favMoment: "",
-    otherInterests: "",
-    link1name: "",
+    name: "Lex",
+    superpowers: "Adapting on the fly. And setting the mood",
+    favMonster: "Remorhaz",
+    favMoment:
+      "Giving out the full solution to a puzzle in an adventure through indirect comments, and watching nobody in the party actually use it. They noticed, and thought I was bluffing. Mission accomplished.",
+    otherInterests:
+      "Obsessed with travel. And Japanese history. When they collide, things get fun. Punk lifer with a huge vinyl collection.",
+    link1name: "Some adventures I wrote on DM's Guild",
     link2name: "",
-    link1: "",
+    link1:
+      "www.dmsguild.com/browse.php?author=Lex%20Winter?affiliate_id=2235164",
     link2: "",
-    location: "",
+    location: "Baltimore, MD, USA",
     image: "img/ResDMs/Placeholder.png",
   },
 ];
