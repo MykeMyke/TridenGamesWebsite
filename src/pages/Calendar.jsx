@@ -56,8 +56,8 @@ export default function Calendar() {
             .
           </Typography>{" "}
           <Typography variant="subtitle1" color="text.primary">
-            (Hover over the Players / Waitlist box for the list of who is signed
-            up...)
+            (PC: Hover over the Players / Waitlist box for the list of who is
+            signed up...) (Mobile: Press and hold for same)
           </Typography>
         </Grid>
       </Grid>
