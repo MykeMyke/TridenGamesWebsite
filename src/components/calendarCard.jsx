@@ -17,6 +17,18 @@ import { ReleaseDate } from "../utils/releasedate";
 import { checkPlaying } from "../utils/checkPlaying";
 import { checkWaitlisted } from "../utils/checkWaitlisted";
 
+const Players = ({ gameKey, players }) => {
+  if (players && players.length > 0) {
+    return (
+      <ol>
+        {players.map(player => <li key={`${gameKey}_pname_${player.discord_name}`}>{player.discord_name}</li>)}
+      </ol>
+    );
+  } else {
+    return 'None yet, sign up today!';
+  }
+}
+
 const Game = (props) => {
   const {
     module,
@@ -33,7 +45,7 @@ const Game = (props) => {
   } = props;
 
   return (
-    <Card raised="true" sx={{ maxWidth: 450 }}>
+    <Card raised={true} sx={{ maxWidth: 450 }}>
       <CardContent sx={{ pt: 0.75, pb: 0.2, "&:last-child": { pb: 0 } }}>
         <Grid
           container
@@ -82,8 +94,7 @@ const Game = (props) => {
       <CardActions sx={{ py: 0 }}>
         <Grid container direction="row" justifyContent="space-between">
           <Tooltip
-            // title={<React.Fragment>{checkPlaying(players)}</React.Fragment>}
-            title="works with text but not with fragment - I'm trying to display the list of player names (list management not yet in the line above)"
+            title={<Players gameKey={`${dm_name}_${datetime}_playing`} players={checkPlaying(players)}/>}
             placement="top-start"
           >
             <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
@@ -96,6 +107,10 @@ const Game = (props) => {
             </Box>
           </Tooltip>
           <Divider orientation="vertical" variant="middle" flexItem />
+           <Tooltip
+            title={<Players gameKey={`${dm_name}_${datetime}_waitlisted`} players={checkWaitlisted(players)}/>}
+            placement="top-start"
+          >
           <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
             <Typography variant="body1" color="text.primary">
               Waitlist
@@ -103,7 +118,8 @@ const Game = (props) => {
             <Typography variant="h6" color="text.primary">
               {checkWaitlisted(players).length}
             </Typography>
-          </Box>
+            </Box>
+            </Tooltip>
         </Grid>
       </CardActions>
       <CardActions sx={{ pt: 0.2 }}>

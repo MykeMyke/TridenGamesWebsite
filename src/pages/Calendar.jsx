@@ -23,7 +23,6 @@ export default function Calendar() {
   //Only filtering for future games at present
   const filteredData = data.filter((x) => Date.parse(x.datetime) > new Date());
   const lastDate = filteredData.map((a) => a.datetime).reverse()[0];
-
   return (
     <React.Fragment>
       <Grid
@@ -66,7 +65,7 @@ export default function Calendar() {
         sx={{ px: 2, mb: 3, position: "relative" }}
       >
         {filteredData.map((gameData) => (
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Grid key={`${gameData.dm_name}_${gameData.datetime}`} item xs={12} sm={6} md={4} lg={3}>
             <Game {...gameData} />
           </Grid>
         ))}
