@@ -7,12 +7,27 @@ import Typography from "@mui/material/Typography";
 import { CardActions } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
 
 import FullDescPopover from "./FullDescPopover";
 import CalendarAddPopover from "./CalendarAddPopover";
 import { toLocalString } from "../utils/formatting";
 import { checkTier } from "../utils/tier";
 import { ReleaseDate } from "../utils/releasedate";
+import { checkPlaying } from "../utils/checkPlaying";
+import { checkWaitlisted } from "../utils/checkWaitlisted";
+
+const Players = ({ gameKey, players }) => {
+  if (players && players.length > 0) {
+    return (
+      <ol>
+        {players.map(player => <li key={`${gameKey}_pname_${player.discord_name}`}>{player.discord_name}</li>)}
+      </ol>
+    );
+  } else {
+    return 'None yet, sign up today!';
+  }
+}
 
 const Game = (props) => {
   const {
@@ -20,18 +35,17 @@ const Game = (props) => {
     name,
     datetime,
     length,
-    number_of_players,
     max_players,
-    number_of_waitlisted,
     dm_name,
     level_min,
     level_max,
     datetime_release,
     datetime_open_release,
+    players,
   } = props;
 
   return (
-    <Card raised="true" sx={{ maxWidth: 450 }}>
+    <Card raised={true} sx={{ maxWidth: 450 }}>
       <CardContent sx={{ pt: 0.75, pb: 0.2, "&:last-child": { pb: 0 } }}>
         <Grid
           container
@@ -77,26 +91,35 @@ const Game = (props) => {
           DM: {dm_name}
         </Typography>
       </CardContent>
-      {/* </CardActionArea> */}
       <CardActions sx={{ py: 0 }}>
         <Grid container direction="row" justifyContent="space-between">
-          <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
-            <Typography variant="body1" color="text.primary">
-              Players
-            </Typography>
-            <Typography variant="h6" color="text.primary">
-              {number_of_players} / {max_players}
-            </Typography>
-          </Box>
+          <Tooltip
+            title={<Players gameKey={`${dm_name}_${datetime}_playing`} players={checkPlaying(players)}/>}
+            placement="top-start"
+          >
+            <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
+              <Typography variant="body1" color="text.primary">
+                Players
+              </Typography>
+              <Typography variant="h6" color="text.primary">
+                {checkPlaying(players).length} / {max_players}
+              </Typography>
+            </Box>
+          </Tooltip>
           <Divider orientation="vertical" variant="middle" flexItem />
+           <Tooltip
+            title={<Players gameKey={`${dm_name}_${datetime}_waitlisted`} players={checkWaitlisted(players)}/>}
+            placement="top-start"
+          >
           <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
             <Typography variant="body1" color="text.primary">
               Waitlist
             </Typography>
             <Typography variant="h6" color="text.primary">
-              {number_of_waitlisted}
+              {checkWaitlisted(players).length}
             </Typography>
-          </Box>
+            </Box>
+            </Tooltip>
         </Grid>
       </CardActions>
       <CardActions sx={{ pt: 0.2 }}>
