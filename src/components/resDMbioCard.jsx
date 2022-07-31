@@ -79,10 +79,10 @@ const ResDMbio = (dm) => {
                       alignItems="center"
                       sx={{ pt: 1 }}
                     >
-                      <a href="{dm.link1}" target="_blank" rel="noreferrer">
+                      <a href={dm.link1} target="_blank" rel="noreferrer">
                         {dm.link1name}
                       </a>
-                      <a href="{dm.link2}" target="_blank" rel="noreferrer">
+                      <a href={dm.link2} target="_blank" rel="noreferrer">
                         {dm.link2name}
                       </a>
                     </Grid>
