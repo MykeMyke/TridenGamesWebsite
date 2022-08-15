@@ -214,3 +214,17 @@ h6 a:hover {
     display: none;
   }
 }
+
+.Mouseover-List {
+  padding-left: 1.2em;
+}
+
+.Name-Filter {
+  width: 35ch;
+}
+
+@media only screen and (max-width: 750px) {
+  .Name-Filter {
+    width: 20ch;
+  }
+}

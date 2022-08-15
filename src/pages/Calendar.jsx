@@ -7,9 +7,13 @@ import Game from "../components/calendarCard";
 import { checkDaysToGo } from "../utils/daysToGo";
 import TridenAvatar from "../img/TridenAvatar2048.png";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import Divider from "@mui/material/Divider";
+import NameFilter from "../components/nameFilter";
 
 export default function Calendar() {
   const [data, setData] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [activeName, setActiveName] = useState([]);
 
   useEffect(() => {
     getGames().then((result) => {
@@ -18,10 +22,11 @@ export default function Calendar() {
           return new Date(a.datetime) - new Date(b.datetime);
         })
       );
+      setData(data.filter((x) => Date.parse(x.datetime) > new Date()));
+      // setFiltered(data);
     });
   }, []);
-  const filteredData = data.filter((x) => Date.parse(x.datetime) > new Date());
-  const lastDate = filteredData.map((a) => a.datetime).reverse()[0];
+  const lastDate = data.map((a) => a.datetime).reverse()[0];
   return (
     <React.Fragment>
       <Grid
@@ -41,8 +46,8 @@ export default function Calendar() {
             color="text.primary"
             sx={{ fontSize: "1.2rem" }}
           >
-            There are <strong>{filteredData.length} games</strong> scheduled in
-            the next {checkDaysToGo(lastDate)} days
+            There are <strong>{data.length} games</strong> scheduled in the next{" "}
+            {checkDaysToGo(lastDate)} days
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
             Signups to games on{" "}
@@ -61,13 +66,20 @@ export default function Calendar() {
           </Typography>
         </Grid>
       </Grid>
+      <Divider variant="middle" sx={{ mb: 2.5 }} />
+      <NameFilter
+        data={data}
+        setFiltered={setFiltered}
+        activeName={activeName}
+        setActiveName={setActiveName}
+      />
       <Grid
         container
         spacing={3}
         justify="center"
         sx={{ px: 2, mb: 3, position: "relative" }}
       >
-        {filteredData.map((gameData) => (
+        {data.map((gameData) => (
           <Grid
             key={`${gameData.dm_name}_${gameData.datetime}`}
             item
@@ -93,9 +105,6 @@ export default function Calendar() {
           </Fab>
         </box>
       </Grid>
-      {/* <Typography variant="subtitle1" color="text.primary" sx={{ mt: 12 }}>
-        <a href="/dashboard">Admin Dashboard</a>.
-      </Typography> */}
     </React.Fragment>
   );
 }
