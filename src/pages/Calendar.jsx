@@ -12,7 +12,7 @@ import NameFilter from "../components/nameFilter";
 
 export default function Calendar() {
   const [data, setData] = useState([]);
-  const [filtered, setFiltered] = useState([]);
+  const [filtered, setFiltered] = useState([data]);
   const [activeName, setActiveName] = useState([]);
 
   useEffect(() => {
@@ -22,8 +22,8 @@ export default function Calendar() {
           return new Date(a.datetime) - new Date(b.datetime);
         })
       );
-      setData(data.filter((x) => Date.parse(x.datetime) > new Date()));
-      // setFiltered(data);
+      // **Don't believe this is necessary since it is handled by backend prior to API endpoint**
+      // setData(data.filter((x) => Date.parse(x.datetime) > new Date()));
     });
   }, []);
   const lastDate = data.map((a) => a.datetime).reverse()[0];
@@ -79,7 +79,7 @@ export default function Calendar() {
         justify="center"
         sx={{ px: 2, mb: 3, position: "relative" }}
       >
-        {data.map((gameData) => (
+        {filtered.map((gameData) => (
           <Grid
             key={`${gameData.dm_name}_${gameData.datetime}`}
             item

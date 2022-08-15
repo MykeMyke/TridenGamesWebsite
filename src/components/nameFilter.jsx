@@ -3,19 +3,19 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-// function nameFilter({
-//   setActiveName,
-//   activeName,
-//   setFiltered,
-//   data,
-// }) {
-//   useEffect(() => {
-//     if (activeName === 0) {
-//       setFiltered(filtered);
-//       return;
-//     }
-//   });
-function nameFilter() {
+function NameFilter({ setActiveName, activeName, setFiltered, data }) {
+  useEffect(() => {
+    if (activeName === "") {
+      setFiltered(data);
+      return;
+    }
+    const filtered = data.filter((gameData) =>
+      gameData.Players.includes(activeName)
+    );
+    setFiltered(filtered);
+  }, [activeName]);
+
+  // function nameFilter() {
   return (
     <Box
       sx={{
@@ -34,6 +34,7 @@ function nameFilter() {
         variant="outlined"
         size="small"
         margin="dense"
+        value={activeName}
         sx={{ mr: 1 }}
       />
       <Button
@@ -41,14 +42,24 @@ function nameFilter() {
         color="secondary"
         size="large"
         sx={{ mr: 0.5 }}
+        onClick={() => {
+          setActiveName(activeName);
+        }}
       >
         Filter
       </Button>
-      <Button variant="contained" color="secondary" size="large">
+      <Button
+        variant="contained"
+        color="secondary"
+        size="large"
+        onClick={() => {
+          setActiveName("");
+        }}
+      >
         Reset
       </Button>
     </Box>
   );
 }
 
-export default nameFilter;
+export default NameFilter;
