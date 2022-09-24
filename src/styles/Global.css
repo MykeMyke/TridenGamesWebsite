@@ -140,30 +140,56 @@ h6 a:hover {
   justify-self: center;
 }
 
-.masonry {
-  column-count: 3;
-  column-gap: 1.5em;
-}
-
 .masonry-card {
   margin-bottom: 1.5em;
 }
 
+.masonry-resDM {
+  column-count: 3;
+  column-gap: 1.5em;
+}
+
 @media only screen and (max-width: 1600px) {
-  .masonry {
+  .masonry-resDM {
     column-count: 2;
   }
 }
 
 @media only screen and (max-width: 1080px) {
-  .masonry {
+  .masonry-resDM {
     column-count: 1;
     column-gap: 0em;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  .masonry {
+  .masonry-resDM {
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
+  }
+}
+
+.masonry-staff {
+  column-count: 4;
+  column-gap: 1.5em;
+}
+
+@media only screen and (max-width: 1600px) {
+  .masonry-staff {
+    column-count: 2;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .masonry-staff {
+    column-count: 1;
+    column-gap: 0em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .masonry-staff {
     margin-left: auto;
     margin-right: auto;
     justify-self: center;
