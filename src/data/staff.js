@@ -1,18 +1,20 @@
 export const staff = [
   {
     position: "Admin",
-    color: "red",
+    color: "#e60000",
     name: "MykeMyke",
     responsibilities: [
-      "Direction and Prioritisation",
-      "Discord Server and Website Management",
-      "Legal Responsibility",
+      "Direction and Prioritization",
+      "Discord Server Management",
+      "Website Management",
     ],
-    quote: "Mike's funny quote",
+    quote:
+      "'Either / or' situations have a nasty habit of becoming 'both' around me...",
+    image: "img/Staff/Admin.png",
   },
   {
     position: "Treasurer",
-    color: "yellow",
+    color: "gold",
     name: "Abio",
     responsibilities: [
       "Patreon Management",
@@ -20,10 +22,11 @@ export const staff = [
       "Funding and Sponsorship",
     ],
     quote: "Abio's funny quote",
+    image: "img/Staff/Treasurer.png",
   },
   {
     position: "Head Moderator",
-    color: "green",
+    color: "#2E8B57",
     name: "Discordant",
     responsibilities: [
       "Moderation",
@@ -31,10 +34,11 @@ export const staff = [
       "Roll20 Management",
     ],
     quote: "Discordant's funny quote",
+    image: "img/Staff/HeadModerator.png",
   },
   {
     position: "Head Resident DM",
-    color: "blue",
+    color: "#4169E1",
     name: "Clark",
     responsibilities: [
       "Monthly Resident DM Schedule",
@@ -42,6 +46,7 @@ export const staff = [
       "DM Training",
     ],
     quote: "Clark's funny quote",
+    image: "img/Staff/HeadDM.png",
   },
   {
     position: "Head Cartographer",
@@ -53,6 +58,7 @@ export const staff = [
       "AL Map Packs",
     ],
     quote: "Liam's funny quote",
+    image: "img/Staff/HeadCartographer.png",
   },
   {
     position: "Head Writer",
@@ -64,16 +70,18 @@ export const staff = [
       "Thought bouncer-off-er",
     ],
     quote: "Nitsuji's funny quote",
+    image: "img/ResDMs/Placeholder.png",
   },
   {
     position: "Head Developer",
-    color: "grey",
+    color: "#2eb8b3",
     name: "Daemoxia",
     responsibilities: [
       "Bot and Tools Development",
       "Management of Developer Team",
       "Tool User Support",
     ],
-    quote: "Daemoxia's funny quote",
+    quote: "What idiot wrote this nonsense? Oh wait. It was me...",
+    image: "img/ResDMs/Placeholder.png",
   },
 ];

@@ -3,6 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import "../styles/Global.css";
 
 const Staff = (staff) => {
   return (
@@ -17,23 +18,43 @@ const Staff = (staff) => {
       >
         <CardContent>
           <div alignItems="center" className="staffCard">
-            <div className="position">
+            <div className="name">
               <Typography
                 variant="h4"
                 color="text.primary"
                 sx={{ mb: 1, textAlign: "center" }}
               >
-                {staff.position}
+                {staff.name}
               </Typography>
             </div>
-            <div className="name">
-              <Typography variant="subtitle2" color="text.secondary">
-                {staff.name}
+            <Divider variant="middle" sx={{ my: 0.8 }} />
+            <div className="position">
+              <div className="centraliser">
+                <div></div>
+                <div>
+                  <img
+                    src={staff.image}
+                    alt={staff.position}
+                    className="staff-image"
+                  />
+                </div>
+                <div></div>
+              </div>
+              <Typography
+                variant="h5"
+                color="text.secondary"
+                sx={{ textAlign: "center" }}
+              >
+                {staff.position}
               </Typography>
               <Divider variant="middle" sx={{ my: 0.8 }} />
             </div>
             <div className="responsibilities">
-              <Typography variant="subtitle2" color="text.secondary">
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ textAlign: "center" }}
+              >
                 <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
                   {staff.responsibilities.map((role) => (
                     <li style={{ paddingBottom: 5 }}>{role}</li>
@@ -43,7 +64,11 @@ const Staff = (staff) => {
             </div>
             <div className="quote">
               <Divider variant="middle" sx={{ my: 0.8 }} />
-              <Typography variant="subtitle2" color="text.secondary">
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ textAlign: "center", fontStyle: "italic" }}
+              >
                 {staff.quote}
               </Typography>
             </div>

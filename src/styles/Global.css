@@ -240,3 +240,11 @@ h6 a:hover {
     display: none;
   }
 }
+
+.staff-image {
+  max-width: 100px;
+  min-width: 70px;
+  max-height: 100px;
+  justify-self: center;
+  align-self: center;
+}

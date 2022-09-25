@@ -17,11 +17,14 @@ function Team() {
         <div className="centraliser">
           <div></div>
           <div>
-            <img
+            {/* <img
               src={Stafflogo}
               alt="Triden Games Staff"
               className="header-art"
-            />
+            /> */}
+            <Typography variant="h2" sx={{ my: 1, textAlign: "center" }}>
+              Staff Members
+            </Typography>
           </div>
           <div></div>
         </div>
