@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Benefits from "./pages/Benefits";
 import Calendar from "./pages/Calendar";
 import Team from "./pages/Team";
+import Tridenverse from "./pages/Tridenverse";
 import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
 
@@ -33,6 +34,7 @@ function App() {
                 <Route path="/team" element={<Team />} />
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/benefits" element={<Benefits />} />
+                <Route path="/tridenverse" element={<Tridenverse />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>

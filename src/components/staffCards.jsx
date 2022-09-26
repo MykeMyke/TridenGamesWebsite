@@ -43,7 +43,7 @@ const Staff = (staff) => {
               <Typography
                 variant="h5"
                 color="text.secondary"
-                sx={{ textAlign: "center" }}
+                sx={{ textAlign: "center", fontWeight: "bold" }}
               >
                 {staff.position}
               </Typography>
@@ -67,7 +67,7 @@ const Staff = (staff) => {
               <Typography
                 variant="subtitle2"
                 color="text.secondary"
-                sx={{ textAlign: "center", fontStyle: "italic" }}
+                sx={{ textAlign: "center", fontStyle: "italic", mb: -1.5 }}
               >
                 {staff.quote}
               </Typography>

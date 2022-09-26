@@ -21,7 +21,7 @@ export const staff = [
       "Accountancy",
       "Funding and Sponsorship",
     ],
-    quote: "Abio's funny quote",
+    quote: "We're all here to have fun!",
     image: "img/Staff/Treasurer.png",
   },
   {
@@ -57,20 +57,9 @@ export const staff = [
       "Map Request Programme",
       "AL Map Packs",
     ],
-    quote: "Liam's funny quote",
+    quote:
+      "When in doubt, just put ' Here be dragons!' and let the DM figure it out.",
     image: "img/Staff/HeadCartographer.png",
-  },
-  {
-    position: "Head Writer",
-    color: "orange",
-    name: "Nitsuji",
-    responsibilities: [
-      "Writing Training",
-      "Editing of DCs",
-      "Thought bouncer-off-er",
-    ],
-    quote: "Nitsuji's funny quote",
-    image: "img/ResDMs/Placeholder.png",
   },
   {
     position: "Head Developer",
@@ -82,6 +71,18 @@ export const staff = [
       "Tool User Support",
     ],
     quote: "What idiot wrote this nonsense? Oh wait. It was me...",
-    image: "img/ResDMs/Placeholder.png",
+    image: "img/Staff/HeadDeveloper.png",
+  },
+  {
+    position: "Head Writer",
+    color: "orange",
+    name: "Nitsuji",
+    responsibilities: [
+      "Writing Training",
+      "Editing of DCs",
+      "Thought bouncer-off-er",
+    ],
+    quote: "Nitsuji's funny quote",
+    image: "img/Staff/HeadWriter.png",
   },
 ];

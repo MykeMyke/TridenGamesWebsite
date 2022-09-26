@@ -47,6 +47,15 @@ function Benefits() {
                 as well as maps, art, music and more to help you run awesome
                 games!
               </li>
+              <li>
+                {" "}
+                <strong>For Writers:</strong> there is access to guides,
+                templates, advice from experienced authors, map making asset
+                licences, unlimited MidJourney art creation with expert support,
+                access to stock art from Dean Spencer, access to
+                pro-cartography, and even a whole wildspace with pre-built lore
+                to set your adventures in if you wish.
+              </li>
             </ul>
           </Typography>
           <Typography variant="body1" sx={{ mb: 4 }}>
