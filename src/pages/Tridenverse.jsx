@@ -1,7 +1,6 @@
 import "../styles/Global.css";
 import React from "react";
 import {
-  Fab,
   Grid,
   Divider,
   List,
@@ -11,10 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import LabelImportantIcon from "@mui/icons-material/LabelImportant";
-import DescriptionIcon from "@mui/icons-material/Description";
 import PigsFly from "../img/WhenPigsFly.png";
 import TridenverseAd from "../img/TridenAdvert_v2_web.webp";
 import TrayahSpace from "../img/Trayah Space_web.webp";
+import TridenverseModules from "../components/TridenverseModules";
 
 function ListPoint({ content }) {
   return (
@@ -30,6 +29,7 @@ function ListPoint({ content }) {
 function Tridenverse() {
   return (
     <React.Fragment>
+      <TridenverseModules />
       {/* <div className="fab-bottom">
         <div className="centraliser">
           <div></div>
@@ -99,7 +99,11 @@ function Tridenverse() {
               my: 0.6,
             }}
           />
-          <Typography variant="h5" color="text.primary" sx={{ mt: 2, mb: 1 }}>
+          <Typography
+            variant="h5"
+            color="text.primary"
+            sx={{ mt: 2, mb: 2, textAlign: "center" }}
+          >
             Getting involved is simple! Just{" "}
             <a
               href="https://discord.gg/JDB6BYTK9T"

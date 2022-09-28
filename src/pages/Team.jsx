@@ -1,6 +1,6 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
-import Stafflogo from "../img/Resident-DMs.png";
+import { Typography } from "@mui/material";
+// import Stafflogo from "../img/Resident-DMs.png";
 import "../styles/Global.css";
 import ResDmBio from "../components/resDMbioCard";
 import { resDMbios } from "../data/resDMbios";

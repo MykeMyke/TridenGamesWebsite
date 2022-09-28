@@ -39,7 +39,12 @@ function Benefits() {
               <li>
                 <strong>For Players:</strong> there is early signup access to
                 the Resident DM schedule of one shots every month as well access
-                to fully featured compendiums in both D&D Beyond and Roll20.{" "}
+                to fully featured compendiums in both D&D Beyond and Roll20.
+                Check out the{" "}
+                <strong>
+                  <a href="/calendar">calendar</a>
+                </strong>{" "}
+                of upcoming games.
               </li>
               <li>
                 {" "}
@@ -54,7 +59,12 @@ function Benefits() {
                 licences, unlimited MidJourney art creation with expert support,
                 access to stock art from Dean Spencer, access to
                 pro-cartography, and even a whole wildspace with pre-built lore
-                to set your adventures in if you wish.
+                to set your adventures in if you wish. Check out what we're
+                doing in the{" "}
+                <strong>
+                  <a href="/tridenverse">Tridenverse</a>
+                </strong>
+                !
               </li>
             </ul>
           </Typography>
