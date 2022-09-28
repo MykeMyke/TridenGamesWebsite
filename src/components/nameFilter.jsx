@@ -13,7 +13,7 @@ function NameFilter({ setActiveName, activeName, setFiltered, data }) {
       gameData.Players.includes(activeName)
     );
     setFiltered(filtered);
-  }, [activeName]);
+  }, [activeName, data, setFiltered]);
 
   // function nameFilter() {
   return (
