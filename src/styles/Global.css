@@ -248,3 +248,21 @@ h6 a:hover {
   justify-self: center;
   align-self: center;
 }
+
+.fab-bottom {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  width: 66vw;
+  bottom: 2%;
+}
+
+@media only screen and (max-width: 600px) {
+  .fab-bottom {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    width: 100vw;
+    bottom: 2%;
+  }
+}
