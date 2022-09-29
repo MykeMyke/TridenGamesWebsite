@@ -33,7 +33,7 @@ export const staff = [
       "D&D Beyond Management",
       "Roll20 Management",
     ],
-    quote: "Discordant's funny quote",
+    quote: "It's difficult to think of a quote!",
     image: "img/Staff/HeadModerator.png",
   },
   {
@@ -45,7 +45,7 @@ export const staff = [
       "Quarterly Epics",
       "DM Training",
     ],
-    quote: "Clark's funny quote",
+    quote: "That is definitely not a swarm of rats piloting a scarecrow...",
     image: "img/Staff/HeadDM.png",
   },
   {
@@ -82,7 +82,7 @@ export const staff = [
       "Editing of DCs",
       "Thought bouncer-off-er",
     ],
-    quote: "Nitsuji's funny quote",
+    quote: "Since brevity is the soul of wit, I will...",
     image: "img/Staff/HeadWriter.png",
   },
 ];
