@@ -95,8 +95,7 @@ function Benefits() {
           </Typography>
           <Typography variant="body1">
             The tiers shown below are only a summary - check out full details on
-            Patreon! In addition, there is a maps only tier (Wanderer) for those
-            that aren't interested in playing on the server.
+            Patreon!
           </Typography>
         </Grid>
         <Grid item>
