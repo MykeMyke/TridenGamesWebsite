@@ -241,6 +241,10 @@ h6 a:hover {
   }
 }
 
+.mouseover-list {
+  padding-left: 1.2em;
+}
+
 .staff-image {
   max-width: 110px;
   min-width: 70px;

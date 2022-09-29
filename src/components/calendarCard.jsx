@@ -20,7 +20,7 @@ import { checkWaitlisted } from "../utils/checkWaitlisted";
 const Players = ({ gameKey, players }) => {
   if (players && players.length > 0) {
     return (
-      <ol>
+      <ol className="mouseover-list">
         {players.map((player) => (
           <li key={`${gameKey}_pname_${player.discord_name}`}>
             {player.discord_name}
@@ -29,7 +29,7 @@ const Players = ({ gameKey, players }) => {
       </ol>
     );
   } else {
-    return "None yet, sign up today!";
+    return "None yet - just waiting for you to sign up!";
   }
 };
 
