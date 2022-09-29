@@ -11,6 +11,7 @@ import Team from "./pages/Team";
 import Tridenverse from "./pages/Tridenverse";
 import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
+import OnLoadPopUp from "./components/OnLoadPopUp";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           </Grid>
         </Grid>
       </Router>
+      <OnLoadPopUp />
     </ThemeProvider>
   );
 }
