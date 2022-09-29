@@ -111,7 +111,11 @@ function Home() {
                 Our staff and experienced members of the community support the
                 various interests of the community on a day-to-day basis -
                 whether you like to make maps, write adventures or produce art;
-                we offer support and projects to get involved in!
+                we offer support and projects to get involved in! This includes
+                significant support for{" "}
+                <strong>
+                  <a href="/tridenverse">Adventure Writers!</a>
+                </strong>
               </>
             }
           />

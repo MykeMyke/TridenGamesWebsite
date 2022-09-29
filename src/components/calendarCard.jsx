@@ -20,14 +20,18 @@ import { checkWaitlisted } from "../utils/checkWaitlisted";
 const Players = ({ gameKey, players }) => {
   if (players && players.length > 0) {
     return (
-      <ol>
-        {players.map(player => <li key={`${gameKey}_pname_${player.discord_name}`}>{player.discord_name}</li>)}
+      <ol className="mouseover-list">
+        {players.map((player) => (
+          <li key={`${gameKey}_pname_${player.discord_name}`}>
+            {player.discord_name}
+          </li>
+        ))}
       </ol>
     );
   } else {
-    return 'None yet, sign up today!';
+    return "None yet - just waiting for you to sign up!";
   }
-}
+};
 
 const Game = (props) => {
   const {
@@ -94,7 +98,12 @@ const Game = (props) => {
       <CardActions sx={{ py: 0 }}>
         <Grid container direction="row" justifyContent="space-between">
           <Tooltip
-            title={<Players gameKey={`${dm_name}_${datetime}_playing`} players={checkPlaying(players)}/>}
+            title={
+              <Players
+                gameKey={`${dm_name}_${datetime}_playing`}
+                players={checkPlaying(players)}
+              />
+            }
             placement="top-start"
           >
             <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
@@ -107,19 +116,24 @@ const Game = (props) => {
             </Box>
           </Tooltip>
           <Divider orientation="vertical" variant="middle" flexItem />
-           <Tooltip
-            title={<Players gameKey={`${dm_name}_${datetime}_waitlisted`} players={checkWaitlisted(players)}/>}
+          <Tooltip
+            title={
+              <Players
+                gameKey={`${dm_name}_${datetime}_waitlisted`}
+                players={checkWaitlisted(players)}
+              />
+            }
             placement="top-start"
           >
-          <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
-            <Typography variant="body1" color="text.primary">
-              Waitlist
-            </Typography>
-            <Typography variant="h6" color="text.primary">
-              {checkWaitlisted(players).length}
-            </Typography>
+            <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
+              <Typography variant="body1" color="text.primary">
+                Waitlist
+              </Typography>
+              <Typography variant="h6" color="text.primary">
+                {checkWaitlisted(players).length}
+              </Typography>
             </Box>
-            </Tooltip>
+          </Tooltip>
         </Grid>
       </CardActions>
       <CardActions sx={{ pt: 0.2 }}>

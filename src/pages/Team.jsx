@@ -1,29 +1,55 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
-import Staff from "../img/20220726_Triden Roles and Responsibilities.jpg";
+import { Typography } from "@mui/material";
+// import Stafflogo from "../img/Resident-DMs.png";
 import "../styles/Global.css";
 import ResDmBio from "../components/resDMbioCard";
 import { resDMbios } from "../data/resDMbios";
 import Divider from "@mui/material/Divider";
 import ResDMlogo from "../img/Resident-DMs.png";
 import Stack from "@mui/material/Stack";
+import Staff from "../components/staffCards";
+import { staff } from "../data/staff";
 
 function Team() {
   return (
     <React.Fragment>
-      <Grid
-        container
-        spacing={1}
-        direction="column"
-        alignItems="center"
-        justifyContent="flex-start"
-        sx={{ px: 2, my: 2 }}
-      >
-        <Grid item>
-          <img src={Staff} alt="Triden Games Staff" className="MainBanner" />
-        </Grid>
-      </Grid>
-      <Divider variant="middle" sx={{ my: 3 }} />
+      <Stack spacing={1} sx={{ mb: 3 }}>
+        <div className="centraliser">
+          <div></div>
+          <div>
+            {/* <img
+              src={Stafflogo}
+              alt="Triden Games Staff"
+              className="header-art"
+            /> */}
+            <Typography variant="h2" sx={{ my: 1, textAlign: "center" }}>
+              Staff Members
+            </Typography>
+          </div>
+          <div></div>
+        </div>
+        <Typography
+          variant="body"
+          color="text.primary"
+          sx={{ px: 3, maxWidth: "1080px", alignSelf: "center" }}
+        >
+          The Staff of Triden Games are here to help each of their functions run
+          smoothly for our members. They give everybody the best possible
+          experience by empowering and advising their team members, and
+          troubleshooting for users.
+        </Typography>
+        <Divider variant="middle" sx={{ py: 1 }} />
+        <div className="centraliser">
+          <div></div>
+          <div className="masonry-staff">
+            {staff.map((staffInfo) => (
+              <Staff {...staffInfo} key={`bio_${staffInfo.name}`} />
+            ))}
+          </div>
+          <div></div>
+        </div>
+        <Divider variant="middle" sx={{ py: 1 }} />
+      </Stack>
       <Stack spacing={1}>
         <div className="centraliser">
           <div></div>
@@ -63,7 +89,7 @@ function Team() {
       <Divider variant="middle" sx={{ my: 3 }} />
       <div className="centraliser">
         <div></div>
-        <div className="masonry">
+        <div className="masonry-resDM">
           {resDMbios.map((resDMinfo) => (
             <ResDmBio {...resDMinfo} key={`bio_${resDMinfo.name}`} />
           ))}
