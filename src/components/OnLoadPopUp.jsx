@@ -6,27 +6,49 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Button, DialogActions } from "@mui/material";
 import useLocalStorage, { deleteFromStorage, writeStorage } from "@rehooks/local-storage";
 
-//this is the key for the current rev of the popup.  If you have something else you want to show,
-// e.g. you want a popup announcing an epic, change this key announce an epic, change ths key
-const SHOW_KEY_NAME = "showPopup0";
+// the prefix serves as a namespace so we will not delete other keys, unless they pick this name
+// leave this the same unless you have a reason to change this
+const SHOW_KEY_PREFIX = "_showTridenHomePopup_";
+
+//make this whatever you want to identify the *current* popup.  Can be number, a string
+const CURRENT_KEY_NAME = "1"
+
+/**
+ * Get the key in localStorage to see if we want to show/hide the popup
+ * @returns the name of a key that can be read from/written to localStorage
+ */
+const currentPopupKey = () => {
+  return `${SHOW_KEY_PREFIX}${CURRENT_KEY_NAME}`
+}
+
+/**
+ * See if this key can be deleted in our cleanup loop.
+ * @param {return} key 
+ * @returns true if this key can be safely deleted, false otherwise
+ */
+const canBeDeleted = (key) => {
+  //why use indexOf instead of startsWith?  Because I have a soft spot for IE11
+  return key.indexOf(SHOW_KEY_PREFIX) === 0 && key !== currentPopupKey();
+}
+
 const handleClose = () => {
   //write false to local storage, so this browser doesnt see it again
-  writeStorage(SHOW_KEY_NAME, false);
+  writeStorage(currentPopupKey(), false);
   //this is an optional cleanup loop just to be a good citizen.  it destroys ALL localStrage entries that are not
   // our key, so we do not store an increasing number of keys in the browser.  Practically speaking, triden will not
   // be storing enough keys to cause anybody problems, so you can omit if extra keys does not bother you.
   // if you start to use localStorage elsewhere, you will need o make this more precise to delete only
   // popup releated keys
   Object.entries(localStorage).forEach(([key]) => {
-    if (key !== SHOW_KEY_NAME) {
+    if (canBeDeleted(key)) {
       deleteFromStorage(key);
     }
-  })
+  });
 }
 
 export default function OnLoadPopUp() {
   //this key is true/false.  you could also store something more complicated if you needed to make a decision
-  const [showPopup] = useLocalStorage(SHOW_KEY_NAME, true);
+  const [showPopup] = useLocalStorage(currentPopupKey(), true);
 
   return (
     <div>
