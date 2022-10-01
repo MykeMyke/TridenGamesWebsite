@@ -8,6 +8,7 @@ import DMImage from "../img/DeanSpencer-spotcol-magicbook.png";
 import CreativesImage from "../img/DeanSpencer-spotcol-vargtank.png";
 import YouImage from "../img/DeanSpencer-spotcol-elfenchanter.png";
 import { Divider } from "@mui/material";
+import OnLoadPopUp from "../components/OnLoadPopUp";
 
 function ForWho({ title, content, imageUrl, imageAlt = "Triden Games" }) {
   return (
@@ -21,10 +22,10 @@ function ForWho({ title, content, imageUrl, imageAlt = "Triden Games" }) {
           {title}
         </Typography>
       </div>
-      <div class="sidebar">
+      <div className="sidebar">
         <img src={imageUrl} alt={imageAlt} className="Art" />
       </div>
-      <div class="content">
+      <div className="content">
         <Typography variant="subtitle1" color="text.primary" sx={{ mb: 4 }}>
           {content}
         </Typography>
@@ -36,6 +37,7 @@ function ForWho({ title, content, imageUrl, imageAlt = "Triden Games" }) {
 function Home() {
   return (
     <React.Fragment>
+      <OnLoadPopUp/>
       <Grid
         container
         spacing={1}
