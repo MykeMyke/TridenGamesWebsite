@@ -22,7 +22,7 @@ function NameFilter({ setActiveName, activeName, setFiltered, data }) {
               player &&
               ((player.discord_name &&
                 player.discord_name.includes(activeName)) ||
-                (player.discord_id && player.discord_id == activeName))
+                (player.discord_id && player.discord_id === activeName))
           )) ||
           (gameData.dm_name && gameData.dm_name.includes(activeName)))
     );
