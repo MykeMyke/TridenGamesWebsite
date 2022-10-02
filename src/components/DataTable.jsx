@@ -14,7 +14,7 @@ const DataTable = ({ rows, columns, loading, sx }) => {
       pagination
       pageSize={pageSize}
       onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-      rowsPerPageOptions={[30, 100, 300]}
+      rowsPerPageOptions={[50, 100, 300]}
     />
   );
 };

@@ -20,7 +20,7 @@ import { checkWaitlisted } from "../utils/checkWaitlisted";
 const Players = ({ gameKey, players }) => {
   if (players && players.length > 0) {
     return (
-      <ol className="Mouseover-List">
+      <ol className="mouseover-list">
         {players.map((player) => (
           <li key={`${gameKey}_pname_${player.discord_name}`}>
             {player.discord_name}
