@@ -4,21 +4,27 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 function NameFilter({ setActiveName, activeName, setFiltered, data }) {
-
   const handleChange = (event) => {
     setActiveName(event.target.value);
   };
 
   useEffect(() => {
-    if (!activeName || activeName === "" || Array.isArray(activeName) ) {
+    if (!activeName || activeName === "" || Array.isArray(activeName)) {
       setFiltered(data);
       return;
     }
-    const filtered = data.filter((gameData) =>
-      gameData && (gameData.players && gameData.players.some((player)=>player 
-        && ((player.discord_name &&  player.discord_name.includes(activeName))
-        || (player.discord_id &&  player.discord_id == activeName)))
-      || (gameData.dm_name && gameData.dm_name.includes(activeName)))
+    const filtered = data.filter(
+      (gameData) =>
+        gameData &&
+        ((gameData.players &&
+          gameData.players.some(
+            (player) =>
+              player &&
+              ((player.discord_name &&
+                player.discord_name.includes(activeName)) ||
+                (player.discord_id && player.discord_id == activeName))
+          )) ||
+          (gameData.dm_name && gameData.dm_name.includes(activeName)))
     );
     setFiltered(filtered);
   }, [activeName, data, setFiltered]);
@@ -43,20 +49,9 @@ function NameFilter({ setActiveName, activeName, setFiltered, data }) {
         size="small"
         margin="dense"
         value={activeName}
-        onChange = {handleChange}
+        onChange={handleChange}
         sx={{ mr: 1 }}
       />
-      <Button
-        variant="contained"
-        color="secondary"
-        size="large"
-        sx={{ mr: 0.5 }}
-        onClick={() => {
-          setActiveName(activeName);
-        }}
-      >
-        Filter
-      </Button>
       <Button
         variant="contained"
         color="secondary"
