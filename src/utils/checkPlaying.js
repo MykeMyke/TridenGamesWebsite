@@ -1,4 +1,8 @@
 export function checkPlaying(data) {
-  const playing = data.filter((x) => !x.standby);
-  return playing;
+  if (data) {
+    const playing = data.filter((x) => !x.standby);
+    return playing;
+  } else {
+    return [];
+  }
 }
