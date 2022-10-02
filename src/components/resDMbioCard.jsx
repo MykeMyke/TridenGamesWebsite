@@ -9,7 +9,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 const ResDMbio = (dm) => {
   return (
     <div className="masonry-card">
-      <Card raised={true} sx={{ maxWidth: 500 }}>
+      <Card raised={true} sx={{ maxWidth: 500, borderRadius: 8 }}>
         <CardContent>
           <div alignItems="center" className="resDMbioCard">
             <div className="name">
