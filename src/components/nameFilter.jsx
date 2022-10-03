@@ -21,10 +21,17 @@ function NameFilter({ setActiveName, activeName, setFiltered, data }) {
             (player) =>
               player &&
               ((player.discord_name &&
-                player.discord_name.includes(activeName)) ||
-                (player.discord_id && player.discord_id === activeName))
+                player.discord_name
+                  .toLocaleLowerCase()
+                  .includes(activeName.toLocaleLowerCase())) ||
+                (player.discord_id &&
+                  player.discord_id.toString().toLocaleLowerCase() ===
+                    activeName.toLocaleLowerCase()))
           )) ||
-          (gameData.dm_name && gameData.dm_name.includes(activeName)))
+          (gameData.dm_name &&
+            gameData.dm_name
+              .toLocaleLowerCase()
+              .includes(activeName.toLocaleLowerCase())))
     );
     setFiltered(filtered);
   }, [activeName, data, setFiltered]);
