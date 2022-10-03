@@ -1,7 +1,7 @@
 import "../styles/Global.css";
 import React, { useState, useEffect } from "react";
 
-import { Fab, Grid, Typography } from "@mui/material";
+import { Box, Fab, Grid, Typography } from "@mui/material";
 import { getGames } from "../api/games";
 import Game from "../components/calendarCard";
 import { checkDaysToGo } from "../utils/daysToGo";
@@ -12,20 +12,41 @@ import NameFilter from "../components/nameFilter";
 
 export default function Calendar() {
   const [data, setData] = useState([]);
-  const [filtered, setFiltered] = useState([data]);
-  const [activeName, setActiveName] = useState([]);
+  const [filtered, setFiltered] = useState([]);
 
   useEffect(() => {
     getGames().then((result) => {
-      setData(
-        result.data.sort((a, b) => {
+      const games = result.data.sort((a, b) => {
           return new Date(a.datetime) - new Date(b.datetime);
         })
-      );
+      setData(games);
+      setFiltered(games);
       // **Don't believe this is necessary since it is handled by backend prior to API endpoint**
       // setData(data.filter((x) => Date.parse(x.datetime) > new Date()));
     });
   }, []);
+
+  const filterGames = (text) => {
+    if (text && text.length > 0) {
+      const lcText = text.toLocaleLowerCase();
+      const filteredGames = data.filter(
+        (gameData) =>
+          gameData &&
+          ((gameData.players &&
+            gameData.players.some(
+              (player) =>
+                player &&
+                ((player.discord_name &&
+                  player.discord_name.toLocaleLowerCase().includes(lcText)) ||
+                  (player.discord_id && ('' + player.discord_id).includes(text)))
+            )) ||
+            (gameData.dm_name && gameData.dm_name.toLocaleLowerCase().includes(lcText)))
+      );
+      setFiltered(filteredGames);
+    } else {
+      setFiltered(data);
+    }
+  }
   const lastDate = data.map((a) => a.datetime).reverse()[0];
   return (
     <React.Fragment>
@@ -68,10 +89,7 @@ export default function Calendar() {
       </Grid>
       <Divider variant="middle" sx={{ mb: 2.5 }} />
       <NameFilter
-        data={data}
-        setFiltered={setFiltered}
-        activeName={activeName}
-        setActiveName={setActiveName}
+        onChange={(text) => filterGames(text)}
       />
       <Grid
         container
@@ -91,7 +109,7 @@ export default function Calendar() {
             <Game {...gameData} />
           </Grid>
         ))}
-        <box>
+        <Box>
           <Fab
             variant="extended"
             color="primary"
@@ -103,7 +121,7 @@ export default function Calendar() {
           >
             <AddBoxIcon fontSize="large" sx={{ mr: 1 }} /> Create a Game
           </Fab>
-        </box>
+        </Box>
       </Grid>
     </React.Fragment>
   );
