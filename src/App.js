@@ -10,8 +10,8 @@ import Calendar from "./pages/Calendar";
 import Team from "./pages/Team";
 import Tridenverse from "./pages/Tridenverse";
 import Dashboard from "./pages/Dashboard";
+import PoliciesPage from "./pages/Policies";
 import ErrorPage from "./pages/ErrorPage";
-// import OnLoadPopUp from "./components/OnLoadPopUp";
 
 function App() {
   return (
@@ -37,6 +37,7 @@ function App() {
                 <Route path="/benefits" element={<Benefits />} />
                 <Route path="/tridenverse" element={<Tridenverse />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/policies" element={<PoliciesPage />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </Grid>
@@ -44,7 +45,6 @@ function App() {
           </Grid>
         </Grid>
       </Router>
-      {/* <OnLoadPopUp /> */}
     </ThemeProvider>
   );
 }

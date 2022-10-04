@@ -37,7 +37,7 @@ function ForWho({ title, content, imageUrl, imageAlt = "Triden Games" }) {
 function Home() {
   return (
     <React.Fragment>
-      <OnLoadPopUp/>
+      <OnLoadPopUp />
       <Grid
         container
         spacing={1}
@@ -140,6 +140,26 @@ function Home() {
               </>
             }
           />
+          <Divider
+            variant="middle"
+            sx={{
+              mt: 6,
+            }}
+          />
+          <Typography
+            variant="subtitle2"
+            color="text.primary"
+            sx={{ my: 2, textAlign: "center" }}
+          >
+            We believe in creating a safe and enjoyable space for everyone, and
+            have a number of{" "}
+            <strong>
+              <a href="/policies" target="_blank" rel="noreferrer">
+                policies
+              </a>
+            </strong>{" "}
+            to make that happen.
+          </Typography>
           <Divider
             variant="middle"
             sx={{
