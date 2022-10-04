@@ -26,7 +26,9 @@ function PoliciesPage() {
         >
           We want to keep Triden a fantastic place to have fun. To that end, we
           have a few rules and policies that help keep everybody safe and things
-          running smoothly.
+          running smoothly. Collectively, the following constitute our Code of
+          Conduct, which must be abided by to participate in games, events and
+          other server activities.
         </Typography>
         <Divider variant="middle" sx={{ py: 1 }} />
         <div className="centraliser">
