@@ -16,7 +16,7 @@ export const policies = [
   },
   {
     name: "Disciplinary Policy",
-    updated: "08-Mar-2022",
+    updated: "13-Oct-2022",
     points: [
       "If you see anything that concerns you, which contravenes these rules, you should privately message any of our @Moderator with green names on Discord, currently:  @𝔇𝔦𝔰𝔠𝔬𝔯𝔡𝔞𝔫𝔱#4688 . Alternatively you can use this form to report a concern anonymously: https://forms.gle/2hnJXbbZ4x4ToZrXA.",
       "Any contravention of the Server Rules will be investigated by a Moderator.The Moderators are empowered to issue a warning / penalty at their discretion, up to and including a ban from the server.",
