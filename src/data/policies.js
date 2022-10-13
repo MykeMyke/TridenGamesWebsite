@@ -18,9 +18,11 @@ export const policies = [
     name: "Disciplinary Policy",
     updated: "08-Mar-2022",
     points: [
-      "Any contravention of the Server Rules will be investigated by a Moderator.  The Moderators are empowered to issue a warning / penalty at their discretion, up to and including a ban from the server.",
+      "If you see anything that concerns you, which contravenes these rules, you should privately message any of our @Moderator with green names on Discord, currently:  @𝔇𝔦𝔰𝔠𝔬𝔯𝔡𝔞𝔫𝔱#4688 . Alternatively you can use this form to report a concern anonymously: https://forms.gle/2hnJXbbZ4x4ToZrXA.",
+      "Any contravention of the Server Rules will be investigated by a Moderator.The Moderators are empowered to issue a warning / penalty at their discretion, up to and including a ban from the server.",
       "If a DM asks for any information prior to a session this must be submitted 24 hours in advance, or longer if specified by the DM.  Players must also give a minimum of 2 hours notice to the DM in the event that they are unable to attend, to enable another member to enjoy the experience. If this notice is not possible, they should message the DM as soon as possible with a brief explanation.  Real life can of course get in the way, but there is an expectation for all members to treat their DMs with respect wherever possible. DMs may report no-shows / no-contact to a Moderator.  Resident DMs will report all such instances 24 hours after game time.  The server operates a 3 strike policy for unexplained no-shows.  Strikes last for a year, are recorded, and are visible to server Staff and Resident DMs.  A third strike will result in a ban from signing up to Resident DM games.",
-      "Members can appeal any disciplinary action to the Head Moderator. In exceptional circumstances or if there is a conflict of interest, the Head Moderator may pass on an appeal to the Admin. The result of this appeal will be delivered privately on Discord and will be a final decision.",
+      "Members will always be notified privately on Discord of any instance of disciplinary action they are the subject of, citing the incident and penalty.  We are still in the process of clarifying a couple of points to ensure that all games keep running smoothly.",
+      "Members can appeal any disciplinary action to the Head Moderator.In exceptional circumstances or if there is a conflict of interest, the Head Moderator may pass on an appeal to the Admin.The result of this appeal will be delivered privately on Discord and will be a final decision.",
     ],
     numbered: "yes",
   },
