@@ -270,3 +270,31 @@ h6 a:hover {
     bottom: 2%;
   }
 }
+
+.filter-dm {
+  background-color: #6CCFF6
+}
+
+.filter-playing {
+  background-color: #9ce37d;
+}
+
+.filter-waitlist {
+  background-color: #ffad33;
+}
+
+.filter {
+  margin-left: 30px;
+  margin-right: 30px;
+  border-radius: 5px 5px 5px 5px;
+  color:white;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+  padding: 0px 0px 1px 0px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.filter-inactive {
+  display: none;
+}

@@ -16,6 +16,7 @@ import { checkTier } from "../utils/tier";
 import { ReleaseDate } from "../utils/releasedate";
 import { checkPlaying } from "../utils/checkPlaying";
 import { checkWaitlisted } from "../utils/checkWaitlisted";
+import FilterMarker from "./filterMarker";
 
 const Players = ({ gameKey, players }) => {
   if (players && players.length > 0) {
@@ -33,7 +34,7 @@ const Players = ({ gameKey, players }) => {
   }
 };
 
-const Game = (props) => {
+const Game = ({props, activeName}) => {
   const {
     module,
     name,
@@ -141,6 +142,7 @@ const Game = (props) => {
           {ReleaseDate(datetime_release, datetime_open_release)}
         </Typography>
       </CardActions>
+      <FilterMarker activeName={activeName} gameData={props}></FilterMarker>
     </Card>
   );
 };
