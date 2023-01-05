@@ -88,7 +88,7 @@ export default function Calendar() {
             md={4}
             lg={3}
           >
-            <Game {...gameData} />
+            <Game props={gameData} activeName={activeName} />
           </Grid>
         ))}
         <box>
