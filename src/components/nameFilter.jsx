@@ -1,40 +1,12 @@
-import { useEffect } from "react";
+
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-function NameFilter({ setActiveName, activeName, setFiltered, data }) {
+function NameFilter({ setActiveName, activeName }) {
   const handleChange = (event) => {
     setActiveName(event.target.value);
   };
-
-  useEffect(() => {
-    if (!activeName || activeName === "" || Array.isArray(activeName)) {
-      setFiltered(data);
-      return;
-    }
-    const filtered = data.filter(
-      (gameData) =>
-        gameData &&
-        ((gameData.players &&
-          gameData.players.some(
-            (player) =>
-              player &&
-              ((player.discord_name &&
-                player.discord_name
-                  .toLocaleLowerCase()
-                  .includes(activeName.toLocaleLowerCase())) ||
-                (player.discord_id &&
-                  player.discord_id.toString().toLocaleLowerCase() ===
-                    activeName.toLocaleLowerCase()))
-          )) ||
-          (gameData.dm_name &&
-            gameData.dm_name
-              .toLocaleLowerCase()
-              .includes(activeName.toLocaleLowerCase())))
-    );
-    setFiltered(filtered);
-  }, [activeName, data, setFiltered]);
 
   // function nameFilter() {
   return (

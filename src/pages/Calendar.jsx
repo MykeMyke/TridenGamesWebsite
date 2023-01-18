@@ -1,8 +1,8 @@
 import "../styles/Global.css";
-import React, { useState, useEffect } from "react";
-
+import React, { useMemo, useState } from "react";
+import Skeleton from '@mui/material/Skeleton';
 import { Fab, Grid, Typography } from "@mui/material";
-import { getGames } from "../api/games";
+import { useGames } from "../api/games";
 import Game from "../components/calendarCard";
 import { checkDaysToGo } from "../utils/daysToGo";
 import TridenAvatar from "../img/TridenAvatar2048.png";
@@ -10,25 +10,47 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import Divider from "@mui/material/Divider";
 import NameFilter from "../components/nameFilter";
 
-export default function Calendar() {
-  const [data, setData] = useState([]);
-  const [filtered, setFiltered] = useState([data]);
-  const [activeName, setActiveName] = useState([]);
+function dummyGame(name) {
+  return { dm_name: name, datetime: Math.random()}
+}
 
-  useEffect(() => {
-    getGames().then((result) => {
-      setData(
-        result.data.sort((a, b) => {
-          return new Date(a.datetime) - new Date(b.datetime);
-        })
-      );
-      // **Don't believe this is necessary since it is handled by backend prior to API endpoint**
-      // setData(data.filter((x) => Date.parse(x.datetime) > new Date()));
-    });
-  }, []);
-  const lastDate = data.map((a) => a.datetime).reverse()[0];
+function filterGames(data, activeName) {
+  return data.filter(
+      (gameData) =>
+        gameData &&
+        ((gameData.players &&
+          gameData.players.some(
+            (player) =>
+              player &&
+              ((player.discord_name &&
+                player.discord_name
+                  .toLocaleLowerCase()
+                  .includes(activeName.toLocaleLowerCase())) ||
+                (player.discord_id &&
+                  player.discord_id.toString().toLocaleLowerCase() ===
+                    activeName.toLocaleLowerCase()))
+          )) ||
+          (gameData.dm_name &&
+            gameData.dm_name
+              .toLocaleLowerCase()
+              .includes(activeName.toLocaleLowerCase())))
+    );
+}
+export default function Calendar() {
+  const [activeName, setActiveName] = useState("");
+  const { data, isLoading } = useGames();
+  const filtered = useMemo(() => {
+    if (isLoading || !data) {
+      return [dummyGame("one"), dummyGame("two"), dummyGame("three"), dummyGame("four")]
+    }
+    return filterGames(data, activeName);
+  }, [isLoading, data, activeName])
+  
+  const lastDate = useMemo(() => {
+    return data?.map((a) => a.datetime).reverse()[0] || new Date();
+  }, [data]);
   return (
-    <React.Fragment>
+    <>
       <Grid
         container
         spacing={1}
@@ -46,30 +68,29 @@ export default function Calendar() {
             color="text.primary"
             sx={{ fontSize: "1.2rem" }}
           >
-            There are <strong>{data.length} games</strong> scheduled in the next{" "}
-            {checkDaysToGo(lastDate)} days
+        {isLoading ? <Skeleton /> : <>There are <strong>{data.length} games</strong> scheduled in the next{" "}
+          {checkDaysToGo(lastDate)} days</>}
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
-            Signups to games on{" "}
-            <a
-              href="https://discord.gg/JDB6BYTK9T"
-              target="_blank"
-              rel="noreferrer"
-            >
-              the Triden Discord server
-            </a>
-            .
+        {isLoading ? <Skeleton /> : <>Signups to games on{" "}
+          <a
+            href="https://discord.gg/JDB6BYTK9T"
+            target="_blank"
+            rel="noreferrer"
+          >
+            the Triden Discord server
+          </a>
+          .</>}
           </Typography>{" "}
           <Typography variant="subtitle1" color="text.primary">
-            (PC: Hover over the Players / Waitlist box for the list of who is
-            signed up...) (Mobile: Press and hold for same)
+        {isLoading ? <Skeleton /> : <>(PC: Hover over the Players / Waitlist box for the list of who is
+          signed up...) (Mobile: Press and hold for same)</>}
           </Typography>
         </Grid>
       </Grid>
       <Divider variant="middle" sx={{ mb: 2.5 }} />
       <NameFilter
         data={data}
-        setFiltered={setFiltered}
         activeName={activeName}
         setActiveName={setActiveName}
       />
@@ -88,7 +109,7 @@ export default function Calendar() {
             md={4}
             lg={3}
           >
-            <Game props={gameData} activeName={activeName} />
+            <Game props={gameData} isLoading={isLoading} activeName={activeName} />
           </Grid>
         ))}
         <box>
@@ -105,6 +126,6 @@ export default function Calendar() {
           </Fab>
         </box>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }
