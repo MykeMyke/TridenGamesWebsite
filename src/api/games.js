@@ -13,15 +13,21 @@ export function useGames() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [data, setData] = useState();
-
   useEffect(() => {
     getGames().then(response => {
       if (response.status === 200) {
       // **Don't believe this is necessary since it is handled by backend prior to API endpoint**
       // setData(data.filter((x) => Date.parse(x.datetime) > new Date()));
-        setData(response.data.sort((a, b) => {
-          return new Date(a.datetime) - new Date(b.datetime);
-        }));
+        const data = response.data.map(game => {
+          return {
+            ...game, datetime: new Date(game.datetime),
+            datetime_open_release: new Date(game.datetime_open_release),
+            datetime_release: new Date(game.datetime_release)
+          }
+        }).sort((a, b) => {
+          return a.datetime - b.datetime;
+        });
+        setData(data);
         setIsLoading(false);
       } else {
         setError(response);

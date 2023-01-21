@@ -5,35 +5,22 @@ function FilterMarker({ gameData, activeName }) {
   let cls = "filter ";
   let text = "";
   if (activeName && activeName !== "" && !Array.isArray(activeName)) {
+    const lowerName = activeName.toLocaleLowerCase();
     if (
-      gameData.dm_name &&
-      gameData.dm_name
-        .toLocaleLowerCase()
-        .includes(activeName.toLocaleLowerCase())
+      gameData?.dm_name?.toLocaleLowerCase()
+        .includes(lowerName)
     ) {
       cls += "filter-dm";
       text = "Dungeon Master";
     } else if (gameData.players) {
-      var count = 0;
-      for (let player of gameData.players) {
-        if (player.standby) count++;
-        if (
-          (player.discord_name &&
-            player.discord_name
-              .toLocaleLowerCase()
-              .includes(activeName.toLocaleLowerCase())) ||
-          (player.discord_id &&
-            player.discord_id.toString().toLocaleLowerCase() ===
-              activeName.toLocaleLowerCase())
-        ) {
-          if (player.standby) {
+      const idx = gameData.players.findIndex(player => player.discord_name?.toLocaleLowerCase().includes(lowerName) || player.discord_id?.toString() === lowerName) + 1;
+      if (idx > 0) {
+        if (idx > gameData.max_players) {
             cls += "filter-waitlist";
-            text = "Waitlist - Position " + count;
-          } else {
+            text = "Waitlist - Position " + (idx - gameData.max_players);
+        } else {
             cls += "filter-playing";
             text = "Playing";
-          }
-          break;
         }
       }
     }

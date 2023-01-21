@@ -15,7 +15,8 @@ function dummyGame(name) {
 }
 
 function filterGames(data, activeName) {
-  return data.filter(
+  if (activeName?.length > 0) {
+    return data.filter(
       (gameData) =>
         gameData &&
         ((gameData.players &&
@@ -28,14 +29,18 @@ function filterGames(data, activeName) {
                   .includes(activeName.toLocaleLowerCase())) ||
                 (player.discord_id &&
                   player.discord_id.toString().toLocaleLowerCase() ===
-                    activeName.toLocaleLowerCase()))
+                  activeName.toLocaleLowerCase()))
           )) ||
           (gameData.dm_name &&
             gameData.dm_name
               .toLocaleLowerCase()
               .includes(activeName.toLocaleLowerCase())))
     );
+  } else {
+    return data;
+  }
 }
+
 export default function Calendar() {
   const [activeName, setActiveName] = useState("");
   const { data, isLoading } = useGames();
