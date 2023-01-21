@@ -13,7 +13,7 @@ function NameFilter({ setActiveName, activeName, slots, setSlots }) {
     if (!activeName.length && !slots.length) {
       return "None"
     }
-    return `${activeName?.length ? `By Name: ${activeName}, ` : ""}${slots.length ? `Start Time: ${slots.sort().map(slot => timeStrings[slot]).join(', ')}` : ""}`
+    return `${activeName?.length ? `By Name: ${activeName}${slots.length ? "," : ""} ` : ""}${slots.length ? `Start Time: ${slots.sort().map(slot => timeStrings[slot]).join(', ')}` : ""}`
   }, [ activeName, slots])
   // function nameFilter() {
   return (
