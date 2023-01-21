@@ -28,11 +28,12 @@ function NameFilter({ setActiveName, activeName, slots, setSlots }) {
         ml: 2,
       }}
       >
-        <Button color="secondary" variant="contained" onClick={() => setOpen(!open)}>Filters</Button> Active: {filterString}
+        <Button classes="filterDrawer" color="secondary" variant="contained" onClick={() => setOpen(!open)}>Filters</Button> Active: {filterString}
       </Box>
-    <Drawer variant="temporary" open={open} style={{position: "relative"}} control>
+    <Drawer variant="temporary" BackdropProps={{ invisible: true }} open={open} className="filterDrawer">
       <Box
           sx={{
+          paddingTop: "75px",
         maxWidth:"300px",
         display: "flex",
         flexDirection:"column",

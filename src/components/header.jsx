@@ -14,8 +14,8 @@ import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
-    <Box sx={{ justifyContent: "space-between" }}>
-      <AppBar position="fixed">
+    <Box sx={{ justifyContent: "space-between", color: "red"}}>
+      <AppBar position="fixed" sx={{zIndex: 99999}}>
         <Toolbar>
           <Grid
             container
