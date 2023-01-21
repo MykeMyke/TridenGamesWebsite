@@ -14,12 +14,12 @@ function dummyGame(name) {
   return { dm_name: name, datetime: Math.random()}
 }
 
-function filterGames(data, activeName) {
-  if (activeName?.length > 0) {
-    return data.filter(
-      (gameData) =>
-        gameData &&
-        ((gameData.players &&
+function slotFilterFn(gameData, slots) {
+    return slots.length === 0 || slots.some(s => s === gameData.slot)
+}
+
+function nameFilterFn(gameData, activeName) {
+  return ((gameData.players &&
           gameData.players.some(
             (player) =>
               player &&
@@ -35,7 +35,15 @@ function filterGames(data, activeName) {
             gameData.dm_name
               .toLocaleLowerCase()
               .includes(activeName.toLocaleLowerCase())))
-    );
+}
+
+
+function filterGames(data, activeName, slot) {
+  if (slot >= 0 || activeName?.length > 0) {
+    return data.filter(
+      (gameData) => {
+        return slotFilterFn(gameData, slot) && nameFilterFn(gameData, activeName)
+      });
   } else {
     return data;
   }
@@ -43,13 +51,15 @@ function filterGames(data, activeName) {
 
 export default function Calendar() {
   const [activeName, setActiveName] = useState("");
+  const [slots, setSlots] = useState([]);
+  
   const { data, isLoading } = useGames();
   const filtered = useMemo(() => {
     if (isLoading || !data) {
       return [dummyGame("one"), dummyGame("two"), dummyGame("three"), dummyGame("four")]
     }
-    return filterGames(data, activeName);
-  }, [isLoading, data, activeName])
+    return filterGames(data, activeName, slots);
+  }, [isLoading, data, activeName, slots])
   
   const lastDate = useMemo(() => {
     return data?.map((a) => a.datetime).reverse()[0] || new Date();
@@ -96,6 +106,8 @@ export default function Calendar() {
       <Divider variant="middle" sx={{ mb: 2.5 }} />
       <NameFilter
         data={data}
+        slots={slots}
+        setSlots={setSlots}
         activeName={activeName}
         setActiveName={setActiveName}
       />

@@ -1,24 +1,65 @@
 
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import { useMemo, useState } from 'react';
+import { Box, Button, Checkbox, Drawer, FormControlLabel, FormHelperText, TextField } from "@mui/material";
+import { ChevronLeft, ChevronRight } from "@mui/icons-material"
+import { timeSlots } from "../api/games";
 
-function NameFilter({ setActiveName, activeName }) {
-  const handleChange = (event) => {
-    setActiveName(event.target.value);
-  };
+const timeStrings = timeSlots.map(slot => slot.text)
 
+function NameFilter({ setActiveName, activeName, slots, setSlots }) {
+  const [open, setOpen] = useState(false);
+
+  const filterString = useMemo(() => {
+    if (!activeName.length && !slots.length) {
+      return "None"
+    }
+    return `${activeName?.length ? `By Name: ${activeName}, ` : ""}${slots.length ? `Start Time: ${slots.sort().map(slot => timeStrings[slot]).join(', ')}` : ""}`
+  }, [ activeName, slots])
   // function nameFilter() {
   return (
-    <Box
+    <>
+      <Box
       sx={{
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
+        gap: 4,
         mb: 2,
         ml: 2,
       }}
-    >
+      >
+        <Button color="secondary" variant="contained" onClick={() => setOpen(!open)}>Filters</Button> Active: {filterString}
+      </Box>
+    <Drawer variant="temporary" open={open} style={{position: "relative"}} control>
+      <Box
+          sx={{
+        maxWidth:"300px",
+        display: "flex",
+        flexDirection:"column",
+        justifyContent: "flex-start",
+        gap: 4,
+        mb: 2,
+        ml: 2,
+      }}
+        >
+          <Box sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
+            <Button color="secondary" variant="contained" onClick={() => setOpen(false)}>
+              <ChevronLeft />Close Filters
+            </Button>
+          </Box>
+          <Box>
+            <h4>By Time</h4>
+            <Box sx={{ width: "100%", display: "grid", gridTemplateColumns: "50% 50%"}}>
+        {timeSlots.map(slot => (
+          <FormControlLabel key={`${slot.value}_${slot.text}`} checked={slots.some(s => s === slot.value)} control={<Checkbox onChange={(evt) => {
+            if (evt.target.checked) {
+              setSlots([...slots, slot.value])
+            } else {
+              setSlots(slots.filter(s => s !== slot.value))
+            }
+          }} />} label={<FormHelperText>{slot.text}</FormHelperText>} />
+        ))}
+              </Box>
       <TextField
         className="Name-Filter"
         id="nameFilter"
@@ -28,7 +69,7 @@ function NameFilter({ setActiveName, activeName }) {
         size="small"
         margin="dense"
         value={activeName}
-        onChange={handleChange}
+        onChange={(evt) => setActiveName(evt.target.value)}
         sx={{ mr: 1 }}
       />
       <Button
@@ -37,11 +78,16 @@ function NameFilter({ setActiveName, activeName }) {
         size="large"
         onClick={() => {
           setActiveName("");
+          setSlots([]);
         }}
       >
-        Reset
+        Clear All
       </Button>
-    </Box>
+          </Box>
+        </Box>  
+      </Drawer>
+    </>
+    
   );
 }
 
