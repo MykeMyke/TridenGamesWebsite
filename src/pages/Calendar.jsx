@@ -1,6 +1,6 @@
 import "../styles/Global.css";
-import React, { useMemo, useState } from "react";
-import Skeleton from '@mui/material/Skeleton';
+import React, { useEffect, useMemo, useState } from "react";
+import { Box, Skeleton } from '@mui/material';
 import { Fab, Grid, Typography } from "@mui/material";
 import { useGames } from "../api/games";
 import Game from "../components/calendarCard";
@@ -9,6 +9,14 @@ import TridenAvatar from "../img/TridenAvatar2048.png";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import Divider from "@mui/material/Divider";
 import NameFilter from "../components/nameFilter";
+import useLocalStorage, { deleteFromStorage, writeStorage } from "@rehooks/local-storage";
+
+// the prefix serves as a namespace so we will not delete other keys, unless they pick this name
+// leave this the same unless you have a reason to change this
+const SHOW_KEY_PREFIX = "_tridenCalendarFilter_";
+
+const slotsKey = `${SHOW_KEY_PREFIX}_slots`;
+const nameFilterKey = `${SHOW_KEY_PREFIX}_nameFilter`;
 
 function dummyGame(name) {
   return { dm_name: name, datetime: Math.random()}
@@ -50,9 +58,11 @@ function filterGames(data, activeName, slot) {
 }
 
 export default function Calendar() {
-  const [activeName, setActiveName] = useState("");
-  const [slots, setSlots] = useState([]);
-  
+  const [localName, setLocalName] = useLocalStorage(nameFilterKey, "");
+  const [activeName, setActiveName] = useState(localName);
+  const [localSlots, setLocalSlots] = useLocalStorage(slotsKey, "");
+  const [slots, setSlots] = useState(localSlots.split("|").filter(str => str.length > 0).map(str => parseInt(str)));
+
   const { data, isLoading } = useGames();
   const filtered = useMemo(() => {
     if (isLoading || !data) {
@@ -64,6 +74,21 @@ export default function Calendar() {
   const lastDate = useMemo(() => {
     return data?.map((a) => a.datetime).reverse()[0] || new Date();
   }, [data]);
+
+  useEffect(() => {
+    if (activeName?.length) {
+      setLocalName(activeName);
+    } else {
+      deleteFromStorage(nameFilterKey);
+    }
+  }, [setLocalName, activeName]);
+  useEffect(() => {
+    if (slots?.length) {
+      setLocalSlots(slots.join("|"));
+    } else {
+      deleteFromStorage(slotsKey)
+    }
+  }, [setLocalSlots, slots]);
   return (
     <>
       <Grid
@@ -129,7 +154,7 @@ export default function Calendar() {
             <Game props={gameData} isLoading={isLoading} activeName={activeName} />
           </Grid>
         ))}
-        <box>
+        <Box>
           <Fab
             variant="extended"
             color="primary"
@@ -141,7 +166,7 @@ export default function Calendar() {
           >
             <AddBoxIcon fontSize="large" sx={{ mr: 1 }} /> Create a Game
           </Fab>
-        </box>
+        </Box>
       </Grid>
     </>
   );

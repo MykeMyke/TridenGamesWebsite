@@ -1,7 +1,7 @@
 
 import { useMemo, useState } from 'react';
 import { Box, Button, Checkbox, Drawer, FormControlLabel, FormHelperText, TextField } from "@mui/material";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material"
+import { ChevronLeft } from "@mui/icons-material"
 import { timeSlots } from "../api/games";
 
 const timeStrings = timeSlots.map(slot => slot.text)
@@ -9,28 +9,37 @@ const timeStrings = timeSlots.map(slot => slot.text)
 function NameFilter({ setActiveName, activeName, slots, setSlots }) {
   const [open, setOpen] = useState(false);
 
-  const filterString = useMemo(() => {
+  const { filterString, filterCount } = useMemo(() => {
     if (!activeName.length && !slots.length) {
-      return "None"
+      return { filterString: "", filterCount: 0 }
     }
-    return `${activeName?.length ? `By Name: ${activeName}${slots.length ? "," : ""} ` : ""}${slots.length ? `Start Time: ${slots.sort().map(slot => timeStrings[slot]).join(', ')}` : ""}`
+    return {
+      filterString: `${activeName?.length ? `By Name: ${activeName}${slots.length ? "," : ""} ` : ""}${slots.length ? `Start Time: ${slots.sort().map(slot => timeStrings[slot]).join(', ')}` : ""}`,
+      filterCount: slots.length + (activeName.length ? 1 : 0)
+    };
   }, [ activeName, slots])
   // function nameFilter() {
   return (
     <>
       <Box
       sx={{
-        display: "flex",
+          display: "grid",
+        gridTemplateColumns: "40px 100px 80px 1fr",
         justifyContent: "flex-start",
         alignItems: "center",
-        gap: 4,
+        gap: 2,
         mb: 2,
         ml: 2,
+        mr: 2,
       }}
       >
-        <Button classes="filterDrawer" color="secondary" variant="contained" onClick={() => setOpen(!open)}>Filters</Button> Active: {filterString}
+        <span>Filters:</span><Button color="secondary" variant="contained" onClick={() => setOpen(!open)}>Edit{filterCount ? ` (${filterCount})` : ""}</Button> {filterString?.length ? (
+          <><Button color="secondary" variant="contained" onClick={() => { setActiveName(""); setSlots([]) }}>Clear</Button>
+            <span class="desktopOnly">{filterString}</span>
+            </>
+        ): null}
       </Box>
-    <Drawer variant="temporary" BackdropProps={{ invisible: true }} open={open} className="filterDrawer">
+    <Drawer variant="temporary" BackdropProps={{ invisible: true }} open={open}>
       <Box
           sx={{
           paddingTop: "75px",
