@@ -9,7 +9,7 @@ import TridenAvatar from "../img/TridenAvatar2048.png";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import Divider from "@mui/material/Divider";
 import NameFilter from "../components/nameFilter";
-import useLocalStorage, { deleteFromStorage, writeStorage } from "@rehooks/local-storage";
+import useLocalStorage, { deleteFromStorage } from "@rehooks/local-storage";
 
 // the prefix serves as a namespace so we will not delete other keys, unless they pick this name
 // leave this the same unless you have a reason to change this
