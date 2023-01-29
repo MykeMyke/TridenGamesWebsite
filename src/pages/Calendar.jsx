@@ -1,34 +1,96 @@
 import "../styles/Global.css";
-import React, { useState, useEffect } from "react";
-
+import React, { useEffect, useMemo, useState } from "react";
+import { Box, Skeleton } from '@mui/material';
 import { Fab, Grid, Typography } from "@mui/material";
-import { getGames } from "../api/games";
+import { useGames } from "../api/games";
 import Game from "../components/calendarCard";
 import { checkDaysToGo } from "../utils/daysToGo";
 import TridenAvatar from "../img/TridenAvatar2048.png";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import Divider from "@mui/material/Divider";
 import NameFilter from "../components/nameFilter";
+import useLocalStorage, { deleteFromStorage } from "@rehooks/local-storage";
+
+// the prefix serves as a namespace so we will not delete other keys, unless they pick this name
+// leave this the same unless you have a reason to change this
+const SHOW_KEY_PREFIX = "_tridenCalendarFilter_";
+
+const slotsKey = `${SHOW_KEY_PREFIX}_slots`;
+const nameFilterKey = `${SHOW_KEY_PREFIX}_nameFilter`;
+
+function dummyGame(name) {
+  return { dm_name: name, datetime: Math.random()}
+}
+
+function slotFilterFn(gameData, slots) {
+    return slots.length === 0 || slots.some(s => s === gameData.slot)
+}
+
+function nameFilterFn(gameData, activeName) {
+  return ((gameData.players &&
+          gameData.players.some(
+            (player) =>
+              player &&
+              ((player.discord_name &&
+                player.discord_name
+                  .toLocaleLowerCase()
+                  .includes(activeName.toLocaleLowerCase())) ||
+                (player.discord_id &&
+                  player.discord_id.toString().toLocaleLowerCase() ===
+                  activeName.toLocaleLowerCase()))
+          )) ||
+          (gameData.dm_name &&
+            gameData.dm_name
+              .toLocaleLowerCase()
+              .includes(activeName.toLocaleLowerCase())))
+}
+
+
+function filterGames(data, activeName, slot) {
+  if (slot >= 0 || activeName?.length > 0) {
+    return data.filter(
+      (gameData) => {
+        return slotFilterFn(gameData, slot) && nameFilterFn(gameData, activeName)
+      });
+  } else {
+    return data;
+  }
+}
 
 export default function Calendar() {
-  const [data, setData] = useState([]);
-  const [filtered, setFiltered] = useState([data]);
-  const [activeName, setActiveName] = useState([]);
+  const [localName, setLocalName] = useLocalStorage(nameFilterKey, "");
+  const [activeName, setActiveName] = useState(localName);
+  const [localSlots, setLocalSlots] = useLocalStorage(slotsKey, "");
+  const [slots, setSlots] = useState(localSlots.split("|").filter(str => str.length > 0).map(str => parseInt(str)));
+
+  const { data, isLoading } = useGames();
+  const filtered = useMemo(() => {
+    if (isLoading || !data) {
+      return [dummyGame("one"), dummyGame("two"), dummyGame("three"), dummyGame("four")]
+    }
+    return filterGames(data, activeName, slots);
+  }, [isLoading, data, activeName, slots])
+  
+  const lastDate = useMemo(() => {
+    return data?.map((a) => a.datetime).reverse()[0] || new Date();
+  }, [data]);
 
   useEffect(() => {
-    getGames().then((result) => {
-      setData(
-        result.data.sort((a, b) => {
-          return new Date(a.datetime) - new Date(b.datetime);
-        })
-      );
-      // **Don't believe this is necessary since it is handled by backend prior to API endpoint**
-      // setData(data.filter((x) => Date.parse(x.datetime) > new Date()));
-    });
-  }, []);
-  const lastDate = data.map((a) => a.datetime).reverse()[0];
+    if (activeName?.length) {
+      setLocalName(activeName);
+    } else {
+      deleteFromStorage(nameFilterKey);
+    }
+  }, [setLocalName, activeName]);
+  useEffect(() => {
+    if (slots?.length) {
+      setLocalSlots(slots.join("|"));
+    } else {
+      deleteFromStorage(slotsKey)
+    }
+  }, [setLocalSlots, slots]);
   return (
-    <React.Fragment>
+    <>
       <Grid
         container
         spacing={1}
@@ -46,30 +108,31 @@ export default function Calendar() {
             color="text.primary"
             sx={{ fontSize: "1.2rem" }}
           >
-            There are <strong>{data.length} games</strong> scheduled in the next{" "}
-            {checkDaysToGo(lastDate)} days
+        {isLoading ? <Skeleton /> : <>There are <strong>{data.length} games</strong> scheduled in the next{" "}
+          {checkDaysToGo(lastDate)} days</>}
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
-            Signups to games on{" "}
-            <a
-              href="https://discord.gg/JDB6BYTK9T"
-              target="_blank"
-              rel="noreferrer"
-            >
-              the Triden Discord server
-            </a>
-            .
+        {isLoading ? <Skeleton /> : <>Signups to games on{" "}
+          <a
+            href="https://discord.gg/JDB6BYTK9T"
+            target="_blank"
+            rel="noreferrer"
+          >
+            the Triden Discord server
+          </a>
+          .</>}
           </Typography>{" "}
           <Typography variant="subtitle1" color="text.primary">
-            (PC: Hover over the Players / Waitlist box for the list of who is
-            signed up...) (Mobile: Press and hold for same)
+        {isLoading ? <Skeleton /> : <>(PC: Hover over the Players / Waitlist box for the list of who is
+          signed up...) (Mobile: Press and hold for same)</>}
           </Typography>
         </Grid>
       </Grid>
       <Divider variant="middle" sx={{ mb: 2.5 }} />
       <NameFilter
         data={data}
-        setFiltered={setFiltered}
+        slots={slots}
+        setSlots={setSlots}
         activeName={activeName}
         setActiveName={setActiveName}
       />
@@ -88,10 +151,10 @@ export default function Calendar() {
             md={4}
             lg={3}
           >
-            <Game props={gameData} activeName={activeName} />
+            <Game props={gameData} isLoading={isLoading} activeName={activeName} />
           </Grid>
         ))}
-        <box>
+        <Box>
           <Fab
             variant="extended"
             color="primary"
@@ -103,8 +166,8 @@ export default function Calendar() {
           >
             <AddBoxIcon fontSize="large" sx={{ mr: 1 }} /> Create a Game
           </Fab>
-        </box>
+        </Box>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

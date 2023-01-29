@@ -1,52 +1,75 @@
-import { useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 
-function NameFilter({ setActiveName, activeName, setFiltered, data }) {
-  const handleChange = (event) => {
-    setActiveName(event.target.value);
-  };
+import { useMemo, useState } from 'react';
+import { Box, Button, Checkbox, Drawer, FormControlLabel, FormHelperText, TextField } from "@mui/material";
+import { ChevronLeft } from "@mui/icons-material"
+import { timeSlots } from "../api/games";
 
-  useEffect(() => {
-    if (!activeName || activeName === "" || Array.isArray(activeName)) {
-      setFiltered(data);
-      return;
+const timeStrings = timeSlots.map(slot => slot.text)
+
+function NameFilter({ setActiveName, activeName, slots, setSlots }) {
+  const [open, setOpen] = useState(false);
+
+  const { filterString, filterCount } = useMemo(() => {
+    if (!activeName.length && !slots.length) {
+      return { filterString: "", filterCount: 0 }
     }
-    const filtered = data.filter(
-      (gameData) =>
-        gameData &&
-        ((gameData.players &&
-          gameData.players.some(
-            (player) =>
-              player &&
-              ((player.discord_name &&
-                player.discord_name
-                  .toLocaleLowerCase()
-                  .includes(activeName.toLocaleLowerCase())) ||
-                (player.discord_id &&
-                  player.discord_id.toString().toLocaleLowerCase() ===
-                    activeName.toLocaleLowerCase()))
-          )) ||
-          (gameData.dm_name &&
-            gameData.dm_name
-              .toLocaleLowerCase()
-              .includes(activeName.toLocaleLowerCase())))
-    );
-    setFiltered(filtered);
-  }, [activeName, data, setFiltered]);
-
+    return {
+      filterString: `${activeName?.length ? `By Name: ${activeName}${slots.length ? "," : ""} ` : ""}${slots.length ? `Start Time: ${slots.sort().map(slot => timeStrings[slot]).join(', ')}` : ""}`,
+      filterCount: slots.length + (activeName.length ? 1 : 0)
+    };
+  }, [ activeName, slots])
   // function nameFilter() {
   return (
-    <Box
+    <>
+      <Box
       sx={{
-        display: "flex",
+          display: "grid",
+        gridTemplateColumns: "40px 100px 80px 1fr",
         justifyContent: "flex-start",
         alignItems: "center",
+        gap: 2,
+        mb: 2,
+        ml: 2,
+        mr: 2,
+      }}
+      >
+        <span>Filters:</span><Button color="secondary" variant="contained" onClick={() => setOpen(!open)}>Edit{filterCount ? ` (${filterCount})` : ""}</Button> {filterString?.length ? (
+          <><Button color="secondary" variant="contained" onClick={() => { setActiveName(""); setSlots([]) }}>Clear</Button>
+            <span class="desktopOnly">{filterString}</span>
+            </>
+        ): null}
+      </Box>
+    <Drawer variant="temporary" BackdropProps={{ invisible: true }} open={open}>
+      <Box
+          sx={{
+          paddingTop: "75px",
+        maxWidth:"300px",
+        display: "flex",
+        flexDirection:"column",
+        justifyContent: "flex-start",
+        gap: 4,
         mb: 2,
         ml: 2,
       }}
-    >
+        >
+          <Box sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
+            <Button color="secondary" variant="contained" onClick={() => setOpen(false)}>
+              <ChevronLeft />Close Filters
+            </Button>
+          </Box>
+          <Box>
+            <h4>By Time</h4>
+            <Box sx={{ width: "100%", display: "grid", gridTemplateColumns: "50% 50%"}}>
+        {timeSlots.map(slot => (
+          <FormControlLabel key={`${slot.value}_${slot.text}`} checked={slots.some(s => s === slot.value)} control={<Checkbox onChange={(evt) => {
+            if (evt.target.checked) {
+              setSlots([...slots, slot.value])
+            } else {
+              setSlots(slots.filter(s => s !== slot.value))
+            }
+          }} />} label={<FormHelperText>{slot.text}</FormHelperText>} />
+        ))}
+              </Box>
       <TextField
         className="Name-Filter"
         id="nameFilter"
@@ -56,7 +79,7 @@ function NameFilter({ setActiveName, activeName, setFiltered, data }) {
         size="small"
         margin="dense"
         value={activeName}
-        onChange={handleChange}
+        onChange={(evt) => setActiveName(evt.target.value)}
         sx={{ mr: 1 }}
       />
       <Button
@@ -65,11 +88,16 @@ function NameFilter({ setActiveName, activeName, setFiltered, data }) {
         size="large"
         onClick={() => {
           setActiveName("");
+          setSlots([]);
         }}
       >
-        Reset
+        Clear All
       </Button>
-    </Box>
+          </Box>
+        </Box>  
+      </Drawer>
+    </>
+    
   );
 }
 

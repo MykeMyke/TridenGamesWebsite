@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DataTable from "../components/DataTable";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { getGames } from "../api/games";
+import { useGames } from "../api/games";
 import Button from "@mui/material/Button";
 import { toLocalString } from "../utils/formatting";
 
@@ -52,25 +52,15 @@ const gamesTableStyles = {
 };
 
 const UserTable = ({ onError }) => {
-  const [games, setGames] = useState([]);
-
-  useEffect(() => {
-    getGames().then((result) => {
-      setGames(
-        result.data.sort((a, b) => {
-          return new Date(a.datetime) - new Date(b.datetime);
-        })
-      );
-    });
-  }, []);
-
+  const { data: games, isLoading} = useGames();
+  
   return (
     <Card sx={{ mx: 2 }}>
       <CardContent>
         <DataTable
-          rows={games}
+          rows={games ?? []}
           columns={columns}
-          loading={!games.length}
+          loading={isLoading}
           sx={gamesTableStyles}
         />
       </CardContent>
