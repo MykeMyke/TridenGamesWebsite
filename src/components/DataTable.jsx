@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
 const DataTable = ({ rows, columns, loading, sx }) => {
-  const [pageSize, setPageSize] = useState(30);
+  const [pageSize, setPageSize] = useState(50);
 
   return (
     <DataGrid
