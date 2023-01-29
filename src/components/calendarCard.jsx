@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import FullDescPopover from "./FullDescPopover";
 import CalendarAddPopover from "./CalendarAddPopover";
 import { toLocalString } from "../utils/formatting";
-import { checkTier, checkTierImage } from "../utils/tier";
+import { checkTier } from "../utils/tier";
 import { ReleaseDate } from "../utils/releasedate";
 import { checkPlaying } from "../utils/checkPlaying";
 import { checkWaitlisted } from "../utils/checkWaitlisted";
@@ -79,7 +79,6 @@ const Game = ({props, activeName}) => {
             my: 0.6,
           }}
         />
-        <Box className={checkTierImage(level_min, level_max)}>
         <Typography variant="cardmain" color="text.primary">
           {name}
         </Typography>
@@ -92,7 +91,6 @@ const Game = ({props, activeName}) => {
         >
           <FullDescPopover game={props} /> <CalendarAddPopover game={props} />
         </Grid>
-        </Box>
         <Divider variant="middle" sx={{ mb: 1 }} />
         <Typography variant="subtitle2" color="text.primary" display="block">
           DM: {dm_name}
