@@ -1,6 +1,6 @@
 import "../styles/Global.css";
 import React, { useEffect, useMemo, useState } from "react";
-import { Box, Skeleton } from '@mui/material';
+import { Box, Skeleton } from "@mui/material";
 import { Fab, Grid, Typography } from "@mui/material";
 import { useGames } from "../api/games";
 import Game from "../components/calendarCard";
@@ -19,39 +19,39 @@ const slotsKey = `${SHOW_KEY_PREFIX}_slots`;
 const nameFilterKey = `${SHOW_KEY_PREFIX}_nameFilter`;
 
 function dummyGame(name) {
-  return { dm_name: name, datetime: Math.random()}
+  return { dm_name: name, datetime: Math.random() };
 }
 
 function slotFilterFn(gameData, slots) {
-    return slots.length === 0 || slots.some(s => s === gameData.slot)
+  return slots.length === 0 || slots.some((s) => s === gameData.slot);
 }
 
 function nameFilterFn(gameData, activeName) {
-  return ((gameData.players &&
-          gameData.players.some(
-            (player) =>
-              player &&
-              ((player.discord_name &&
-                player.discord_name
-                  .toLocaleLowerCase()
-                  .includes(activeName.toLocaleLowerCase())) ||
-                (player.discord_id &&
-                  player.discord_id.toString().toLocaleLowerCase() ===
-                  activeName.toLocaleLowerCase()))
-          )) ||
-          (gameData.dm_name &&
-            gameData.dm_name
+  return (
+    (gameData.players &&
+      gameData.players.some(
+        (player) =>
+          player &&
+          ((player.discord_name &&
+            player.discord_name
               .toLocaleLowerCase()
-              .includes(activeName.toLocaleLowerCase())))
+              .includes(activeName.toLocaleLowerCase())) ||
+            (player.discord_id &&
+              player.discord_id.toString().toLocaleLowerCase() ===
+                activeName.toLocaleLowerCase()))
+      )) ||
+    (gameData.dm_name &&
+      gameData.dm_name
+        .toLocaleLowerCase()
+        .includes(activeName.toLocaleLowerCase()))
+  );
 }
-
 
 function filterGames(data, activeName, slot) {
   if (slot >= 0 || activeName?.length > 0) {
-    return data.filter(
-      (gameData) => {
-        return slotFilterFn(gameData, slot) && nameFilterFn(gameData, activeName)
-      });
+    return data.filter((gameData) => {
+      return slotFilterFn(gameData, slot) && nameFilterFn(gameData, activeName);
+    });
   } else {
     return data;
   }
@@ -61,16 +61,34 @@ export default function Calendar() {
   const [localName, setLocalName] = useLocalStorage(nameFilterKey, "");
   const [activeName, setActiveName] = useState(localName);
   const [localSlots, setLocalSlots] = useLocalStorage(slotsKey, "");
-  const [slots, setSlots] = useState(localSlots.split("|").filter(str => str.length > 0).map(str => parseInt(str)));
+  const [slots, setSlots] = useState(
+    localSlots
+      .split("|")
+      .filter((str) => str.length > 0)
+      .map((str) => parseInt(str))
+  );
 
   const { data, isLoading } = useGames();
   const filtered = useMemo(() => {
     if (isLoading || !data) {
-      return [dummyGame("one"), dummyGame("two"), dummyGame("three"), dummyGame("four")]
+      return [
+        dummyGame("one"),
+        dummyGame("two"),
+        dummyGame("three"),
+        dummyGame("four"),
+        dummyGame("five"),
+        dummyGame("six"),
+        dummyGame("seven"),
+        dummyGame("eight"),
+        dummyGame("nine"),
+        dummyGame("ten"),
+        dummyGame("eleven"),
+        dummyGame("twelve"),
+      ];
     }
     return filterGames(data, activeName, slots);
-  }, [isLoading, data, activeName, slots])
-  
+  }, [isLoading, data, activeName, slots]);
+
   const lastDate = useMemo(() => {
     return data?.map((a) => a.datetime).reverse()[0] || new Date();
   }, [data]);
@@ -86,7 +104,7 @@ export default function Calendar() {
     if (slots?.length) {
       setLocalSlots(slots.join("|"));
     } else {
-      deleteFromStorage(slotsKey)
+      deleteFromStorage(slotsKey);
     }
   }, [setLocalSlots, slots]);
   return (
@@ -108,23 +126,51 @@ export default function Calendar() {
             color="text.primary"
             sx={{ fontSize: "1.2rem" }}
           >
-        {isLoading ? <Skeleton /> : <>There are <strong>{data.length} games</strong> scheduled in the next{" "}
-          {checkDaysToGo(lastDate)} days</>}
+            {isLoading ? (
+              <Skeleton animation="wave" />
+            ) : (
+              <>
+                There are <strong>{data.length} games</strong> scheduled in the
+                next {checkDaysToGo(lastDate)} days
+              </>
+            )}
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
-        {isLoading ? <Skeleton /> : <>Signups to games on{" "}
-          <a
-            href="https://discord.gg/JDB6BYTK9T"
-            target="_blank"
-            rel="noreferrer"
-          >
-            the Triden Discord server
-          </a>
-          .</>}
+            {isLoading ? (
+              <Skeleton animation="wave" />
+            ) : (
+              <>
+                Signups to games on{" "}
+                <a
+                  href="https://discord.gg/JDB6BYTK9T"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  the Triden Discord server
+                </a>
+                .
+              </>
+            )}
           </Typography>{" "}
           <Typography variant="subtitle1" color="text.primary">
-        {isLoading ? <Skeleton /> : <>(PC: Hover over the Players / Waitlist box for the list of who is
-          signed up...) (Mobile: Press and hold for same)</>}
+            {isLoading ? (
+              <Skeleton animation="wave" />
+            ) : (
+              <>
+                Hover over or press the Players / Waitlist box for the list of
+                who is signed up...
+              </>
+            )}
+          </Typography>
+          <Typography variant="subtitle1" color="text.primary">
+            {isLoading ? (
+              <Skeleton animation="wave" />
+            ) : (
+              <>
+                Use the filters to search for your games, or for games as
+                certain times.
+              </>
+            )}
           </Typography>
         </Grid>
       </Grid>
@@ -151,7 +197,11 @@ export default function Calendar() {
             md={4}
             lg={3}
           >
-            <Game props={gameData} isLoading={isLoading} activeName={activeName} />
+            <Game
+              props={gameData}
+              isLoading={isLoading}
+              activeName={activeName}
+            />
           </Grid>
         ))}
         <Box>

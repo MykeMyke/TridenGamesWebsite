@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Box } from "@mui/system";
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -37,7 +37,7 @@ const Players = ({ gameKey, players }) => {
 
 const SKELETON_SX = { maxWidth: 450, width: "100%" };
 
-const Game = ({props, activeName, isLoading}) => {
+const Game = ({ props, activeName, isLoading }) => {
   const {
     module,
     name,
@@ -61,24 +61,44 @@ const Game = ({props, activeName, isLoading}) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          {isLoading ? <Skeleton height={74} sx={SKELETON_SX} /> : (<>
-            <Box>
-              <Typography variant="cardmain" color="text.primary" marginRight={3}>
-                {toLocalString(datetime)}
+          {isLoading ? (
+            <Skeleton height={74} sx={SKELETON_SX} />
+          ) : (
+            <>
+              <Box>
+                <Typography
+                  variant="cardmain"
+                  color="text.primary"
+                  marginRight={3}
+                >
+                  {toLocalString(datetime)}
+                </Typography>
+                <Typography variant="subtitle2" color="text.secondary">
+                  {length}
+                </Typography>
+              </Box>
+            </>
+          )}
+          {isLoading ? (
+            <Skeleton height={22} sx={SKELETON_SX} />
+          ) : (
+            <>
+              <Typography
+                variant="subtitle"
+                color="text.primary"
+                sx={{ mr: 1 }}
+              >
+                {module}
               </Typography>
-              <Typography variant="subtitle2" color="text.secondary">
-                {length}
+              <Typography
+                variant="subtitle2"
+                color="text.primary"
+                display="block"
+              >
+                {checkTier(level_min, level_max)}
               </Typography>
-            </Box>
-          </>)}
-          {isLoading ? <Skeleton height={22} sx={SKELETON_SX}/> : (<>
-          <Typography variant="subtitle" color="text.primary" sx={{ mr: 1 }}>
-            {module}
-          </Typography>
-          <Typography variant="subtitle2" color="text.primary" display="block">
-            {checkTier(level_min, level_max)}
-          </Typography>
-            </>)}
+            </>
+          )}
         </Grid>
         <Divider
           variant="middle"
@@ -86,7 +106,9 @@ const Game = ({props, activeName, isLoading}) => {
             my: 0.6,
           }}
         />
-        {isLoading ? <Skeleton height={26} sx={SKELETON_SX}/> : (
+        {isLoading ? (
+          <Skeleton height={26} sx={SKELETON_SX} />
+        ) : (
           <Typography variant="cardmain" color="text.primary">
             {name}
           </Typography>
@@ -98,17 +120,28 @@ const Game = ({props, activeName, isLoading}) => {
           alignItems="center"
           sx={{ mt: 0.2 }}
         >
-          {isLoading ? <Skeleton height={36} sx={SKELETON_SX}/> : (<><FullDescPopover game={props} /> <CalendarAddPopover game={props} /></>)}
+          {isLoading ? (
+            <Skeleton height={36} sx={SKELETON_SX} />
+          ) : (
+            <>
+              <FullDescPopover game={props} />{" "}
+              <CalendarAddPopover game={props} />
+            </>
+          )}
         </Grid>
         <Divider variant="middle" sx={{ mb: 1 }} />
-        {isLoading ? <Skeleton height={22} sx={SKELETON_SX} /> : (
+        {isLoading ? (
+          <Skeleton height={22} sx={SKELETON_SX} />
+        ) : (
           <Typography variant="subtitle2" color="text.primary" display="block">
             DM: {dm_name}
           </Typography>
         )}
       </CardContent>
       <CardActions sx={{ py: 0 }}>
-        {isLoading ? <Skeleton height={72} sx={SKELETON_SX}/> : (
+        {isLoading ? (
+          <Skeleton height={72} sx={SKELETON_SX} />
+        ) : (
           <Grid container direction="row" justifyContent="space-between">
             <Tooltip
               title={
@@ -152,7 +185,9 @@ const Game = ({props, activeName, isLoading}) => {
       </CardActions>
       <CardActions sx={{ pt: 0.2 }}>
         <Typography variant="suffix" color="text.secondary">
-          {isLoading ? null : ReleaseDate(datetime_release, datetime_open_release)}
+          {isLoading
+            ? null
+            : ReleaseDate(datetime_release, datetime_open_release)}
         </Typography>
       </CardActions>
       <FilterMarker activeName={activeName} gameData={props}></FilterMarker>
