@@ -57,16 +57,24 @@ function filterGames(data, activeName, slot) {
   }
 }
 
+function createSlots(storedSlot) {
+  if (storedSlot) {
+    if (typeof storedSlot === 'number') {
+      return [storedSlot];
+    }
+    return storedSlot
+      .split("|")
+      .filter((str) => str.length > 0)
+      .map((str) => parseInt(str))
+  }
+  return [];
+}
+
 export default function Calendar() {
   const [localName, setLocalName] = useLocalStorage(nameFilterKey, "");
   const [activeName, setActiveName] = useState(localName);
   const [localSlots, setLocalSlots] = useLocalStorage(slotsKey, "");
-  const [slots, setSlots] = useState(
-    localSlots
-      .split("|")
-      .filter((str) => str.length > 0)
-      .map((str) => parseInt(str))
-  );
+  const [slots, setSlots] = useState(createSlots(localSlots));
 
   const { data, isLoading } = useGames();
   const filtered = useMemo(() => {
