@@ -198,7 +198,7 @@ export default function Calendar() {
       >
         {filtered.map((gameData) => (
           <Grid
-            key={`${gameData.dm_name}_${gameData.datetime}`}
+            key={`${gameData.dm_name}_${gameData.datetime}_${gameData.id}`}
             item
             xs={12}
             sm={6}
@@ -210,7 +210,7 @@ export default function Calendar() {
               isLoading={isLoading}
               activeName={activeName}
             />
-          </Grid>
+            </Grid>
         ))}
         <Box>
           <Fab
