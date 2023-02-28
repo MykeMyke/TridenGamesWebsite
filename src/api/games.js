@@ -32,8 +32,8 @@ export function useGames() {
             ...game,
             datetime: new Date(game.datetime),
             slot: Math.floor(new Date(game.datetime).getHours()/4),
-            datetime_open_release: new Date(game.datetime_open_release),
-            datetime_release: new Date(game.datetime_release)
+            datetime_open_release: game.datetime_open_release === null ? null : new Date(game.datetime_open_release),
+            datetime_release: game.datetime_release === null ?  null : new Date(game.datetime_release)
           }
         }).sort((a, b) => {
           return a.datetime - b.datetime;
