@@ -13,7 +13,8 @@ export default function AuthButton() {
   };
 
   const discordAuth = () => {
-    const url = "/discord_auth/login/";
+    const url =
+      "https://unseen-servant.digitaldemiplane.com/discord_auth/login/";
 
     window.open(url, "_blank", "noreferrer");
     closeMenu();
