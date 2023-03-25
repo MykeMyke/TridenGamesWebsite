@@ -34,6 +34,6 @@ export default function stringAvatar(name) {
       cursor: "pointer",
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(" ")[0]}`,
+    children: `${name.split("")[0]}`,
   };
 }

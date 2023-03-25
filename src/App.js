@@ -16,6 +16,7 @@ import Tridenverse from "./pages/Tridenverse";
 import Dashboard from "./pages/Dashboard";
 import PoliciesPage from "./pages/Policies";
 import MemberLandingPage from "./pages/MemberLandingPage";
+import GameCreationPage from "./pages/GameCreationPage";
 import ErrorPage from "./pages/ErrorPage";
 import AuthErrorPage from "./pages/AuthErrorPage";
 
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/policies" element={<PoliciesPage />} />
                 <Route path="/members" element={<MemberLandingPage />} />
+                <Route path="/game/create" element={<GameCreationPage />} />
                 <Route
                   path="/discord_auth_done"
                   element={<DiscordAuthDone />}
