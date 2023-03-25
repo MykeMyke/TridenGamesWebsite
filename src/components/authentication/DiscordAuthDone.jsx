@@ -10,6 +10,7 @@ export function DiscordAuthDone() {
 
   useEffect(() => {
     getUserDetails().then((response) => {
+      console.log(response);
       setData(response.data);
     });
 
