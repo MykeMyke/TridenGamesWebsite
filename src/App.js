@@ -7,6 +7,7 @@ import "./styles/Global.css";
 import TridenTheme from "./styles/theme";
 
 import Header from "./components/header";
+import { DiscordAuthDone } from "./components/authentication/DiscordAuthDone";
 import Home from "./pages/Home";
 import Benefits from "./pages/Benefits";
 import Calendar from "./pages/Calendar";
@@ -43,6 +44,10 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/policies" element={<PoliciesPage />} />
                 <Route path="/members" element={<MemberLandingPage />} />
+                <Route
+                  path="/discord_auth/done"
+                  element={<DiscordAuthDone />}
+                />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </Grid>
