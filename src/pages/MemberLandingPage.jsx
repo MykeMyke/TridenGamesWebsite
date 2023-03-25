@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { Container, Box, Typography, Button } from "@mui/material";
 
 import userDataStore from "../datastore/userdata";
@@ -5,6 +7,7 @@ import RankWidget from "../components/user/RankWidget";
 import { hasDMRank } from "../utils/ranks";
 
 export default function MemberLandingPage() {
+  const navigate = useNavigate();
   const [username, ranks] = userDataStore((s) => [s.username, s.ranks]);
 
   return (
@@ -20,7 +23,9 @@ export default function MemberLandingPage() {
       >
         <Typography>Welcome {username}</Typography>
         {hasDMRank(ranks) && (
-          <Button variant="outlined">Create new game</Button>
+          <Button variant="outlined" onClick={() => navigate("/game/create")}>
+            Create new game
+          </Button>
         )}
       </Box>
       <Box
