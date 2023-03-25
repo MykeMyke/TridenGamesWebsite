@@ -45,7 +45,7 @@ function App() {
                 <Route path="/policies" element={<PoliciesPage />} />
                 <Route path="/members" element={<MemberLandingPage />} />
                 <Route
-                  path="/discord_auth/done"
+                  path="/discord_auth_done"
                   element={<DiscordAuthDone />}
                 />
                 <Route path="*" element={<ErrorPage />} />
