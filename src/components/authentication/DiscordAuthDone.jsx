@@ -9,12 +9,15 @@ export function DiscordAuthDone() {
   const setData = userDataStore((s) => setData);
 
   useEffect(() => {
-    getUserDetails().then((response) => {
-      console.log(response);
-      setData(response.data);
-    });
-
-    navigate("/members");
+    getUserDetails()
+      .then((response) => {
+        console.log(response);
+        setData(response.data);
+        navigate("/members");
+      })
+      .catch((error) => {
+        navigate("/auth_error");
+      });
   }, [navigate, setData]);
 
   return null;
