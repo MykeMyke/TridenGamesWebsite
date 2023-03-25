@@ -6,19 +6,22 @@ import userDataStore from "../../datastore/userdata";
 
 export function DiscordAuthDone() {
   const navigate = useNavigate();
-  const setData = userDataStore((s) => setData);
+  const [setUsername, setRanks] = userDataStore((s) => [
+    s.setUsername,
+    s.setRanks,
+  ]);
 
   useEffect(() => {
     getUserDetails()
       .then((response) => {
-        console.log(response);
-        setData(response.data);
+        let userdata = response.data.user_data;
+        setUsername(userdata.discord_name);
+        setRanks(userdata.ranks);
         navigate("/members");
       })
       .catch((error) => {
         navigate("/auth_error");
       });
-  }, [navigate, setData]);
-
+  }, [navigate, setUsername, setRanks]);
   return null;
 }
