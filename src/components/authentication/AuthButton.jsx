@@ -2,8 +2,12 @@ import React, { useState } from "react";
 
 import { Avatar, Menu, MenuItem } from "@mui/material";
 
+import userDataStore from "../../datastore/userdata";
+import stringAvatar from "../utilities/stringAvatar";
+
 export default function AuthButton() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const data = userDataStore((s) => s.data);
 
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -22,7 +26,7 @@ export default function AuthButton() {
 
   return (
     <React.Fragment>
-      <Avatar onClick={openMenu} />
+      <Avatar onClick={openMenu} {...stringAvatar(data?.username || "")} />
       <Menu
         id="auth-menu"
         anchorEl={anchorEl}

@@ -17,6 +17,7 @@ import Dashboard from "./pages/Dashboard";
 import PoliciesPage from "./pages/Policies";
 import MemberLandingPage from "./pages/MemberLandingPage";
 import ErrorPage from "./pages/ErrorPage";
+import AuthErrorPage from "./pages/AuthErrorPage";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
                   path="/discord_auth_done"
                   element={<DiscordAuthDone />}
                 />
+                <Route path="/auth_error" element={<AuthErrorPage />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </Grid>
