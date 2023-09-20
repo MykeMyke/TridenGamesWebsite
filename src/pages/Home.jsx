@@ -2,11 +2,6 @@ import "../styles/Global.css";
 import React from "react";
 import { Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import MainBanner from "../img/Banner2.png";
-import PlayerImage from "../img/DeanSpencer-spotcol-signalfire.png";
-import DMImage from "../img/DeanSpencer-spotcol-magicbook.png";
-import CreativesImage from "../img/DeanSpencer-spotcol-vargtank.png";
-import YouImage from "../img/DeanSpencer-spotcol-elfenchanter.png";
 import { Divider } from "@mui/material";
 import OnLoadPopUp from "../components/OnLoadPopUp";
 
@@ -52,7 +47,7 @@ function Home() {
           </Typography>
         </Grid>
         <Grid item>
-          <img src={MainBanner} alt="Triden Games" className="MainBanner" />
+          <img src="/img/Banner2.png" alt="Triden Games" className="MainBanner" />
         </Grid>
         <Grid item>
           <Divider
@@ -77,7 +72,7 @@ function Home() {
           </Typography>
           <ForWho
             title="For Players"
-            imageUrl={PlayerImage}
+            imageUrl="/img/DeanSpencer-spotcol-signalfire.png"
             content={
               <>
                 We run 30+ Adventurer's League games every month, with a
@@ -93,7 +88,7 @@ function Home() {
           />
           <ForWho
             title="For DMs"
-            imageUrl={DMImage}
+            imageUrl="/img/DeanSpencer-spotcol-magicbook.png"
             content={
               <>
                 We have an extensive library of adventure modules (150+), as
@@ -106,7 +101,7 @@ function Home() {
           />
           <ForWho
             title="For Creatives"
-            imageUrl={CreativesImage}
+            imageUrl="/img/DeanSpencer-spotcol-vargtank.png"
             content={
               <>
                 {" "}
@@ -123,7 +118,7 @@ function Home() {
           />
           <ForWho
             title="For You"
-            imageUrl={YouImage}
+            imageUrl="/img/DeanSpencer-spotcol-elfenchanter.png"
             content={
               <>
                 We have an{" "}
