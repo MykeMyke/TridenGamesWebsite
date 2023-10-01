@@ -5,7 +5,6 @@ import { Fab, Grid, Typography } from "@mui/material";
 import { useGames } from "../api/games";
 import Game from "../components/calendarCard";
 import { checkDaysToGo } from "../utils/daysToGo";
-import TridenAvatar from "../img/TridenAvatar2048.png";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import Divider from "@mui/material/Divider";
 import NameFilter from "../components/nameFilter";
@@ -126,7 +125,7 @@ export default function Calendar() {
         sx={{ mb: 2 }}
       >
         <Grid item sx={{ ml: 1.5, pr: 1.5 }}>
-          <img src={TridenAvatar} alt="Triden Games" className="Logo" />
+          <img src="/img/TridenAvatar2048.png" alt="Triden Games" className="Logo" />
         </Grid>
         <Grid item xs={9}>
           <Typography

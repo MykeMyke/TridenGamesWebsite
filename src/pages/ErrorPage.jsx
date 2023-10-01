@@ -1,6 +1,5 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import TridenEtched from "../img/Triden Etched Roundel Transparent-Web.png";
 import Grid from "@mui/material/Grid";
 
 function ErrorPage() {
@@ -15,7 +14,7 @@ function ErrorPage() {
         sx={{ mt: 2 }}
       >
         <Grid item sx={{ ml: 1.5, pr: 1.5 }}>
-          <img src={TridenEtched} alt="Triden Games" className="Logo" />
+          <img src="/img/Triden Etched Roundel Transparent-Web.png" alt="Triden Games" className="Logo" />
         </Grid>
         <Grid item xs={9}>
           <Typography variant="subtitle1" color="text.primary">

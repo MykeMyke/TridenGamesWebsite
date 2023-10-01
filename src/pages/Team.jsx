@@ -5,7 +5,6 @@ import "../styles/Global.css";
 import ResDmBio from "../components/resDMbioCard";
 import { resDMbios } from "../data/resDMbios";
 import Divider from "@mui/material/Divider";
-import ResDMlogo from "../img/Resident-DMs.png";
 import Stack from "@mui/material/Stack";
 import Staff from "../components/staffCards";
 import { staff } from "../data/staff";
@@ -55,7 +54,7 @@ function Team() {
           <div></div>
           <div>
             <img
-              src={ResDMlogo}
+              src="/img/Resident-DMs.png"
               alt="Triden Games Resident DMs"
               className="header-art"
             />

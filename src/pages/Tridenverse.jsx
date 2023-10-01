@@ -10,9 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import LabelImportantIcon from "@mui/icons-material/LabelImportant";
-import PigsFly from "../img/WhenPigsFly.png";
-import TridenverseAd from "../img/TridenAdvert_v2_web.webp";
-import TrayahSpace from "../img/Trayah Space_web.webp";
 import TridenverseModules from "../components/TridenverseModules";
 
 function ListPoint({ content }) {
@@ -123,7 +120,7 @@ function Tridenverse() {
         </Grid>
         <Grid item>
           <img
-            src={PigsFly}
+            src="/img/WhenPigsFly.png"
             alt="Get involved in Spelljammer!"
             className="MainBanner"
           />
@@ -150,7 +147,7 @@ function Tridenverse() {
         </Grid>
         <Grid item>
           <img
-            src={TrayahSpace}
+            src="/img/Trayah Space_web.webp"
             alt="Trayah Space Map"
             className="MainBanner"
           />
@@ -164,7 +161,7 @@ function Tridenverse() {
           />
         </Grid>
         <Grid item>
-          <img src={TridenverseAd} alt="Tridenverse" className="MainBanner" />
+          <img src="/img/TridenAdvert_v2_web.webp" alt="Tridenverse" className="MainBanner" />
         </Grid>
       </Grid>
     </React.Fragment>

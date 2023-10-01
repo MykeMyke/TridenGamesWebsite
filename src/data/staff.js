@@ -10,7 +10,7 @@ export const staff = [
     ],
     quote:
       "'Either / or' situations have a nasty habit of becoming 'both' around me...",
-    image: "img/Staff/Admin.png",
+    image: "/img/Staff/Admin.png",
   },
   {
     position: "Treasurer",
@@ -22,7 +22,7 @@ export const staff = [
       "Funding and Sponsorship",
     ],
     quote: "We're all here to have fun!",
-    image: "img/Staff/Treasurer.png",
+    image: "/img/Staff/Treasurer.png",
   },
   {
     position: "Head Moderator",
@@ -34,7 +34,7 @@ export const staff = [
       "Roll20 Management",
     ],
     quote: "It's difficult to think of a quote!",
-    image: "img/Staff/HeadModerator.png",
+    image: "/img/Staff/HeadModerator.png",
   },
   {
     position: "Head Resident DM",
@@ -46,7 +46,7 @@ export const staff = [
       "DM Training",
     ],
     quote: "That is definitely not a swarm of rats piloting a scarecrow...",
-    image: "img/Staff/HeadDM.png",
+    image: "/img/Staff/HeadDM.png",
   },
   {
     position: "Head Cartographer",
@@ -59,7 +59,7 @@ export const staff = [
     ],
     quote:
       "When in doubt, just put ' Here be dragons!' and let the DM figure it out.",
-    image: "img/Staff/HeadCartographer.png",
+    image: "/img/Staff/HeadCartographer.png",
   },
   {
     position: "Head Developer",
@@ -71,7 +71,7 @@ export const staff = [
       "Tool User Support",
     ],
     quote: "What idiot wrote this nonsense? Oh wait. It was me...",
-    image: "img/Staff/HeadDeveloper.png",
+    image: "/img/Staff/HeadDeveloper.png",
   },
   {
     position: "Head Writer",
@@ -83,6 +83,6 @@ export const staff = [
       "Thought bouncer-off-er",
     ],
     quote: "Since brevity is the soul of wit, I will...",
-    image: "img/Staff/HeadWriter.png",
+    image: "/img/Staff/HeadWriter.png",
   },
 ];

@@ -316,7 +316,7 @@ h6 a:hover {
 }
 
 .tier1 {
-  background-image: url(../img/Tiers/T1.png);
+  background-image: url(/img/Tiers/T1.png);
   background-position: bottom right;
   background-size: 30%;
   background-repeat: no-repeat;
@@ -324,7 +324,7 @@ h6 a:hover {
 }
 
 .tier2 {
-  background-image: url(../img/Tiers/T2.png);
+  background-image: url(/img/Tiers/T2.png);
   background-position: bottom right;
   background-size: 30%;
   background-repeat: no-repeat;
@@ -332,7 +332,7 @@ h6 a:hover {
 }
 
 .tier3 {
-  background-image: url(../img/Tiers/T3.png);
+  background-image: url(/img/Tiers/T3.png);
   background-position: bottom right;
   background-size: 30%;
   background-repeat: no-repeat;
@@ -340,7 +340,7 @@ h6 a:hover {
 }
 
 .tier4 {
-  background-image: url(../img/Tiers/T4.png);
+  background-image: url(/img/Tiers/T4.png);
   background-position: bottom right;
   background-size: 30%;
   background-repeat: no-repeat;
@@ -348,7 +348,7 @@ h6 a:hover {
 }
 
 .specialtier {
-  background-image: url(../img/Tiers/Special.png);
+  background-image: url(/img/Tiers/Special.png);
   background-position: bottom right;
   background-size: 30%;
   background-repeat: no-repeat;

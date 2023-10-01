@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import BenefitsSummary from "../img/Signup Credits.png";
 import { Divider } from "@mui/material";
 import Button from "@mui/material/Button";
 
@@ -100,7 +99,7 @@ function Benefits() {
         </Grid>
         <Grid item>
           <img
-            src={BenefitsSummary}
+            src="/img/Signup Credits.png"
             alt="Triden Games Benefits"
             className="MainBanner"
           />
