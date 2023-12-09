@@ -12,7 +12,7 @@ export const resDMbios = [
     link1: "",
     link2: "",
     location: "Meridian, MS, USA",
-    image: "img/ResDMs/Clark.png",
+    image: "/img/ResDMs/Clark.png",
   },
   {
     name: "MykeMyke",
@@ -27,7 +27,7 @@ export const resDMbios = [
     link1: "https://www.tridengames.com",
     link2: "",
     location: "Aberdeen, Scotland",
-    image: "img/ResDMs/MykeMyke.png",
+    image: "/img/ResDMs/MykeMyke.png",
   },
   {
     name: "Liam James ",
@@ -43,7 +43,7 @@ export const resDMbios = [
     link1: "https://linktr.ee/wormholesandbookworms",
     link2: "",
     location: "Newcastle, England",
-    image: "img/ResDMs/Liam-James.png",
+    image: "/img/ResDMs/Liam-James.png",
   },
   {
     name: "Griffmeister",
@@ -57,7 +57,7 @@ export const resDMbios = [
     link1: "https://www.game-therapy.co.uk",
     link2: "",
     location: "London, England",
-    image: "img/ResDMs/Griffmeister.png",
+    image: "/img/ResDMs/Griffmeister.png",
   },
   {
     name: "J",
@@ -72,7 +72,7 @@ export const resDMbios = [
     link1: "https://www.dmsguild.com/product/393912/WBWDCMOM01-One-Moment",
     link2: "https://flic.kr/p/phB2z2",
     location: "Singapore",
-    image: "img/ResDMs/J.png",
+    image: "/img/ResDMs/J.png",
   },
   {
     name: "Corgibutt",
@@ -88,7 +88,7 @@ export const resDMbios = [
     link1: "https://bit.ly/FeedTheCorgi",
     link2: "https://bit.ly/ReviewTheCorgi",
     location: "Manila, Philippines",
-    image: "img/ResDMs/Corgibutt.png",
+    image: "/img/ResDMs/Corgibutt.png",
   },
   {
     name: "Shane H",
@@ -103,7 +103,7 @@ export const resDMbios = [
     link1: "",
     link2: "",
     location: "Dublin, Ireland",
-    image: "img/ResDMs/Shane-H.png",
+    image: "/img/ResDMs/Shane-H.png",
   },
   {
     name: "Kuta",
@@ -116,7 +116,7 @@ export const resDMbios = [
     link1: "",
     link2: "",
     location: "CAL, USA",
-    image: "img/ResDMs/Placeholder.png",
+    image: "/img/ResDMs/Placeholder.png",
   },
   {
     name: "Daran",
@@ -130,7 +130,7 @@ export const resDMbios = [
     link1: "",
     link2: "",
     location: "Chicago, IL, USA",
-    image: "img/ResDMs/Daran.png",
+    image: "/img/ResDMs/Daran.png",
   },
   {
     name: "Lex",
@@ -146,7 +146,7 @@ export const resDMbios = [
       "https://www.dmsguild.com/browse.php?author=Lex%20Winter?affiliate_id=2235164",
     link2: "",
     location: "Baltimore, MD, USA",
-    image: "img/ResDMs/Lex.png",
+    image: "/img/ResDMs/Lex.png",
   },
   {
     name: "Malte",
@@ -160,6 +160,6 @@ export const resDMbios = [
     link1: "",
     link2: "",
     location: "Hamburg, Germany",
-    image: "img/ResDMs/Placeholder.png",
+    image: "/img/ResDMs/Placeholder.png",
   },
 ];
