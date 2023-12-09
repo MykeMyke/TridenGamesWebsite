@@ -1,5 +1,7 @@
 import { Box } from "@mui/system";
 import * as React from "react";
+import { checkPlaying } from "../utils/checkPlaying";
+import { checkWaitlisted } from "../utils/checkWaitlisted";
 
 function FilterMarker({ gameData, activeName }) {
   let cls = "filter ";
@@ -13,14 +15,15 @@ function FilterMarker({ gameData, activeName }) {
       cls += "filter-dm";
       text = "Dungeon Master";
     } else if (gameData.players) {
-      const idx = gameData.players.findIndex(player => player.discord_name?.toLocaleLowerCase().includes(lowerName) || player.discord_id?.toString() === lowerName) + 1;
-      if (idx > 0) {
-        if (idx > gameData.max_players) {
-            cls += "filter-waitlist";
-            text = "Waitlist - Position " + (idx - gameData.max_players);
-        } else {
-            cls += "filter-playing";
-            text = "Playing";
+      if (checkPlaying(gameData.players).some(player => player.discord_name?.toLocaleLowerCase().includes(lowerName) || player.discord_id?.toString() === lowerName)) {
+        cls += "filter-playing";
+        text = "Playing";
+      }
+      else {
+        const idx = checkWaitlisted(gameData.players).findIndex(player => player.discord_name?.toLocaleLowerCase().includes(lowerName) || player.discord_id?.toString() === lowerName) + 1;
+        if (idx > 0) {
+          cls += "filter-waitlist";
+            text = "Waitlist - Position " + (idx);
         }
       }
     }
