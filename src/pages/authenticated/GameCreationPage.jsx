@@ -3,12 +3,13 @@ import { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 
 import RealmSelector from "../../components/game/RealmSelector";
+import VariantSelector from "../../components/game/VariantSelector";
 
 export default function GameCreationPage() {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [realm, setRealm] = useState("faerun");
-  const [variant, setVariant] = useState("resDM");
+  const [variant, setVariant] = useState("resAL");
   const [description, setDescription] = useState("");
   const [maxPlayers, setMaxPlayers] = useState(6);
   const [tier, setTier] = useState(1);
@@ -39,6 +40,7 @@ export default function GameCreationPage() {
       <TextField value={name} onChange={(e) => setName(e.target.value)} label="Game Name" />
       <TextField value={code} onChange={(e) => setCode(e.target.value)} label="Module Code" />
       <RealmSelector value={realm} setValue={setRealm} />
+      <VariantSelector value={variant} setValue={setVariant} />
       <Button variant="outlined" disabled={!validateData}>
         Create Game
       </Button>
