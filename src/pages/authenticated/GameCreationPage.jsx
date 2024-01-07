@@ -41,6 +41,14 @@ export default function GameCreationPage() {
       <TextField value={code} onChange={(e) => setCode(e.target.value)} label="Module Code" />
       <RealmSelector value={realm} setValue={setRealm} />
       <VariantSelector value={variant} setValue={setVariant} />
+      <TextField
+        multiline
+        fullWidth
+        minRows={4}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        label="Description"
+      />
       <Button variant="outlined" disabled={!validateData}>
         Create Game
       </Button>
