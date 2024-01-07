@@ -13,7 +13,7 @@ export default function VariantSelector(props) {
   return (
     <FormControl fullWidth>
       <InputLabel>Game Variant</InputLabel>
-      <Select id="realm-select" value={value} label="Game Variant" onChange={handleChange}>
+      <Select id="game-realm-select" value={value} label="Game Variant" onChange={handleChange}>
         <MenuItem value={"resAL"}>Resident AL</MenuItem>
         <MenuItem value={"guestAL"}>Guest AL</MenuItem>
         <Divider fullWidth />

@@ -13,7 +13,7 @@ export default function RealmSelector(props) {
   return (
     <FormControl fullWidth>
       <InputLabel>Realm</InputLabel>
-      <Select id="realm-select" value={value} label="Realm" onChange={handleChange}>
+      <Select id="game-realm-select" value={value} label="Realm" onChange={handleChange}>
         <MenuItem value={"faerun"}>Forgotten Realms</MenuItem>
         <MenuItem value={"eberron"}>Ebberon</MenuItem>
         <MenuItem value={"ravnica"}>Ravnica</MenuItem>

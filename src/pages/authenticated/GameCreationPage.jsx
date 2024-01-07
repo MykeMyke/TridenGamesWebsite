@@ -4,6 +4,7 @@ import { Box, TextField, Button } from "@mui/material";
 
 import RealmSelector from "../../components/game/RealmSelector";
 import VariantSelector from "../../components/game/VariantSelector";
+import TierSelector from "../../components/game/TierSelector";
 
 export default function GameCreationPage() {
   const [name, setName] = useState("");
@@ -32,16 +33,19 @@ export default function GameCreationPage() {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row wrap",
         alignItems: "center",
         gap: 1,
       }}
     >
-      <TextField value={name} onChange={(e) => setName(e.target.value)} label="Game Name" />
-      <TextField value={code} onChange={(e) => setCode(e.target.value)} label="Module Code" />
-      <RealmSelector value={realm} setValue={setRealm} />
-      <VariantSelector value={variant} setValue={setVariant} />
+      <TextField value={name} onChange={(e) => setName(e.target.value)} label="Game Name" sx={{ minWidth: "16em" }} />
+      <TextField value={code} onChange={(e) => setCode(e.target.value)} label="Module Code" sx={{ minWidth: "16em" }} />
+      <Box sx={{ minWidth: "16em" }}>
+        <RealmSelector value={realm} setValue={setRealm} />
+        <VariantSelector id="game-variant" value={variant} setValue={setVariant} />
+      </Box>
       <TextField
+        id="game-description"
         multiline
         fullWidth
         minRows={4}
@@ -49,6 +53,17 @@ export default function GameCreationPage() {
         onChange={(e) => setDescription(e.target.value)}
         label="Description"
       />
+      <TextField
+        id="game-max-players"
+        value={maxPlayers}
+        onChange={(e) => setMaxPlayers(e.target.value)}
+        label="Players"
+        type="number"
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TierSelector value={tier} setValue={setTier} />
       <Button variant="outlined" disabled={!validateData}>
         Create Game
       </Button>
