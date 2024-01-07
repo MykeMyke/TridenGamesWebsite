@@ -1,14 +1,32 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Container, Box, Typography, Button } from "@mui/material";
 
-import userDataStore from "../datastore/userdata";
-import RankWidget from "../components/user/RankWidget";
-import { hasDMRank } from "../utils/ranks";
+import userDataStore from "../../datastore/userdata";
+import RankWidget from "../../components/user/RankWidget";
+import { getUserDetails } from "../../api/auth";
+import { capitalise } from "../../utils/formatting";
+import { hasDMRank } from "../../utils/ranks";
 
-export default function MemberLandingPage() {
+export default function MemberHome() {
   const navigate = useNavigate();
-  const [username, ranks] = userDataStore((s) => [s.username, s.ranks]);
+  const [username, setUsername] = userDataStore((s) => [s.username, s.setUsername]);
+  const [ranks, setRanks] = userDataStore((s) => [s.ranks, s.setRanks]);
+
+  useEffect(() => {
+    getUserDetails()
+      .then((response) => {
+        let userdata = response.data.user_data;
+
+        setUsername(capitalise(userdata.discord_name));
+        setRanks(userdata.ranks);
+      })
+      .catch((error) => {
+        console.log(error);
+        navigate("/auth_error");
+      });
+  }, [navigate, setUsername, setRanks]);
 
   return (
     <Container sx={{ margin: "auto", width: "100%" }}>

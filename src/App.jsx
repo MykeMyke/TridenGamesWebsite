@@ -8,7 +8,6 @@ import "./styles/Global.css";
 import TridenTheme from "./styles/theme";
 
 import Header from "./components/header";
-import { DiscordAuthDone } from "./components/authentication/DiscordAuthDone";
 import Home from "./pages/Home";
 import Benefits from "./pages/Benefits";
 import Calendar from "./pages/Calendar";
@@ -16,8 +15,8 @@ import Team from "./pages/Team";
 import Tridenverse from "./pages/Tridenverse";
 import Dashboard from "./pages/Dashboard";
 import PoliciesPage from "./pages/Policies";
-import MemberLandingPage from "./pages/MemberLandingPage";
-import GameCreationPage from "./pages/GameCreationPage";
+import MemberHome from "./pages/authenticated/MemberHome";
+import GameCreationPage from "./pages/authenticated/GameCreationPage";
 import ErrorPage from "./pages/ErrorPage";
 import AuthErrorPage from "./pages/AuthErrorPage";
 
@@ -46,12 +45,8 @@ function App() {
                 <Route path="/tridenverse" element={<Tridenverse />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/policies" element={<PoliciesPage />} />
-                <Route path="/members" element={<MemberLandingPage />} />
+                <Route path="/members" element={<MemberHome />} />
                 <Route path="/game/create" element={<GameCreationPage />} />
-                <Route
-                  path="/discord_auth_done"
-                  element={<DiscordAuthDone />}
-                />
                 <Route path="/auth_error" element={<AuthErrorPage />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>

@@ -8,10 +8,7 @@ import { doLogout } from "../../api/auth";
 
 export default function AuthButton() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [username, setUsername] = userDataStore((s) => [
-    s.username,
-    s.setUsername,
-  ]);
+  const [username, setUsername] = userDataStore((s) => [s.username, s.setUsername]);
 
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -21,8 +18,12 @@ export default function AuthButton() {
   };
 
   const discordAuth = () => {
-    const url =
-      "https://unseen-servant.digitaldemiplane.com/discord_auth/login/";
+    let url;
+    if (process.env.NODE_ENV == "development") {
+      url = "http://127.0.0.1:8000/discord_auth/login/";
+    } else {
+      url = "https://unseen-servant.tridengames.com/discord_auth/login/";
+    }
 
     window.open(url, "_blank", "noreferrer");
     closeMenu();
@@ -51,7 +52,7 @@ export default function AuthButton() {
           horizontal: "right",
         }}
       >
-        <MenuItem onClick={discordAuth}>Login via discord</MenuItem>
+        {!username && <MenuItem onClick={discordAuth}>Login via discord</MenuItem>}
         {username && <MenuItem onClick={discordLogout}>Logout</MenuItem>}
       </Menu>
     </React.Fragment>
