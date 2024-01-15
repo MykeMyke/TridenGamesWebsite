@@ -39,28 +39,29 @@ function GameForm() {
   return (
     <form onSubmit={handleSubmit}>
       <Grid
-        rowSpacing={{ xs: 1, md: 2 }}
+        rowSpacing={2}
         xs={12} md={9}
+        item
         container
       >
-        <Grid item xs={12}>
+        <Grid item xs={12} md={9}>
           <TextField fullWidth name="name" value={values.name} onChange={handleChange} label="Game Name" error={!!errors.name} helperText={errors.name} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={9}>
           <TextField fullWidth name="code" value={values.code} onChange={handleChange} label="Module Code" error={!!errors.code} helperText={errors.code} />
         </Grid>
         <Grid item
           container
-          columnSpacing={{ xs: 2, md: 4 }}
-          columns={{ xs: 12 }}>
-          <Grid item xs={6}>
+          columnSpacing={2}
+          columns={{ xs: 12, md: 12 }}>
+          <Grid item xs={6} md={6}>
             <RealmSelector />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} md={6}>
             <VariantSelector />
           </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={12}>
           <TextField
             label="Description"
             name="description"
@@ -73,7 +74,7 @@ function GameForm() {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={12}>
           <TextField
             name="warnings"
             multiline
@@ -86,8 +87,8 @@ function GameForm() {
             label="Warnings"
           />
         </Grid>
-        <Grid item xs={12} container
-          columnSpacing={{ xs: 2, md: 4 }}
+        <Grid item xs={12} md={9} container
+          columnSpacing={2}
         >
           <Grid item xs={3}>
             <TextField
@@ -127,24 +128,24 @@ function GameForm() {
           </Grid>
         </Grid>
         <Grid item xs={12} container
-          columnSpacing={{ xs: 2, md: 4 }}
+          columnSpacing={2}
         >
-          <Grid item xs={4}>
+          <Grid item xs={4} md={4}>
             <DateTimeSelector label="Game Start" name="dateTime" />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} md={4}>
             <DateTimeSelector label="Patreon Release" name="dateTimePatreonRelease" />
           </Grid>
-          <Grid item xs={4}><DateTimeSelector label="General Release" name="dateTimeOpenRelease" />
+          <Grid item xs={4} md={4}><DateTimeSelector label="General Release" name="dateTimeOpenRelease" />
           </Grid>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} md={6}>
           <FormControlLabel control={<Checkbox checked={values.streaming} />} label="Streaming" onChange={(evt) => setFieldValue("streaming", evt.target.checked)} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} md={6}>
           <FormControlLabel control={<Checkbox checked={values.ready} />} label="Ready" onChange={(evt) => setFieldValue("ready", evt.target.checked)} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={12}>
           <Button variant="outlined" type="submit">
             Create Game
           </Button>

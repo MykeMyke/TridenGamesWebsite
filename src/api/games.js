@@ -125,7 +125,7 @@ export function useGame({ id: gameId }) {
       console.info("SUBMITTING", values)
       const toSubmit = {
         name: values.name,
-        code: values.code,
+        module: values.code,
         realm: values.realm,
         variant: values.variant,
         max_players: values.maxPlayers,
