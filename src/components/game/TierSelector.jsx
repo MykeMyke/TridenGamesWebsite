@@ -4,37 +4,35 @@ import { FormControl, InputLabel } from "@mui/material";
 import { Select, MenuItem, TextField } from "@mui/material";
 
 export default function TierSelector(props) {
-  const { values, handleChange, setFieldValue } = useFormikContext();
+  const { values, handleChange, setValues } = useFormikContext();
+  
   return (
     <>
     <FormControl sx={{ minWidth: "8em" }}>
       <InputLabel>Tier of play</InputLabel>
-        <Select value={values.tier || 1} label="Tier of play" onChange={async (evt) => {
+        <Select value={values.tier || 1} label="Tier of play" onChange={(evt) => {
           const tier = evt.target.value;
-          let min;
-          let max;
+          let minLevel;
+          let maxLevel;
           switch (tier) {
             case 4:
-              min = 17;
-              max = 20;
+              minLevel = 17;
+              maxLevel = 20;
               break;
             case 3:
-              min = 11;
-              max = 16;
+              minLevel = 11;
+              maxLevel = 16;
               break;
             case 2:
-              min = 5;
-              max = 10;
+              minLevel = 5;
+              maxLevel = 10;
               break;
             case 1:
             default:
-              min = 1;
-              max = 4;   
+              minLevel = 1;
+              maxLevel = 4;   
           }
-          setFieldValue("tier", tier);
-          setFieldValue("minLevel", min);
-          setFieldValue("maxLevel", max);
-          //setValues({ tier: tier, minLevel: min, maxLevel: max });
+          setValues({ ...values, tier, minLevel, maxLevel }); 
         }}>
         <MenuItem value={1}>1</MenuItem>
         <MenuItem value={2}>2</MenuItem>

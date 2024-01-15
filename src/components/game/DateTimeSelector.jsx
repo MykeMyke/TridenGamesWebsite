@@ -1,33 +1,28 @@
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { useFormikContext } from "formik";
 import moment from "moment";
-import { FormControl, FormControlLabel, FormHelperText, Input, InputAdornment } from "@mui/material";
+
 
 export default function DateTimeSelector(props) {
+    const { values, errors, setFieldValue } = useFormikContext();
     const mValue = useMemo(() => {
-        return moment(props.value);
-    }, [props.value])
-    
+        return moment(values[props.name]);
+    }, [values[props.name]])
+    const error = errors?.[props.name]
     return (
         <LocalizationProvider dateAdapter={AdapterMoment}>
-            <DateTimePicker label={props.label} value={mValue} onChange={val => {
-                props.onChange(val.toDate());
-                props.onError(null)
+            <DateTimePicker label={props.label} value={mValue} onChange={(val) => {
+                setFieldValue(props.name, val.toDate())
             }}
-                onError={(newError) => {
-                    if (!newError) {
-                        props.onError(null);
-                    }
-                }}
                 shouldDisableDate={(val) => {
-                    return !!props.error ? val.toDate().getTime() === props.value.getTime(): false
+                    return !!error ? val.toDate().getTime() === mValue.toDate().getTime(): false
                 }}
                 slotProps={{
                     textField: {
-                        helperText: !!props.error ? props.error : ""
+                        helperText: !!error ? error : ""
                     },
                 }}
                 />
