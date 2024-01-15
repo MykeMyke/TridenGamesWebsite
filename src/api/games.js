@@ -64,8 +64,12 @@ export function useGame({ id: gameId }) {
     onError: (error) => {
       if (error?.response?.status) {
         switch (error.response.status) {
-          case 403:
           case 400:
+            setErrorMessage(error.response.data?.message || error.message);
+            const fieldErrors = error.response?.data.errors;
+            formik.setErrors(fieldErrors);
+            break;
+          case 403:
           case 500:
           default:
             setErrorMessage(error.response.data?.message || error.message);
@@ -103,46 +107,27 @@ export function useGame({ id: gameId }) {
     }),
     initialValues: {
       name: "",
-      code: "",
-      realm: "faerun",
-      variant: "resAL",
+      module: "",
+      realm: "Forgotten Realms",
+      variant: "Resident AL",
       description: "",
-      maxPlayers: 6,
+      max_players: 6,
       tier: 1,
-      minLevel: 1,
-      maxLevel: 4,
+      level_min: 1,
+      level_max: 4,
       warnings: "",
       streaming: false,
-      dateTime: new Date(),
-      dateTimePatreonRelease: new Date(),
-      dateTimeOpenRelease: new Date(),
+      datetime: new Date(),
+      datetime_release: new Date(),
+      datetime_open_release: new Date(),
       length: "4 hours",
       ready: true
 
     },
     onSubmit: (values) => {
       console.info("This is only called if validation passes");
-      console.info("SUBMITTING", values)
-      const toSubmit = {
-        name: values.name,
-        module: values.code,
-        realm: values.realm,
-        variant: values.variant,
-        max_players: values.maxPlayers,
-        level_min: values.levelMin,
-        level_max: values.levelMax,
-        warnings: values.warnings,
-        description: values.description,
-        streaming: values.streaming,
-        datetime: values.dateTime,
-        datetime_release: values.dateTimePatreonRelease,
-        datetime_open_release: values.dateTimeOpenRelease,
-        length: values.length,
-        ready:values.ready,
-        
-
-      }
-      mutation.mutate(toSubmit);
+      console.info("need to map fields", values)
+      mutation.mutate(values);
     }
   });
 
