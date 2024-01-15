@@ -75,14 +75,13 @@ export default function GamePage() {
 }
 
 function GameForm() {
-
   const { values, errors, handleSubmit, handleChange, setFieldValue } = useFormikContext();
-  console.info("FUCK YOU", errors.description)
+
   return (
     <form onSubmit={handleSubmit}>
       <Grid
-        justifyContent="space-between"
-        spacing="20"
+        spacing={{ xs: 1, md: 2 }}
+        xs={12} md={9}
         container
       >
         <Grid item xs={12}>
@@ -129,7 +128,7 @@ function GameForm() {
           />
         </Grid>
         <Grid item xs={12} container
-          columnSpacing={1}
+          columnSpacing={{ xs: 2, md: 4 }}
         >
           <Grid item xs={3}>
             <TextField
@@ -169,7 +168,7 @@ function GameForm() {
           </Grid>
         </Grid>
         <Grid item xs={12} container
-          columnSpacing={1}
+          columnSpacing={{ xs: 2, md: 4 }}
         >
           <Grid item xs={4}>
             <DateTimeSelector label="Game Start" name="dateTime" />
