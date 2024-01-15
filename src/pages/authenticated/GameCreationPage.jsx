@@ -1,6 +1,6 @@
 import { Formik, useFormikContext } from "formik";
 import * as Yup from "yup";
-import { Box, TextField, Button, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Grid, TextField, Button, Checkbox, FormControlLabel } from "@mui/material";
 import RealmSelector from "../../components/game/RealmSelector";
 import VariantSelector from "../../components/game/VariantSelector";
 import TierSelector from "../../components/game/TierSelector";
@@ -8,19 +8,23 @@ import DateTimeSelector from "../../components/game/DateTimeSelector";
 
 let url = "http://127.0.0.1:8000/api/games/";
 
+const req = (field) => {
+  const label = typeof field === 'string' ? label : field.label;
+  return `${label} is required`;
+}
+
 export default function GamePage() {
   const formik = {
     validateOnChange: false,
-    validateOnBlur: true,
+    validateOnBlur: false,
     validationSchema: Yup.object().shape({
       name: Yup.string()
-        .min(2, 'Too Short!')
-        .max(70, 'Too Long!')
-        .required('Required'),
+        .label("Name")
+        .required(req),
       code: Yup.string()
-        .min(2, 'Too Short!')
-        .max(70, 'Too Long!')
-        .required('Required'),
+        .label("Code")
+        .required(req),
+      description: Yup.string().label("Description").required(req).min(1, req),
       dateTime: Yup.date().required().min(new Date(), "Game start must be in the future"),
       dateTimePatreonRelease: Yup.date().label('Patreon Release').required().test(("dateTimePatreonRelease", (value, context) => {
         if (value.getTime() >= context.parent.dateTime.getTime()) {
@@ -73,53 +77,121 @@ export default function GamePage() {
 function GameForm() {
 
   const { values, errors, handleSubmit, handleChange, setFieldValue } = useFormikContext();
-
+  console.info("FUCK YOU", errors.description)
   return (
     <form onSubmit={handleSubmit}>
-      <Box
-        sx={{
-          display: "grid",
-          flexDirection: "column wrap",
-          alignItems: "center",
-          gap: 1,
-        }}
+      <Grid
+        justifyContent="space-between"
+        spacing="20"
+        container
       >
-        <TextField name="name" value={values.name} onChange={handleChange} label="Game Name" error={!!errors.name} helperText={errors.name} sx={{ minWidth: "16em" }} />
-        <TextField name="code" value={values.code} onChange={handleChange} label="Module Code" error={!!errors.code} helperText={errors.code} sx={{ minWidth: "16em" }} />
-        <Box sx={{ display: "flex", minWidth: "16em" }}>
-          <RealmSelector />
-          <VariantSelector />
-        </Box>
-        <TextField
-          name="description"
-          multiline
-          fullWidth
-          minRows={4}
-          value={values.description}
-          onChange={handleChange}
-          label="Description"
-        />
-        <Box sx={{ display: "flex", minWidth: "16em" }}>
+        <Grid item xs={12}>
+          <TextField fullWidth name="name" value={values.name} onChange={handleChange} label="Game Name" error={!!errors.name} helperText={errors.name} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField fullWidth name="code" value={values.code} onChange={handleChange} label="Module Code" error={!!errors.code} helperText={errors.code} />
+        </Grid>
+        <Grid item
+          container
+          columnSpacing={{ xs: 2, md: 4 }}
+          columns={{ xs: 12 }}>
+          <Grid item xs={6}>
+            <RealmSelector />
+          </Grid>
+          <Grid item xs={6}>
+            <VariantSelector />
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
           <TextField
-            value={values.maxPlayers}
+            label="Description"
+            name="description"
+            multiline
+            fullWidth
+            minRows={4}
+            value={values.description}
+            error={!!errors.description}
+            helperText={errors.description}
             onChange={handleChange}
-            label="Players"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
           />
-          <TierSelector />
-        </Box>
-        <FormControlLabel control={<Checkbox checked={values.streaming} />} label="Streaming" onChange={(evt) => setFieldValue("streaming", evt.target.checked)} />
-        <DateTimeSelector label="Game Start" name="dateTime" />
-        <DateTimeSelector label="Patreon Release" name="dateTimePatreonRelease" />
-        <DateTimeSelector label="General Release" name="dateTimeOpenRelease" />
-        <FormControlLabel control={<Checkbox checked={values.ready} />} label="Ready" onChange={(evt) => setFieldValue("ready", evt.target.checked)} />
-        <Button variant="outlined" type="submit">
-          Create Game
-        </Button>
-      </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            name="warnings"
+            multiline
+            fullWidth
+            minRows={4}
+            value={values.warnings}
+            error={!!errors.warnings}
+            helperText={errors.warnings}
+            onChange={handleChange}
+            label="Warnings"
+          />
+        </Grid>
+        <Grid item xs={12} container
+          columnSpacing={1}
+        >
+          <Grid item xs={3}>
+            <TextField
+              value={values.maxPlayers}
+              onChange={handleChange}
+              label="Players"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
+          <Grid item xs={3}><TierSelector /></Grid>
+          <Grid item xs={3}>
+            <TextField
+              name="minLevel"
+              value={values.minLevel || 1}
+              onChange={handleChange}
+              label="Min Level"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <TextField
+              name="maxLevel"
+              value={values.maxLevel || 4}
+              onChange={handleChange}
+              label="Max Level"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container
+          columnSpacing={1}
+        >
+          <Grid item xs={4}>
+            <DateTimeSelector label="Game Start" name="dateTime" />
+          </Grid>
+          <Grid item xs={4}>
+            <DateTimeSelector label="Patreon Release" name="dateTimePatreonRelease" />
+          </Grid>
+          <Grid item xs={4}><DateTimeSelector label="General Release" name="dateTimeOpenRelease" />
+          </Grid>
+        </Grid>
+        <Grid item xs={6}>
+          <FormControlLabel control={<Checkbox checked={values.streaming} />} label="Streaming" onChange={(evt) => setFieldValue("streaming", evt.target.checked)} />
+        </Grid>
+        <Grid item xs={6}>
+          <FormControlLabel control={<Checkbox checked={values.ready} />} label="Ready" onChange={(evt) => setFieldValue("ready", evt.target.checked)} />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="outlined" type="submit">
+            Create Game
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 }
