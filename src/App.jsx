@@ -19,10 +19,14 @@ import MemberHome from "./pages/authenticated/MemberHome";
 import GameCreationPage from "./pages/authenticated/GameCreationPage";
 import ErrorPage from "./pages/ErrorPage";
 import AuthErrorPage from "./pages/AuthErrorPage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <ThemeProvider theme={TridenTheme}>
+      <QueryClientProvider client={queryClient}>
       <Router>
         <Grid container direction="column" className="Background">
           <Grid item>
@@ -54,7 +58,8 @@ function App() {
             <Grid item xs={false} sm={2} />
           </Grid>
         </Grid>
-      </Router>
+        </Router>
+        </QueryClientProvider>
     </ThemeProvider>
   );
 }

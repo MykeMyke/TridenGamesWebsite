@@ -3,7 +3,7 @@ import { useFormikContext } from "formik";
 import { FormControl, InputLabel } from "@mui/material";
 import { Select, MenuItem, Divider } from "@mui/material";
 
-export default function VariantSelector(props) {
+export default function Selector(props) {
   const { values, handleChange } = useFormikContext(); 
 
   return (
