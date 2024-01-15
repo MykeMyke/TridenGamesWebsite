@@ -1,76 +1,35 @@
-import { Formik, useFormikContext } from "formik";
-import * as Yup from "yup";
-import { Box, Grid, TextField, Button, Checkbox, FormControlLabel } from "@mui/material";
+import { FormikProvider, useFormikContext } from "formik";
+import { Grid, TextField, Button, Checkbox, FormControlLabel } from "@mui/material";
 import RealmSelector from "../../components/game/RealmSelector";
 import VariantSelector from "../../components/game/VariantSelector";
 import TierSelector from "../../components/game/TierSelector";
 import DateTimeSelector from "../../components/game/DateTimeSelector";
+import { useGame } from "../../api/games";
+import { Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert"
+import { forwardRef, useEffect, useState } from "react";
 
-let url = "http://127.0.0.1:8000/api/games/";
 
-const req = (field) => {
-  const label = typeof field === 'string' ? label : field.label;
-  return `${label} is required`;
-}
-
+const Alert = forwardRef((props, ref) => {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+})
 export default function GamePage() {
-  const formik = {
-    validateOnChange: false,
-    validateOnBlur: false,
-    validationSchema: Yup.object().shape({
-      name: Yup.string()
-        .label("Name")
-        .required(req),
-      code: Yup.string()
-        .label("Code")
-        .required(req),
-      description: Yup.string().label("Description").required(req).min(1, req),
-      dateTime: Yup.date().required().min(new Date(), "Game start must be in the future"),
-      dateTimePatreonRelease: Yup.date().label('Patreon Release').required().test(("dateTimePatreonRelease", (value, context) => {
-        if (value.getTime() >= context.parent.dateTime.getTime()) {
-          return context.createError({ path: "dateTimePatreonRelease", message: ({ label }) => `${label} must be before Game Time` });
-        }
-        return true;
-      })),
-      dateTimeOpenRelease: Yup.date().label('General Release').required().test(("dateTimeOpenRelease", (value, context) => {
-        if (value.getTime() >= context.parent.dateTime.getTime()) {
-          return context.createError({ path: "dateTimeOpenRelease", message: ({ label }) => `${label} must be before Game Time` });
-        }
-        if (value.getTime() <= context.parent.dateTimePatreonRelease.getTime()) {
-          return context.createError({ path: "dateTimeOpenRelease", message: ({ label }) => `${label} must be after Patreon Release` });
-        }
-        return true;
-      }))
-    }),
-    initialValues: {
-      name: "",
-      code: "",
-      realm: "faerun",
-      variant: "resAL",
-      description: "",
-      maxPlayers: 6,
-      tier: 1,
-      minLevel: 1,
-      maxLevel: 4,
-      warnings: "",
-      streaming: false,
-      dateTime: new Date(),
-      dateTimePatreonRelease: new Date(),
-      dateTimeOpenRelease: new Date(),
-      length: "4 hours",
-      ready: true
-
-    },
-    onSubmit: (values) => {
-      console.info("This is only called if validation passes");
-      console.info("SUBMITTING", values)
+  const { formik, mutation, errorMessage } = useGame({ id: "new" });
+  const [errorOpen, setErrorOpen] = useState(false);
+  useEffect(() => {
+    if (mutation.error) {
+      setErrorOpen(true);
     }
-  };
-
+  }, [mutation.error])
   return (
-    <Formik {...formik}>
-      <GameForm />
-    </Formik>
+    <>
+      <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => setErrorOpen(false)}>
+        <Alert severity="error">{errorMessage}</Alert>
+      </Snackbar>
+      <FormikProvider value={formik}>
+        <GameForm />
+      </FormikProvider>
+    </>
   );
 }
 
@@ -80,7 +39,7 @@ function GameForm() {
   return (
     <form onSubmit={handleSubmit}>
       <Grid
-        spacing={{ xs: 1, md: 2 }}
+        rowSpacing={{ xs: 1, md: 2 }}
         xs={12} md={9}
         container
       >
