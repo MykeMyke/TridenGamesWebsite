@@ -1,19 +1,15 @@
 import { React } from "react";
-
+import { useFormikContext } from "formik";
 import { FormControl, InputLabel } from "@mui/material";
 import { Select, MenuItem, Divider } from "@mui/material";
 
 export default function RealmSelector(props) {
-  const { value, setValue } = props;
-
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
+  const {values, handleChange} = useFormikContext();
 
   return (
     <FormControl fullWidth>
       <InputLabel>Realm</InputLabel>
-      <Select id="game-realm-select" value={value} label="Realm" onChange={handleChange}>
+      <Select id="realm" name="realm" value={values.realm} label="Realm" onChange={handleChange}>
         <MenuItem value={"faerun"}>Forgotten Realms</MenuItem>
         <MenuItem value={"eberron"}>Ebberon</MenuItem>
         <MenuItem value={"ravnica"}>Ravnica</MenuItem>
