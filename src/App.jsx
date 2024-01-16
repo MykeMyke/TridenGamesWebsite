@@ -16,7 +16,7 @@ import Tridenverse from "./pages/Tridenverse";
 import Dashboard from "./pages/Dashboard";
 import PoliciesPage from "./pages/Policies";
 import MemberHome from "./pages/authenticated/MemberHome";
-import GameCreationPage from "./pages/authenticated/GameCreationPage";
+import { NewGamePage, EditGamePage } from "./pages/authenticated/GameFormPage";
 import ErrorPage from "./pages/ErrorPage";
 import AuthErrorPage from "./pages/AuthErrorPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -50,7 +50,8 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/policies" element={<PoliciesPage />} />
                 <Route path="/members" element={<MemberHome />} />
-                <Route path="/game/create" element={<GameCreationPage />} />
+                <Route path="/games/new" element={<NewGamePage />} />
+                <Route path="/games/edit/:id" element={<EditGamePage />} />
                 <Route path="/auth_error" element={<AuthErrorPage />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>

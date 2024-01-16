@@ -1,4 +1,5 @@
 import { FormikProvider, useFormikContext } from "formik";
+import { useParams } from "react-router";
 import { Grid, TextField, Button, Checkbox, FormControlLabel } from "@mui/material";
 import RealmSelector from "../../components/game/RealmSelector";
 import VariantSelector from "../../components/game/VariantSelector";
@@ -13,8 +14,18 @@ import { forwardRef, useEffect, useState } from "react";
 const Alert = forwardRef((props, ref) => {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
-export default function GamePage() {
-  const { formik, mutation, errorMessage } = useGame({ id: "new" });
+
+export function EditGamePage() {
+  const { id } = useParams();
+  return <GamePage id={id}/>
+}
+
+export function NewGamePage() {
+  return <GamePage id="new"/>
+}
+
+function GamePage(props) {
+const { formik, mutation, errorMessage } = useGame(props.id);
   const [errorOpen, setErrorOpen] = useState(false);
   useEffect(() => {
     if (mutation.error) {
@@ -32,7 +43,6 @@ export default function GamePage() {
     </>
   );
 }
-
 function GameForm() {
   const { values, errors, handleSubmit, handleChange, setFieldValue } = useFormikContext();
 
@@ -92,7 +102,7 @@ function GameForm() {
         >
           <Grid item xs={3}>
             <TextField
-              value={values.maxPlayers}
+              value={values.max_players}
               onChange={handleChange}
               label="Players"
               type="number"
@@ -105,7 +115,7 @@ function GameForm() {
           <Grid item xs={3}>
             <TextField
               name="minLevel"
-              value={values.minLevel || 1}
+              value={values.level_min || 1}
               onChange={handleChange}
               label="Min Level"
               type="number"
@@ -117,7 +127,7 @@ function GameForm() {
           <Grid item xs={3}>
             <TextField
               name="maxLevel"
-              value={values.maxLevel || 4}
+              value={values.level_max || 4}
               onChange={handleChange}
               label="Max Level"
               type="number"
@@ -131,12 +141,12 @@ function GameForm() {
           columnSpacing={2}
         >
           <Grid item xs={4} md={4}>
-            <DateTimeSelector label="Game Start" name="dateTime" />
+            <DateTimeSelector label="Game Start" name="datetime" />
           </Grid>
           <Grid item xs={4} md={4}>
-            <DateTimeSelector label="Patreon Release" name="dateTimePatreonRelease" />
+            <DateTimeSelector label="Patreon Release" name="datetime_release" />
           </Grid>
-          <Grid item xs={4} md={4}><DateTimeSelector label="General Release" name="dateTimeOpenRelease" />
+          <Grid item xs={4} md={4}><DateTimeSelector label="General Release" name="datetime_open_release" />
           </Grid>
         </Grid>
         <Grid item xs={6} md={6}>

@@ -3,7 +3,8 @@ import { useFormik } from "formik";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import moment from "moment";
 
 const gamesUrl = `${apiHost}/api/games/`
 
@@ -14,6 +15,12 @@ const req = (field) => {
 
 function getGames() {
   return axios.get(gamesUrl, {
+    withCredentials: true
+  });
+}
+
+function getGame(id) {
+  return axios.get(gamesUrl + id , {
     withCredentials: true
   });
 }
@@ -55,7 +62,33 @@ export function useGames() {
   }
 }
 
-export function useGame({ id: gameId }) {
+export function useGame(id) {
+  const { data: game, status, error: gameError } = useQuery({
+    queryKey: ['games', id],
+    queryFn: async ({ queryKey }) => {
+      const game = await getGame(queryKey[1]);
+      console.info(game);
+      if (game?.data) {
+        return {
+          ...game.data,
+          datetime: moment(game.data.datetime).toDate(),
+          datetime_release: moment(game.data.datetime_release).toDate(),
+          datetime_open_release: moment(game.data.datetime_open_release).toDate()
+        }
+      }
+      throw Error("Cannot parse game");
+    },
+    enabled: id !== 'new'
+  })
+  useEffect(() => {
+    console.info("FUcKING", status);
+    if (status === 'success') {
+      console.info("FUCK", game);
+      formik.setValues(game)
+    }
+  }, [game, status])
+  console.info(game, gameError);
+  const [isLoading, setIsLoading] = useState(id !== 'new');
   const [errorMessage, setErrorMessage] = useState();
   const mutation = useMutation({
     mutationFn: (values) => {
@@ -132,6 +165,7 @@ export function useGame({ id: gameId }) {
   });
 
   return {
+    isLoading,
     formik,
     mutation,
     errorMessage
