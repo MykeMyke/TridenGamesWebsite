@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { ThemeProvider } from "@emotion/react";
 import { Grid } from "@mui/material";
@@ -20,7 +21,6 @@ import { NewGamePage, EditGamePage } from "./pages/authenticated/GameFormPage";
 import ErrorPage from "./pages/ErrorPage";
 import AuthErrorPage from "./pages/AuthErrorPage";
 import useUser from "./api/auth";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import RequireAuth from "./components/authentication/RequireAuth";
 
 const queryClient = new QueryClient();
@@ -52,10 +52,38 @@ function AppRoutes() {
                 <Route path="/tridenverse" element={<Tridenverse />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/policies" element={<PoliciesPage />} />
-                <Route path="/members" element={<RequireAuth><MemberHome /></RequireAuth>} />
-                <Route path="/members/games" element={<RequireAuth><Dashboard /></RequireAuth>} />
-                <Route path="/members/games/new" element={<RequireAuth><NewGamePage /></RequireAuth>} />
-                <Route path="/members/games/edit/:id" element={<RequireAuth><EditGamePage /></RequireAuth>} />
+                <Route
+                  path="/members"
+                  element={
+                    <RequireAuth>
+                      <MemberHome />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/members/games"
+                  element={
+                    <RequireAuth>
+                      <Dashboard />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/members/games/new"
+                  element={
+                    <RequireAuth>
+                      <NewGamePage />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/members/games/edit/:id"
+                  element={
+                    <RequireAuth>
+                      <EditGamePage />
+                    </RequireAuth>
+                  }
+                />
                 <Route path="/auth_error" element={<AuthErrorPage />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
@@ -65,8 +93,7 @@ function AppRoutes() {
         </Grid>
       </Router>
     </UserContext.Provider>
-  )
-
+  );
 }
 
 function App() {

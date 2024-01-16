@@ -1,3 +1,5 @@
+import { capitalise } from "./formatting";
+
 function stringToColor(string) {
   let hash = 0;
   let i;
@@ -34,6 +36,6 @@ export default function stringAvatar(name) {
       cursor: "pointer",
       bgcolor: stringToColor(name),
     },
-    children: `${name.split("")[0]}`,
+    children: `${capitalise(name).split("")[0]}`,
   };
 }

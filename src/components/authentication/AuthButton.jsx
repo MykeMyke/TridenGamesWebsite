@@ -1,21 +1,25 @@
 import React, { useContext, useState } from "react";
-import { Avatar, Menu, MenuItem } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
+
 import stringAvatar from "../../utils/stringAvatar";
 import { UserContext } from "../../App";
 
 export default function AuthButton() {
+  const navigate = useNavigate();
+  const { user, login, logout } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
-  const { user, isLoading, login, logout } = useContext(UserContext);
-  
+
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const closeMenu = () => {
     setAnchorEl(null);
   };
-  
+
   return (
-    <>
+    <React.Fragment>
       <Avatar onClick={openMenu} {...stringAvatar(user?.username || "")} />
       <Menu
         id="auth-menu"
@@ -31,13 +35,22 @@ export default function AuthButton() {
           horizontal: "right",
         }}
       >
-        {user?.loggedIn ? <MenuItem onClick={() => {
-          closeMenu();
-          logout()
-        }
-        }>Logout</MenuItem>
-        : <MenuItem onClick={login}>Login via discord</MenuItem>}
+        {user?.loggedIn ? (
+          <React.Fragment>
+            <MenuItem onClick={() => navigate("/members")}>View member area</MenuItem>
+            <MenuItem
+              onClick={() => {
+                closeMenu();
+                logout();
+              }}
+            >
+              Logout
+            </MenuItem>
+          </React.Fragment>
+        ) : (
+          <MenuItem onClick={login}>Login via discord</MenuItem>
+        )}
       </Menu>
-    </>
+    </React.Fragment>
   );
 }

@@ -1,28 +1,30 @@
+import { forwardRef, useEffect, useState } from "react";
+
 import { FormikProvider, useFormikContext } from "formik";
 import { useParams } from "react-router";
+
+import { Dialog, DialogActions, DialogTitle, DialogContent } from "@mui/material";
 import { Grid, TextField, Button, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Typography, IconButton, Snackbar, Alert as MuiAlert } from "@mui/material";
+import { Close } from "@mui/icons-material";
+
 import RealmSelector from "../../components/game/RealmSelector";
 import VariantSelector from "../../components/game/VariantSelector";
 import TierSelector from "../../components/game/TierSelector";
 import DateTimeSelector from "../../components/game/DateTimeSelector";
 import { useGame } from "../../api/games";
-import { Dialog, DialogActions, DialogTitle, DialogContent, Box, Typography, IconButton, Snackbar } from "@mui/material";
-import MuiAlert from "@mui/material/Alert"
-import { forwardRef, useEffect, useState } from "react";
-import { Close } from "@mui/icons-material";
-
 
 const Alert = forwardRef((props, ref) => {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
-})
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export function EditGamePage() {
   const { id } = useParams();
-  return <GamePage id={id} />
+  return <GamePage id={id} />;
 }
 
 export function NewGamePage() {
-  return <GamePage id="new" />
+  return <GamePage id="new" />;
 }
 
 const ConfirmDialog = ({ name, onClose, onConfirm }) => {
@@ -57,12 +59,12 @@ function GamePage(props) {
     if (saveGame.error) {
       setErrorOpen(true);
     }
-  }, [saveGame.error])
+  }, [saveGame.error]);
   useEffect(() => {
     if (successMessage) {
       setSuccessOpen(true);
     }
-  }, [successMessage])
+  }, [successMessage]);
 
   return (
     <>
@@ -81,29 +83,43 @@ function GamePage(props) {
 function GameForm(props) {
   const { values, errors, handleSubmit, handleChange, setFieldValue } = useFormikContext();
   const [showDelete, setShowDelete] = useState(false);
-  
+
   return (
     <form onSubmit={handleSubmit}>
-      {showDelete ? <ConfirmDialog name={values.name} onClose={() => setShowDelete(false)} onConfirm={() => {
-        props.deleteGame?.mutate();
-        setShowDelete(false)
-      }}/> : null}
-      <Grid
-        rowSpacing={2}
-        xs={12} md={9}
-        item
-        container
-      >
+      {showDelete ? (
+        <ConfirmDialog
+          name={values.name}
+          onClose={() => setShowDelete(false)}
+          onConfirm={() => {
+            props.deleteGame?.mutate();
+            setShowDelete(false);
+          }}
+        />
+      ) : null}
+      <Grid rowSpacing={2} xs={12} md={9} item container>
         <Grid item xs={12} md={9}>
-          <TextField fullWidth name="name" value={values.name} onChange={handleChange} label="Game Name" error={!!errors.name} helperText={errors.name} />
+          <TextField
+            fullWidth
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            label="Game Name"
+            error={!!errors.name}
+            helperText={errors.name}
+          />
         </Grid>
         <Grid item xs={12} md={9}>
-          <TextField fullWidth name="module" value={values.module} onChange={handleChange} label="Module Code" error={!!errors.module} helperText={errors.module} />
+          <TextField
+            fullWidth
+            name="module"
+            value={values.module}
+            onChange={handleChange}
+            label="Module Code"
+            error={!!errors.module}
+            helperText={errors.module}
+          />
         </Grid>
-        <Grid item
-          container
-          columnSpacing={2}
-          columns={{ xs: 12, md: 12 }}>
+        <Grid item container columnSpacing={2} columns={{ xs: 12, md: 12 }}>
           <Grid item xs={6} md={6}>
             <RealmSelector />
           </Grid>
@@ -137,9 +153,7 @@ function GameForm(props) {
             label="Warnings"
           />
         </Grid>
-        <Grid item xs={12} md={9} container
-          columnSpacing={2}
-        >
+        <Grid item xs={12} md={9} container columnSpacing={2}>
           <Grid item xs={3}>
             <TextField
               value={values.max_players}
@@ -151,7 +165,9 @@ function GameForm(props) {
               }}
             />
           </Grid>
-          <Grid item xs={3}><TierSelector /></Grid>
+          <Grid item xs={3}>
+            <TierSelector />
+          </Grid>
           <Grid item xs={3}>
             <TextField
               name="minLevel"
@@ -177,34 +193,46 @@ function GameForm(props) {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12} container
-          columnSpacing={2}
-        >
+        <Grid item xs={12} container columnSpacing={2}>
           <Grid item xs={6} md={6}>
             <DateTimeSelector label="Game Start" name="datetime" />
           </Grid>
           <Grid item xs={6} md={6}>
-            <FormControlLabel control={<Checkbox checked={values.streaming} />} label="Streaming" onChange={(evt) => setFieldValue("streaming", evt.target.checked)} />
+            <FormControlLabel
+              control={<Checkbox checked={values.streaming} />}
+              label="Streaming"
+              onChange={(evt) => setFieldValue("streaming", evt.target.checked)}
+            />
           </Grid>
         </Grid>
-        <Grid item xs={12} container
-          columnSpacing={2}
-        >
+        <Grid item xs={12} container columnSpacing={2}>
           <Grid item xs={6} md={6}>
             <DateTimeSelector label="Patreon Release" name="datetime_release" />
           </Grid>
-          <Grid item xs={6} md={6}><DateTimeSelector label="General Release" name="datetime_open_release" />
+          <Grid item xs={6} md={6}>
+            <DateTimeSelector label="General Release" name="datetime_open_release" />
           </Grid>
         </Grid>
         <Grid item xs={6} md={6}>
-          <FormControlLabel control={<Checkbox checked={values.ready} />} label="Ready" onChange={(evt) => setFieldValue("ready", evt.target.checked)} />
+          <FormControlLabel
+            control={<Checkbox checked={values.ready} />}
+            label="Ready"
+            onChange={(evt) => setFieldValue("ready", evt.target.checked)}
+          />
         </Grid>
         <Grid item xs={12} md={12}>
           <Button variant="outlined" type="submit" disabled={props.isLoading}>
             {values.id ? "Update Game" : "Create Game"}
           </Button>
           {values.id ? (
-            <Button variant="outlined" onClick={() => { setShowDelete(true); return false }} disabled={props.isLoading}>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setShowDelete(true);
+                return false;
+              }}
+              disabled={props.isLoading}
+            >
               Delete Game
             </Button>
           ) : null}
