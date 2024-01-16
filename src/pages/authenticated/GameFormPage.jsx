@@ -81,8 +81,13 @@ function GamePage(props) {
   );
 }
 function GameForm(props) {
-  const { values, errors, handleSubmit, handleChange, setFieldValue } = useFormikContext();
+  const { values, errors, handleSubmit, handleChange, setFieldValue, setValues } = useFormikContext();
   const [showDelete, setShowDelete] = useState(false);
+
+  const handleGameTimeChange = (e) => {
+    debugger;
+    setValues(values);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
