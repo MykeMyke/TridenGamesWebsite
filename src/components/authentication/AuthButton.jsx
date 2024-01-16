@@ -1,43 +1,22 @@
-import React, { useState } from "react";
-
+import React, { useContext, useState } from "react";
 import { Avatar, Menu, MenuItem } from "@mui/material";
-
-import userDataStore from "../../datastore/userdata";
 import stringAvatar from "../../utils/stringAvatar";
-import { doLogout } from "../../api/auth";
+import { UserContext } from "../../App";
 
 export default function AuthButton() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [username, setUsername] = userDataStore((s) => [s.username, s.setUsername]);
-
+  const { user, isLoading, login, logout } = useContext(UserContext);
+  
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const closeMenu = () => {
     setAnchorEl(null);
   };
-
-  const discordAuth = () => {
-    let url;
-    if (process.env.NODE_ENV == "development") {
-      url = "http://127.0.0.1:8000/discord_auth/login/";
-    } else {
-      url = "https://unseen-servant.tridengames.com/discord_auth/login/";
-    }
-
-    window.open(url, "_blank", "noreferrer");
-    closeMenu();
-  };
-  const discordLogout = () => {
-    doLogout().then(() => {
-      closeMenu();
-      setUsername("");
-    });
-  };
-
+  
   return (
-    <React.Fragment>
-      <Avatar onClick={openMenu} {...stringAvatar(username ? username : "")} />
+    <>
+      <Avatar onClick={openMenu} {...stringAvatar(user?.username || "")} />
       <Menu
         id="auth-menu"
         anchorEl={anchorEl}
@@ -52,9 +31,13 @@ export default function AuthButton() {
           horizontal: "right",
         }}
       >
-        {!username && <MenuItem onClick={discordAuth}>Login via discord</MenuItem>}
-        {username && <MenuItem onClick={discordLogout}>Logout</MenuItem>}
+        {user?.loggedIn ? <MenuItem onClick={() => {
+          closeMenu();
+          logout()
+        }
+        }>Logout</MenuItem>
+        : <MenuItem onClick={login}>Login via discord</MenuItem>}
       </Menu>
-    </React.Fragment>
+    </>
   );
 }
