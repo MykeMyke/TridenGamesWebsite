@@ -96,28 +96,30 @@ function GameForm(props) {
           }}
         />
       ) : null}
-      <Grid rowSpacing={2} xs={12} md={9} item container>
-        <Grid item xs={12} md={9}>
-          <TextField
-            fullWidth
-            name="name"
-            value={values.name}
-            onChange={handleChange}
-            label="Game Name"
-            error={!!errors.name}
-            helperText={errors.name}
-          />
-        </Grid>
-        <Grid item xs={12} md={9}>
-          <TextField
-            fullWidth
-            name="module"
-            value={values.module}
-            onChange={handleChange}
-            label="Module Code"
-            error={!!errors.module}
-            helperText={errors.module}
-          />
+      <Grid rowSpacing={"0.8em"} xs={12} md={9} item container>
+        <Grid item container columnSpacing={2} rowSpacing={"0.8em"} columns={{ xs: 12, md: 12 }}>
+          <Grid item xs={12} sm={7}>
+            <TextField
+              fullWidth
+              name="name"
+              value={values.name}
+              onChange={handleChange}
+              label="Game Name"
+              error={!!errors.name}
+              helperText={errors.name}
+            />
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <TextField
+              fullWidth
+              name="module"
+              value={values.module}
+              onChange={handleChange}
+              label="Module Code"
+              error={!!errors.module}
+              helperText={errors.module}
+            />
+          </Grid>
         </Grid>
         <Grid item container columnSpacing={2} columns={{ xs: 12, md: 12 }}>
           <Grid item xs={6} md={6}>
