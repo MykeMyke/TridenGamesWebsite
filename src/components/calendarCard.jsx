@@ -41,10 +41,8 @@ const Players = ({ gameKey, players }) => {
 const SKELETON_SX = { maxWidth: 450, width: "100%" };
 
 const Controls = ({ game }) => {
-  const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  if (user.loggedIn) {
-    if (user.username === game.dm_name) {
+    if (game.is_dm) {
       return (
         <Button
         aria-describedby={game.id}
@@ -54,11 +52,8 @@ const Controls = ({ game }) => {
         color="secondary"
         onClick={() => navigate(`/members/games/edit/${game.id}`)}>Edit</Button>
       )
-    }
-    
   }
-  return "Login for more";
-  
+  return null;
 }
 const Game = ({ props, activeName, isLoading }) => {
   const {

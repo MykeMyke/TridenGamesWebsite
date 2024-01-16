@@ -76,8 +76,24 @@ export default function Calendar() {
   const [activeName, setActiveName] = useState(localName);
   const [localSlots, setLocalSlots] = useLocalStorage(slotsKey, "");
   const [slots, setSlots] = useState(createSlots(localSlots));
-  const { user } = useContext(UserContext);
+  const { user, isLoading: userLoading } = useContext(UserContext);
   const { data, isLoading } = useGames();
+  const userModifiedData = useMemo(() => {
+  if (data && user.loggedIn) {
+    return data.map(game => {
+      return {
+        ...game,
+        is_dm: !!(game.dm_name === user.username),
+        playing: !!(game.players.indexOf(user.username) >= 0)
+      }
+    })
+  } else {
+    return data?.map(game => {
+      return { ...game, is_dm: false, playing: false };
+    }) || [];
+  }
+  }, [data, user])
+  
   const filtered = useMemo(() => {
     if (isLoading || !data) {
       return [
@@ -95,8 +111,8 @@ export default function Calendar() {
         dummyGame("twelve"),
       ];
     }
-    return filterGames(data, activeName, slots);
-  }, [isLoading, data, activeName, slots]);
+    return filterGames(userModifiedData, activeName, slots);
+  }, [isLoading, userModifiedData, activeName, slots, user]);
 
   const lastDate = useMemo(() => {
     return data?.map((a) => a.datetime).reverse()[0] || new Date();
@@ -116,6 +132,7 @@ export default function Calendar() {
       deleteFromStorage(slotsKey);
     }
   }, [setLocalSlots, slots]);
+  
   const navigate = useNavigate();
   return (
     <>

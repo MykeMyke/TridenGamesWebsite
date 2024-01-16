@@ -3,9 +3,10 @@ import { useFormik } from "formik";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { UserContext } from "../App";
 
 const gamesUrl = `${apiHost}/api/games/`
 
@@ -66,21 +67,25 @@ export const timeSlots = [
  * @returns the games, formatted for use
  */
 export function useGames() {
+  const { user } = useContext(UserContext);
   const { data, isLoading, isFetching, error, status } = useQuery({
     queryKey: ['games'], queryFn: async () => {
       const rsp = await getGames();
 
       const data = rsp.data.map(game => {
+        console.info(user, user.isLoggedIn, user.username, game.dm_name)
         return {
           ...game,
           datetime: new Date(game.datetime),
           slot: Math.floor(new Date(game.datetime).getHours() / 4),
           datetime_open_release: game.datetime_open_release === null ? null : new Date(game.datetime_open_release),
-          datetime_release: game.datetime_release === null ? null : new Date(game.datetime_release)
+          datetime_release: game.datetime_release === null ? null : new Date(game.datetime_release),
+          is_dm: user.isLoggedIn && user.username === game.dm_name
         }
       }).sort((a, b) => {
         return a.datetime - b.datetime;
       });
+      console.info(data);
       return data;
     }
   });
@@ -145,7 +150,7 @@ export function useGame(id) {
     },
     onSuccess: (response) => {
       queryClient.invalidateQueries({queryKey: ["games"]})
-      navigate("/members/games")
+      navigate("/calendar")
     }
   })
 
