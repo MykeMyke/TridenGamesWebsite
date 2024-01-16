@@ -5,6 +5,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const gamesUrl = `${apiHost}/api/games/`
 
@@ -55,7 +56,7 @@ export function useGames() {
   const { data, isLoading, isFetching, error, status } = useQuery({ queryKey: ['games'], queryFn: getAllGames });
 
   return {
-    isLoading,
+    isLoading: isFetching,
     data,
     error,
     status
@@ -63,9 +64,20 @@ export function useGames() {
 }
 
 export function useGame(id) {
+  const [isLoading, setIsLoading] = useState(id !== 'new');
+  const [errorMessage, setErrorMessage] = useState();  
+  const [successMessage, setSuccessMessage] = useState();  
+  const navigate = useNavigate();
+  const [ searchParams, setSearchParams ] = useSearchParams();
+  useEffect(() => {
+    if (searchParams.get("created") === 'true') {
+      setSuccessMessage("Game has been created"); 
+    }
+  }, [ searchParams])
   const { data: game, status, error: gameError } = useQuery({
     queryKey: ['games', id],
     queryFn: async ({ queryKey }) => {
+      setIsLoading(true)
       const game = await getGame(queryKey[1]);
       if (game?.data) {
         return {
@@ -82,14 +94,20 @@ export function useGame(id) {
   useEffect(() => {
     if (status === 'success') {
       formik.setValues(game)
+      setIsLoading(false);
     }
   }, [game, status])
   
-  const [isLoading, setIsLoading] = useState(id !== 'new');
-  const [errorMessage, setErrorMessage] = useState();
   const mutation = useMutation({
     mutationFn: (values) => {
+      setIsLoading(true);
       return axios.post(gamesUrl, values, { withCredentials: true, headers: applyCsrf()})
+    },
+    onSettled: () => {
+      setIsLoading(false);
+    },
+    onSuccess: (response) => {
+      navigate(`/members/games/edit/${response.data.id}?created=true`)
     },
     onError: (error) => {
       if (error?.response?.status) {
@@ -159,11 +177,12 @@ export function useGame(id) {
       mutation.mutate(values);
     }
   });
-
+  
   return {
     isLoading,
     formik,
     mutation,
-    errorMessage
+    errorMessage,
+    successMessage
   }
 }

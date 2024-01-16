@@ -25,25 +25,35 @@ export function NewGamePage() {
 }
 
 function GamePage(props) {
-const { formik, mutation, errorMessage } = useGame(props.id);
+const { formik, mutation, isLoading, errorMessage, successMessage } = useGame(props.id);
   const [errorOpen, setErrorOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
   useEffect(() => {
     if (mutation.error) {
       setErrorOpen(true);
     }
   }, [mutation.error])
+  useEffect(() => {
+    if (successMessage) {
+      setSuccessOpen(true);
+    }
+  }, [successMessage])
+
   return (
     <>
       <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => setErrorOpen(false)}>
         <Alert severity="error">{errorMessage}</Alert>
       </Snackbar>
+      <Snackbar open={successOpen} autoHideDuration={6000} onClose={() => setSuccessOpen(false)}>
+        <Alert severity="success">{successMessage}</Alert>
+      </Snackbar>
       <FormikProvider value={formik}>
-        <GameForm />
+        <GameForm isLoading={isLoading} />
       </FormikProvider>
     </>
   );
 }
-function GameForm() {
+function GameForm(props) {
   const { values, errors, handleSubmit, handleChange, setFieldValue } = useFormikContext();
 
   return (
@@ -160,7 +170,7 @@ function GameForm() {
           <FormControlLabel control={<Checkbox checked={values.ready} />} label="Ready" onChange={(evt) => setFieldValue("ready", evt.target.checked)} />
         </Grid>
         <Grid item xs={12} md={12}>
-          <Button variant="outlined" type="submit">
+          <Button variant="outlined" type="submit" disabled={props.isLoading}>
             Create Game
           </Button>
         </Grid>

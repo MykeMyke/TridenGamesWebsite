@@ -11,27 +11,27 @@ export default function TierSelector(props) {
           <InputLabel>Tier of play</InputLabel>
           <Select value={values.tier || 1} label="Tier of play" onChange={(evt) => {
             const tier = evt.target.value;
-            let minLevel;
-            let maxLevel;
+            let level_min;
+            let level_max;
             switch (tier) {
               case 4:
-                minLevel = 17;
-                maxLevel = 20;
+                level_min = 17;
+                level_max = 20;
                 break;
               case 3:
-                minLevel = 11;
-                maxLevel = 16;
+                level_min = 11;
+                level_max = 16;
                 break;
               case 2:
-                minLevel = 5;
-                maxLevel = 10;
+                level_min = 5;
+                level_max = 10;
                 break;
               case 1:
               default:
-                minLevel = 1;
-                maxLevel = 4;
+                level_min = 1;
+                level_max = 4;
             }
-            setValues({ ...values, tier, minLevel, maxLevel });
+            setValues({ ...values, tier, level_min, level_max });
           }}>
             <MenuItem value={1}>1</MenuItem>
             <MenuItem value={2}>2</MenuItem>
