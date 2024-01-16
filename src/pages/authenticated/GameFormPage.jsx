@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 
 import { FormikProvider, useFormikContext } from "formik";
 import { useParams } from "react-router";
@@ -67,7 +67,7 @@ function GamePage(props) {
   }, [successMessage]);
 
   return (
-    <>
+    <React.Fragment>
       <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => setErrorOpen(false)}>
         <Alert severity="error">{errorMessage}</Alert>
       </Snackbar>
@@ -77,7 +77,7 @@ function GamePage(props) {
       <FormikProvider value={formik}>
         <GameForm isLoading={isLoading} deleteGame={deleteGame} />
       </FormikProvider>
-    </>
+    </React.Fragment>
   );
 }
 function GameForm(props) {
@@ -96,7 +96,7 @@ function GameForm(props) {
           }}
         />
       ) : null}
-      <Grid rowSpacing={"0.8em"} xs={12} md={9} item container>
+      <Grid rowSpacing={"0.8em"} item container sx={{ width: "100%" }}>
         <Grid item container columnSpacing={2} rowSpacing={"0.8em"} columns={{ xs: 12, md: 12 }}>
           <Grid item xs={12} sm={7}>
             <TextField
