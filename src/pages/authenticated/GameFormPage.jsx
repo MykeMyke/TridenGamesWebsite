@@ -140,17 +140,21 @@ function GameForm() {
         <Grid item xs={12} container
           columnSpacing={2}
         >
-          <Grid item xs={4} md={4}>
+        <Grid item xs={6} md={6}>
             <DateTimeSelector label="Game Start" name="datetime" />
           </Grid>
-          <Grid item xs={4} md={4}>
+          <Grid item xs={6} md={6}>
+          <FormControlLabel control={<Checkbox checked={values.streaming} />} label="Streaming" onChange={(evt) => setFieldValue("streaming", evt.target.checked)} />
+        </Grid>
+          </Grid>
+        <Grid item xs={12} container
+          columnSpacing={2}
+        >
+          <Grid item xs={6} md={6}>
             <DateTimeSelector label="Patreon Release" name="datetime_release" />
           </Grid>
-          <Grid item xs={4} md={4}><DateTimeSelector label="General Release" name="datetime_open_release" />
+          <Grid item xs={6} md={6}><DateTimeSelector label="General Release" name="datetime_open_release" />
           </Grid>
-        </Grid>
-        <Grid item xs={6} md={6}>
-          <FormControlLabel control={<Checkbox checked={values.streaming} />} label="Streaming" onChange={(evt) => setFieldValue("streaming", evt.target.checked)} />
         </Grid>
         <Grid item xs={6} md={6}>
           <FormControlLabel control={<Checkbox checked={values.ready} />} label="Ready" onChange={(evt) => setFieldValue("ready", evt.target.checked)} />

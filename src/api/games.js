@@ -67,7 +67,6 @@ export function useGame(id) {
     queryKey: ['games', id],
     queryFn: async ({ queryKey }) => {
       const game = await getGame(queryKey[1]);
-      console.info(game);
       if (game?.data) {
         return {
           ...game.data,
@@ -81,13 +80,11 @@ export function useGame(id) {
     enabled: id !== 'new'
   })
   useEffect(() => {
-    console.info("FUcKING", status);
     if (status === 'success') {
-      console.info("FUCK", game);
       formik.setValues(game)
     }
   }, [game, status])
-  console.info(game, gameError);
+  
   const [isLoading, setIsLoading] = useState(id !== 'new');
   const [errorMessage, setErrorMessage] = useState();
   const mutation = useMutation({
@@ -121,19 +118,20 @@ export function useGame(id) {
         .label("Code")
         .required(req),
       description: Yup.string().label("Description").required(req).min(1, req),
-      dateTime: Yup.date().required().min(new Date(), "Game start must be in the future"),
-      dateTimePatreonRelease: Yup.date().label('Patreon Release').required().test(("dateTimePatreonRelease", (value, context) => {
-        if (value.getTime() >= context.parent.dateTime.getTime()) {
-          return context.createError({ path: "dateTimePatreonRelease", message: ({ label }) => `${label} must be before Game Time` });
+      warnings: Yup.string().label("Warnings").required(req).min(1, req),
+      datetime: Yup.date().required().min(new Date(), "Game start must be in the future"),
+      datetime_release: Yup.date().label('Patreon Release').required().test(("datetime_release", (value, context) => {
+        if (value.getTime() >= context.parent.datetime.getTime()) {
+          return context.createError({ path: "datetime_release", message: ({ label }) => `${label} must be before Game Time` });
         }
         return true;
       })),
-      dateTimeOpenRelease: Yup.date().label('General Release').required().test(("dateTimeOpenRelease", (value, context) => {
-        if (value.getTime() >= context.parent.dateTime.getTime()) {
-          return context.createError({ path: "dateTimeOpenRelease", message: ({ label }) => `${label} must be before Game Time` });
+      datetime_open_release: Yup.date().label('General Release').required().test(("datetime_open_release", (value, context) => {
+        if (value.getTime() >= context.parent.datetime.getTime()) {
+          return context.createError({ path: "datetime_open_release", message: ({ label }) => `${label} must be before Game Time` });
         }
-        if (value.getTime() <= context.parent.dateTimePatreonRelease.getTime()) {
-          return context.createError({ path: "dateTimeOpenRelease", message: ({ label }) => `${label} must be after Patreon Release` });
+        if (value.getTime() <= context.parent.datetime_release.getTime()) {
+          return context.createError({ path: "datetime_open_release", message: ({ label }) => `${label} must be after Patreon Release` });
         }
         return true;
       }))
@@ -158,8 +156,6 @@ export function useGame(id) {
 
     },
     onSubmit: (values) => {
-      console.info("This is only called if validation passes");
-      console.info("need to map fields", values)
       mutation.mutate(values);
     }
   });

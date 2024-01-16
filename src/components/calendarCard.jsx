@@ -5,7 +5,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { CardActions } from "@mui/material";
+import { Button, CardActions } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
@@ -18,6 +18,9 @@ import { ReleaseDate } from "../utils/releasedate";
 import { checkPlaying } from "../utils/checkPlaying";
 import { checkWaitlisted } from "../utils/checkWaitlisted";
 import FilterMarker from "./filterMarker";
+import { useContext } from "react";
+import { UserContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const Players = ({ gameKey, players }) => {
   if (players && players.length > 0) {
@@ -37,6 +40,26 @@ const Players = ({ gameKey, players }) => {
 
 const SKELETON_SX = { maxWidth: 450, width: "100%" };
 
+const Controls = ({ game }) => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  if (user.loggedIn) {
+    if (user.username === game.dm_name) {
+      return (
+        <Button
+        aria-describedby={game.id}
+        variant="contained"
+        size="small"
+        sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1 }}
+        color="secondary"
+        onClick={() => navigate(`/members/games/edit/${game.id}`)}>Edit</Button>
+      )
+    }
+    
+  }
+  return "Login for more";
+  
+}
 const Game = ({ props, activeName, isLoading }) => {
   const {
     module,
@@ -52,6 +75,7 @@ const Game = ({ props, activeName, isLoading }) => {
     players,
   } = props;
 
+  const { user } = useContext(UserContext);
   return (
     <Card raised={true} sx={{ maxWidth: 450 }}>
       <CardContent sx={{ pt: 0.75, pb: 0.2, "&:last-child": { pb: 0 } }}>
@@ -126,6 +150,7 @@ const Game = ({ props, activeName, isLoading }) => {
             <>
               <FullDescPopover game={props} />{" "}
               <CalendarAddPopover game={props} />
+              <Controls game={props}/>
             </>
           )}
         </Grid>
@@ -184,11 +209,11 @@ const Game = ({ props, activeName, isLoading }) => {
         )}
       </CardActions>
       <CardActions sx={{ pt: 0.2 }}>
-        <Typography variant="suffix" color="text.secondary">
-          {isLoading
-            ? null
-            : ReleaseDate(datetime_release, datetime_open_release)}
-        </Typography>
+        {isLoading ? null : (
+          <Typography variant="suffix" color="text.secondary">
+            {ReleaseDate(datetime_release, datetime_open_release)}
+          </Typography>
+        )}
       </CardActions>
       <FilterMarker activeName={activeName} gameData={props}></FilterMarker>
     </Card>

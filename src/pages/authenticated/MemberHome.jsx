@@ -1,32 +1,14 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { useContext } from "react";
 import { Container, Box, Typography, Button } from "@mui/material";
-
-import userDataStore from "../../datastore/userdata";
+import LoginButton from "../../components/authentication/RequireAuth";
 import RankWidget from "../../components/user/RankWidget";
-import { getUserDetails } from "../../api/auth";
-import { capitalise } from "../../utils/formatting";
 import { hasDMRank } from "../../utils/ranks";
+import { UserContext } from "../../App";
 
 export default function MemberHome() {
-  const navigate = useNavigate();
-  const [username, setUsername] = userDataStore((s) => [s.username, s.setUsername]);
-  const [ranks, setRanks] = userDataStore((s) => [s.ranks, s.setRanks]);
 
-  useEffect(() => {
-    getUserDetails()
-      .then((response) => {
-        let userdata = response.data.user_data;
-
-        setUsername(capitalise(userdata.discord_name));
-        setRanks(userdata.ranks);
-      })
-      .catch((error) => {
-        console.log(error);
-        navigate("/auth_error");
-      });
-  }, [navigate, setUsername, setRanks]);
+const { user, isLoading, login, logout } = useContext(UserContext);
+  
 
   return (
     <Container sx={{ margin: "auto", width: "100%" }}>
@@ -39,8 +21,8 @@ export default function MemberHome() {
           height: "70vh",
         }}
       >
-        <Typography>Welcome {username}</Typography>
-        {hasDMRank(ranks) && (
+        <Typography>Welcome {user?.username}</Typography>
+        {hasDMRank(user?.ranks || []) && (
           <Button variant="outlined" onClick={() => navigate("/game/create")}>
             Create new game
           </Button>
@@ -55,7 +37,7 @@ export default function MemberHome() {
         }}
       >
         <Typography>Your roles:</Typography>
-        {ranks.map((rank) => {
+        {(user?.ranks || []).map((rank) => {
           return <RankWidget name={rank.name} />;
         })}
       </Box>
