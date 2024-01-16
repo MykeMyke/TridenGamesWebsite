@@ -38,7 +38,7 @@ export default function useUser() {
     mutationFn: async () => {
       const result = doLogout().then(rsp => {
         setUser({ loggedIn: false });
-        queryClient.invalidateQueries(['user_data']);
+        queryClient.invalidateQueries({ queryKey: ['user_data'] });
       });
     }
   });

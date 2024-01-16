@@ -6,9 +6,10 @@ import VariantSelector from "../../components/game/VariantSelector";
 import TierSelector from "../../components/game/TierSelector";
 import DateTimeSelector from "../../components/game/DateTimeSelector";
 import { useGame } from "../../api/games";
-import { Snackbar } from "@mui/material";
+import { Dialog, DialogActions, DialogTitle, DialogContent, Box, Typography, IconButton, Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert"
 import { forwardRef, useEffect, useState } from "react";
+import { Close } from "@mui/icons-material";
 
 
 const Alert = forwardRef((props, ref) => {
@@ -17,22 +18,46 @@ const Alert = forwardRef((props, ref) => {
 
 export function EditGamePage() {
   const { id } = useParams();
-  return <GamePage id={id}/>
+  return <GamePage id={id} />
 }
 
 export function NewGamePage() {
-  return <GamePage id="new"/>
+  return <GamePage id="new" />
 }
 
+const ConfirmDialog = ({ name, onClose, onConfirm }) => {
+  return (
+    <Dialog open={true} maxWidth="sm" fullWidth>
+      <DialogTitle>Are you sure you want to delete {name}?</DialogTitle>
+      <Box position="absolute" top={0} right={0}>
+        <IconButton>
+          <Close />
+        </IconButton>
+      </Box>
+      <DialogContent>
+        <Typography>You cannot undo this action</Typography>
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary" variant="contained" onClick={() => onClose()}>
+          Cancel
+        </Button>
+        <Button color="secondary" variant="contained" onClick={() => onConfirm()}>
+          Delete
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 function GamePage(props) {
-const { formik, mutation, isLoading, errorMessage, successMessage } = useGame(props.id);
+  const { formik, saveGame, isLoading, errorMessage, successMessage, deleteGame } = useGame(props.id);
   const [errorOpen, setErrorOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   useEffect(() => {
-    if (mutation.error) {
+    if (saveGame.error) {
       setErrorOpen(true);
     }
-  }, [mutation.error])
+  }, [saveGame.error])
   useEffect(() => {
     if (successMessage) {
       setSuccessOpen(true);
@@ -48,16 +73,21 @@ const { formik, mutation, isLoading, errorMessage, successMessage } = useGame(pr
         <Alert severity="success">{successMessage}</Alert>
       </Snackbar>
       <FormikProvider value={formik}>
-        <GameForm isLoading={isLoading} />
+        <GameForm isLoading={isLoading} deleteGame={deleteGame} />
       </FormikProvider>
     </>
   );
 }
 function GameForm(props) {
   const { values, errors, handleSubmit, handleChange, setFieldValue } = useFormikContext();
-
+  const [showDelete, setShowDelete] = useState(false);
+  
   return (
     <form onSubmit={handleSubmit}>
+      {showDelete ? <ConfirmDialog name={values.name} onClose={() => setShowDelete(false)} onConfirm={() => {
+        props.deleteGame?.mutate();
+        setShowDelete(false)
+      }}/> : null}
       <Grid
         rowSpacing={2}
         xs={12} md={9}
@@ -68,7 +98,7 @@ function GameForm(props) {
           <TextField fullWidth name="name" value={values.name} onChange={handleChange} label="Game Name" error={!!errors.name} helperText={errors.name} />
         </Grid>
         <Grid item xs={12} md={9}>
-          <TextField fullWidth name="code" value={values.code} onChange={handleChange} label="Module Code" error={!!errors.code} helperText={errors.code} />
+          <TextField fullWidth name="module" value={values.module} onChange={handleChange} label="Module Code" error={!!errors.module} helperText={errors.module} />
         </Grid>
         <Grid item
           container
@@ -150,13 +180,13 @@ function GameForm(props) {
         <Grid item xs={12} container
           columnSpacing={2}
         >
-        <Grid item xs={6} md={6}>
+          <Grid item xs={6} md={6}>
             <DateTimeSelector label="Game Start" name="datetime" />
           </Grid>
           <Grid item xs={6} md={6}>
-          <FormControlLabel control={<Checkbox checked={values.streaming} />} label="Streaming" onChange={(evt) => setFieldValue("streaming", evt.target.checked)} />
-        </Grid>
+            <FormControlLabel control={<Checkbox checked={values.streaming} />} label="Streaming" onChange={(evt) => setFieldValue("streaming", evt.target.checked)} />
           </Grid>
+        </Grid>
         <Grid item xs={12} container
           columnSpacing={2}
         >
@@ -171,8 +201,13 @@ function GameForm(props) {
         </Grid>
         <Grid item xs={12} md={12}>
           <Button variant="outlined" type="submit" disabled={props.isLoading}>
-            Create Game
+            {values.id ? "Update Game" : "Create Game"}
           </Button>
+          {values.id ? (
+            <Button variant="outlined" onClick={() => { setShowDelete(true); return false }} disabled={props.isLoading}>
+              Delete Game
+            </Button>
+          ) : null}
         </Grid>
       </Grid>
     </form>

@@ -1,6 +1,6 @@
 import { apiHost, applyCsrf } from "./utils";
 import { useFormik } from "formik";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
@@ -9,38 +9,47 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const gamesUrl = `${apiHost}/api/games/`
 
+/**
+ * Convience method just so we dont have to type this on every required validation.
+ * @param {*} field they field, either an object with a label or a string label
+ * @returns a string error message
+ */
 const req = (field) => {
   const label = typeof field === 'string' ? label : field.label;
   return `${label} is required`;
 }
 
+/**
+ * Get all games.
+ * @returns the axios response
+ */
 function getGames() {
   return axios.get(gamesUrl, {
     withCredentials: true
   });
 }
 
+/**
+ * Get a single game by its id
+ * @param {*} id the pk of the game
+ * @returns the axios response
+ */
 function getGame(id) {
   return axios.get(gamesUrl + id , {
     withCredentials: true
   });
 }
 
-async function getAllGames() {
-  const rsp = await getGames();
+function createGame(values) {
+  return axios.post(gamesUrl, values, { withCredentials: true, headers: applyCsrf()})
+}
 
-  const data = rsp.data.map(game => {
-    return {
-      ...game,
-      datetime: new Date(game.datetime),
-      slot: Math.floor(new Date(game.datetime).getHours() / 4),
-      datetime_open_release: game.datetime_open_release === null ? null : new Date(game.datetime_open_release),
-      datetime_release: game.datetime_release === null ? null : new Date(game.datetime_release)
-    }
-  }).sort((a, b) => {
-    return a.datetime - b.datetime;
-  });
-  return data;
+function updateGame(values) {
+  return axios.patch(`${gamesUrl}${values.id}/`, values, { withCredentials: true, headers: applyCsrf()})
+}
+
+function deleteGameById(id) {
+  return axios.delete(`${gamesUrl}${id}/`, { withCredentials: true, headers: applyCsrf()})
 }
 
 export const timeSlots = [
@@ -52,9 +61,30 @@ export const timeSlots = [
   { value: 5, text: "8PM-Midnight" },
 ]
 
+/**
+ * The hook to get games
+ * @returns the games, formatted for use
+ */
 export function useGames() {
-  const { data, isLoading, isFetching, error, status } = useQuery({ queryKey: ['games'], queryFn: getAllGames });
+  const { data, isLoading, isFetching, error, status } = useQuery({
+    queryKey: ['games'], queryFn: async () => {
+      const rsp = await getGames();
 
+      const data = rsp.data.map(game => {
+        return {
+          ...game,
+          datetime: new Date(game.datetime),
+          slot: Math.floor(new Date(game.datetime).getHours() / 4),
+          datetime_open_release: game.datetime_open_release === null ? null : new Date(game.datetime_open_release),
+          datetime_release: game.datetime_release === null ? null : new Date(game.datetime_release)
+        }
+      }).sort((a, b) => {
+        return a.datetime - b.datetime;
+      });
+      return data;
+    }
+  });
+  
   return {
     isLoading: isFetching,
     data,
@@ -63,7 +93,13 @@ export function useGames() {
   }
 }
 
+/**
+ * Get a game by a hook and return a form and methods to manipulate
+ * @param {*} id the pk of a game, or "new"
+ * @returns 
+ */
 export function useGame(id) {
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(id !== 'new');
   const [errorMessage, setErrorMessage] = useState();  
   const [successMessage, setSuccessMessage] = useState();  
@@ -98,16 +134,38 @@ export function useGame(id) {
     }
   }, [game, status])
   
-  const mutation = useMutation({
+  const deleteGame = useMutation({
     mutationFn: (values) => {
       setIsLoading(true);
-      return axios.post(gamesUrl, values, { withCredentials: true, headers: applyCsrf()})
+      return deleteGameById(id)
+    },
+    enabled: id !== 'new',
+    onSettled: () => {
+      setIsLoading(false);
+    },
+    onSuccess: (response) => {
+      queryClient.invalidateQueries({queryKey: ["games"]})
+      navigate("/members/games")
+    }
+  })
+
+  const saveGame = useMutation({
+    mutationFn: (values) => {
+      setIsLoading(true);
+      if (id === 'new') {
+        return createGame(values);
+      }
+      return updateGame(values);
     },
     onSettled: () => {
       setIsLoading(false);
     },
     onSuccess: (response) => {
-      navigate(`/members/games/edit/${response.data.id}?created=true`)
+      if (id === 'new') {
+        navigate(`/members/games/edit/${response.data.id}?created=true`)
+      } else {
+        setSuccessMessage("Game has been updated");
+      }
     },
     onError: (error) => {
       if (error?.response?.status) {
@@ -132,8 +190,8 @@ export function useGame(id) {
       name: Yup.string()
         .label("Name")
         .required(req),
-      code: Yup.string()
-        .label("Code")
+      module: Yup.string()
+        .label("Module Code")
         .required(req),
       description: Yup.string().label("Description").required(req).min(1, req),
       warnings: Yup.string().label("Warnings").required(req).min(1, req),
@@ -174,15 +232,16 @@ export function useGame(id) {
 
     },
     onSubmit: (values) => {
-      mutation.mutate(values);
+      saveGame.mutate(values);
     }
   });
   
   return {
     isLoading,
     formik,
-    mutation,
+    saveGame,
     errorMessage,
-    successMessage
+    successMessage,
+    deleteGame,
   }
 }
