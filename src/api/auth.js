@@ -16,38 +16,39 @@ function login() {
 }
 
 export default function useUser() {
-  const [user, setUser] = useState(); 
+  const [user, setUser] = useState();
   const queryClient = useQueryClient();
   const { data, isFetching, status } = useQuery({
-    queryKey: ['user_data'],
+    queryKey: ["user_data"],
+
     queryFn: async () => {
       const u = await getUserDetails();
       let us;
       if (u.data?.user_data) {
-        us = { ...u.data.user_data, loggedIn: true }
+        us = { ...u.data.user_data, loggedIn: true };
       } else {
         us = { loggedIn: false };
-      };
+      }
       setUser(us);
       return us;
-    }
-  })
+    },
+  });
 
   const logoutMutation = useMutation({
-    queryKey: ['logout'],
+    queryKey: ["logout"],
     mutationFn: async () => {
-      const result = doLogout().then(rsp => {
+      const result = doLogout().then((rsp) => {
         setUser({ loggedIn: false });
-        queryClient.invalidateQueries({ queryKey: ['user_data'] });
+        queryClient.invalidateQueries({ queryKey: ["user_data"] });
       });
-    }
+    },
   });
 
   return {
-    user:user || { loggedIn: false},
+    user: user || { loggedIn: false },
     loggedIn: user?.loggedIn || false,
     login,
     logout: logoutMutation.mutate,
-    isLoading: isFetching
-  }
+    isLoading: isFetching,
+  };
 }

@@ -1,14 +1,16 @@
 import { useContext } from "react";
-import { Container, Box, Typography, Button } from "@mui/material";
-import LoginButton from "../../components/authentication/RequireAuth";
+import { useNavigate } from "react-router-dom";
+
+import { Container, Box, Typography, Button, ButtonGroup } from "@mui/material";
+
 import RankWidget from "../../components/user/RankWidget";
+import { capitalise } from "../../utils/formatting";
 import { hasDMRank } from "../../utils/ranks";
 import { UserContext } from "../../App";
 
 export default function MemberHome() {
-
-const { user, isLoading, login, logout } = useContext(UserContext);
-  
+  const navigate = useNavigate();
+  const { user, isLoading, login, logout } = useContext(UserContext);
 
   return (
     <Container sx={{ margin: "auto", width: "100%" }}>
@@ -21,11 +23,16 @@ const { user, isLoading, login, logout } = useContext(UserContext);
           height: "70vh",
         }}
       >
-        <Typography>Welcome {user?.username}</Typography>
+        <Typography>Welcome {capitalise(user?.username)}</Typography>
         {hasDMRank(user?.ranks || []) && (
-          <Button variant="outlined" onClick={() => navigate("/game/create")}>
-            Create new game
-          </Button>
+          <ButtonGroup>
+            <Button variant="outlined" onClick={() => navigate("/members/games")}>
+              View my games
+            </Button>
+            <Button variant="outlined" onClick={() => navigate("/members/games/new")}>
+              Create new game
+            </Button>
+          </ButtonGroup>
         )}
       </Box>
       <Box

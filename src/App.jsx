@@ -14,7 +14,7 @@ import Benefits from "./pages/Benefits";
 import Calendar from "./pages/Calendar";
 import Team from "./pages/Team";
 import Tridenverse from "./pages/Tridenverse";
-import Dashboard from "./pages/Dashboard";
+import GamesList from "./pages/authenticated/GamesList";
 import PoliciesPage from "./pages/Policies";
 import MemberHome from "./pages/authenticated/MemberHome";
 import { NewGamePage, EditGamePage } from "./pages/authenticated/GameFormPage";
@@ -42,15 +42,14 @@ function AppRoutes() {
               py: 10,
             }}
           >
-            <Grid item xs={false} sm={2} />
-            <Grid item xs={12} sm={8}>
+            <Grid item xs={false} sm={1} />
+            <Grid item xs={12} sm={10}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/team" element={<Team />} />
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/benefits" element={<Benefits />} />
                 <Route path="/tridenverse" element={<Tridenverse />} />
-                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/policies" element={<PoliciesPage />} />
                 <Route
                   path="/members"
@@ -64,7 +63,7 @@ function AppRoutes() {
                   path="/members/games"
                   element={
                     <RequireAuth>
-                      <Dashboard />
+                      <GamesList />
                     </RequireAuth>
                   }
                 />
@@ -88,7 +87,7 @@ function AppRoutes() {
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </Grid>
-            <Grid item xs={false} sm={2} />
+            <Grid item xs={false} sm={1} />
           </Grid>
         </Grid>
       </Router>
