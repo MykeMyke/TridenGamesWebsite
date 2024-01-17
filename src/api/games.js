@@ -1,12 +1,15 @@
-import { apiHost, applyCsrf } from "./utils";
-import { useFormik } from "formik";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import * as Yup from "yup";
 import { useContext, useEffect, useState } from "react";
-import moment from "moment";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useFormik } from "formik";
+import moment from "moment";
+import * as Yup from "yup";
+import axios from "axios";
+
 import { UserContext } from "../App";
+
+import { apiHost, applyCsrf } from "./utils";
+import { nextWeek, tomorrow } from "../utils/datetime";
 
 const gamesUrl = `${apiHost}/api/games/`;
 
@@ -201,7 +204,7 @@ export function useGame(id) {
       name: Yup.string().label("Name").required(req),
       module: Yup.string().label("Module Code").required(req),
       description: Yup.string().label("Description").required(req).min(1, req),
-      warnings: Yup.string().label("Warnings").required(req).min(1, req),
+      warnings: Yup.string().label("Warnings"),
       datetime: Yup.date().required().min(new Date(), "Game start must be in the future"),
       datetime_release: Yup.date()
         .label("Patreon Release")
@@ -252,9 +255,9 @@ export function useGame(id) {
       level_max: 4,
       warnings: "",
       streaming: false,
-      datetime: new Date(),
+      datetime: nextWeek(),
       datetime_release: new Date(),
-      datetime_open_release: new Date(),
+      datetime_open_release: tomorrow(),
       length: "4 hours",
       ready: true,
     },

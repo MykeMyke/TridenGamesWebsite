@@ -20,6 +20,7 @@ export default function DateTimeSelector(props) {
         ampm={false}
         onChange={(val) => {
           setFieldValue(props.name, val.toDate());
+          props?.onChange(val.toDate());
         }}
         shouldDisableDate={(val) => {
           return !!error ? val.toDate().getTime() === mValue.toDate().getTime() : false;
