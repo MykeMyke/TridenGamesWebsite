@@ -1,13 +1,54 @@
+import { useState } from "react";
 import axios from "axios";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiHost, applyCsrf } from "./utils";
 
 export function getUserDetails() {
-  const url = "https://unseen-servant.digitaldemiplane.com/auth/user_details/";
-
-  return axios.get(url, { withCredentials: true });
+  return axios.get(`${apiHost}/auth/user_details`, { withCredentials: true });
 }
 
 export function doLogout() {
-  const url = "https://unseen-servant.digitaldemiplane.com/auth/logout/";
+  return axios.post(`${apiHost}/auth/logout/`, { withCredentials: true });
+}
 
-  return axios.post(url, { withCredentials: true });
+function login() {
+  window.location.href = `${apiHost}/discord_auth/login`;
+}
+
+export default function useUser() {
+  const [user, setUser] = useState();
+  const queryClient = useQueryClient();
+  const { data, isFetching, status } = useQuery({
+    queryKey: ["user_data"],
+
+    queryFn: async () => {
+      const u = await getUserDetails();
+      let us;
+      if (u.data?.user_data) {
+        us = { ...u.data.user_data, loggedIn: true };
+      } else {
+        us = { loggedIn: false };
+      }
+      setUser(us);
+      return us;
+    },
+  });
+
+  const logoutMutation = useMutation({
+    queryKey: ["logout"],
+    mutationFn: async () => {
+      const result = doLogout().then((rsp) => {
+        setUser({ loggedIn: false });
+        queryClient.invalidateQueries({ queryKey: ["user_data"] });
+      });
+    },
+  });
+
+  return {
+    user: user || { loggedIn: false },
+    loggedIn: user?.loggedIn || false,
+    login,
+    logout: logoutMutation.mutate,
+    isLoading: isFetching,
+  };
 }

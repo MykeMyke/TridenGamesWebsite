@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Avatar, Menu, MenuItem } from "@mui/material";
+import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
 
-import userDataStore from "../../datastore/userdata";
 import stringAvatar from "../../utils/stringAvatar";
-import { doLogout } from "../../api/auth";
+import { UserContext } from "../../App";
 
 export default function AuthButton() {
+  const navigate = useNavigate();
+  const { user, login, logout } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [username, setUsername] = userDataStore((s) => [
-    s.username,
-    s.setUsername,
-  ]);
 
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -20,23 +18,9 @@ export default function AuthButton() {
     setAnchorEl(null);
   };
 
-  const discordAuth = () => {
-    const url =
-      "https://unseen-servant.digitaldemiplane.com/discord_auth/login/";
-
-    window.open(url, "_blank", "noreferrer");
-    closeMenu();
-  };
-  const discordLogout = () => {
-    doLogout().then(() => {
-      closeMenu();
-      setUsername("");
-    });
-  };
-
   return (
     <React.Fragment>
-      <Avatar onClick={openMenu} {...stringAvatar(username ? username : "")} />
+      <Avatar onClick={openMenu} {...stringAvatar(user?.username || "")} />
       <Menu
         id="auth-menu"
         anchorEl={anchorEl}
@@ -51,8 +35,21 @@ export default function AuthButton() {
           horizontal: "right",
         }}
       >
-        <MenuItem onClick={discordAuth}>Login via discord</MenuItem>
-        {username && <MenuItem onClick={discordLogout}>Logout</MenuItem>}
+        {user?.loggedIn ? (
+          <React.Fragment>
+            <MenuItem onClick={() => navigate("/members")}>View member area</MenuItem>
+            <MenuItem
+              onClick={() => {
+                closeMenu();
+                logout();
+              }}
+            >
+              Logout
+            </MenuItem>
+          </React.Fragment>
+        ) : (
+          <MenuItem onClick={login}>Login via discord</MenuItem>
+        )}
       </Menu>
     </React.Fragment>
   );

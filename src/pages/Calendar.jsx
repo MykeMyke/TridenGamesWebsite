@@ -1,5 +1,5 @@
 import "../styles/Global.css";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Box, Skeleton } from "@mui/material";
 import { Fab, Grid, Typography } from "@mui/material";
 import { useGames } from "../api/games";
@@ -9,6 +9,8 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import Divider from "@mui/material/Divider";
 import NameFilter from "../components/nameFilter";
 import useLocalStorage, { deleteFromStorage } from "@rehooks/local-storage";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 
 // the prefix serves as a namespace so we will not delete other keys, unless they pick this name
 // leave this the same unless you have a reason to change this
@@ -74,8 +76,24 @@ export default function Calendar() {
   const [activeName, setActiveName] = useState(localName);
   const [localSlots, setLocalSlots] = useLocalStorage(slotsKey, "");
   const [slots, setSlots] = useState(createSlots(localSlots));
-
+  const { user, isLoading: userLoading } = useContext(UserContext);
   const { data, isLoading } = useGames();
+  const userModifiedData = useMemo(() => {
+  if (data && user.loggedIn) {
+    return data.map(game => {
+      return {
+        ...game,
+        is_dm: !!(game.dm_name === user.username),
+        playing: !!(game.players.indexOf(user.username) >= 0)
+      }
+    })
+  } else {
+    return data?.map(game => {
+      return { ...game, is_dm: false, playing: false };
+    }) || [];
+  }
+  }, [data, user])
+  
   const filtered = useMemo(() => {
     if (isLoading || !data) {
       return [
@@ -93,8 +111,8 @@ export default function Calendar() {
         dummyGame("twelve"),
       ];
     }
-    return filterGames(data, activeName, slots);
-  }, [isLoading, data, activeName, slots]);
+    return filterGames(userModifiedData, activeName, slots);
+  }, [isLoading, userModifiedData, activeName, slots, user]);
 
   const lastDate = useMemo(() => {
     return data?.map((a) => a.datetime).reverse()[0] || new Date();
@@ -114,6 +132,8 @@ export default function Calendar() {
       deleteFromStorage(slotsKey);
     }
   }, [setLocalSlots, slots]);
+  
+  const navigate = useNavigate();
   return (
     <>
       <Grid
@@ -211,19 +231,19 @@ export default function Calendar() {
             />
             </Grid>
         ))}
-        <Box>
-          <Fab
-            variant="extended"
-            color="primary"
-            aria-label="add"
-            sx={{ position: "fixed", bottom: "1%", right: "10%" }}
-            href="https://unseen-servant.digitaldemiplane.com/admin/core/game/add/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <AddBoxIcon fontSize="large" sx={{ mr: 1 }} /> Create a Game
-          </Fab>
-        </Box>
+        {user?.loggedIn ? (
+          <Box>
+            <Fab
+              variant="extended"
+              color="primary"
+              aria-label="add"
+              sx={{ position: "fixed", bottom: "1%", right: "10%" }}
+              onClick={() => navigate("/members/games/new")}
+            >
+              <AddBoxIcon fontSize="large" sx={{ mr: 1 }} /> Create a Game
+            </Fab>
+          </Box>
+        ) : null}
       </Grid>
     </>
   );
