@@ -19,7 +19,7 @@ const columns = [
         variant="contained"
         color="primary"
         size="small"
-        href={`https://unseen-servant.digitaldemiplane.com/admin/core/game/${params.value}/change/`}
+        href={`/members/games/edit/${params.value}?created=false`}
         target="_blank"
         rel="noreferrer"
       >

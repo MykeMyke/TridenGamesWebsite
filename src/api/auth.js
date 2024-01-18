@@ -8,7 +8,7 @@ export function getUserDetails() {
 }
 
 export function doLogout() {
-  return axios.post(`${apiHost}/auth/logout/`, { withCredentials: true });
+  return axios.post(`${apiHost}/auth/logout`, {}, { withCredentials: true });
 }
 
 function login() {
