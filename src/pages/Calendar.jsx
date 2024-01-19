@@ -41,6 +41,18 @@ function nameFilterFn(gameData, activeName) {
               player.discord_id.toString().toLocaleLowerCase() ===
                 activeName.toLocaleLowerCase()))
       )) ||
+     (gameData.standby &&
+      gameData.standby.some(
+        (player) =>
+          player &&
+          ((player.discord_name &&
+            player.discord_name
+              .toLocaleLowerCase()
+              .includes(activeName.toLocaleLowerCase())) ||
+            (player.discord_id &&
+              player.discord_id.toString().toLocaleLowerCase() ===
+                activeName.toLocaleLowerCase()))
+      )) ||
     (gameData.dm_name &&
       gameData.dm_name
         .toLocaleLowerCase()
@@ -84,7 +96,8 @@ export default function Calendar() {
       return {
         ...game,
         is_dm: !!(game.dm_name === user.username),
-        playing: !!(game.players.indexOf(user.username) >= 0)
+        playing: !!(game.players.indexOf(user.username) >= 0),
+        standingBy: !!(game.standby.indexOf(user.username) >= 0)
       }
     })
   } else {
