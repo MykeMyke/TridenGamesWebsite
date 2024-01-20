@@ -18,6 +18,7 @@ export default function DateTimeSelector(props) {
         label={props.label}
         value={mValue}
         ampm={false}
+        format="YYYY/MM/DD"
         onChange={(val) => {
           setFieldValue(props.name, val.toDate());
           props?.onChange(val.toDate());
