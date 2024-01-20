@@ -5,16 +5,15 @@ import Skeleton from "@mui/material/Skeleton";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, CardActions } from "@mui/material";
+import Button from "@mui/material/Button";
+import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
-
 import FullDescPopover from "./FullDescPopover";
 import CalendarAddPopover from "./CalendarAddPopover";
 import { toLocalString } from "../utils/formatting";
 import { checkTier } from "../utils/tier";
-import { ReleaseDate } from "../utils/releasedate";
 import { checkPlaying } from "../utils/checkPlaying";
 import { checkWaitlisted } from "../utils/checkWaitlisted";
 import FilterMarker from "./filterMarker";
@@ -46,12 +45,12 @@ const Controls = ({ game }) => {
     if (game.is_dm) {
       return (
         <Button
-        aria-describedby={game.id}
-        variant="contained"
-        size="small"
-        sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1 }}
-        color="secondary"
-        onClick={() => navigate(`/members/games/edit/${game.id}`)}>Edit</Button>
+          aria-describedby={`dm-edit${game.id}`}
+          variant="contained"
+          size="small"
+          sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1, minWidth: "30px" }}
+          color="secondary"
+          onClick={() => navigate(`/members/games/edit/${game.id}`)}>✏️</Button>
       )
   }
   return null;
