@@ -6,7 +6,7 @@ import moment from "moment";
 import * as Yup from "yup";
 import axios from "axios";
 import useAlertStore from "../stores/useAlertStore";
-import { useShallow } from 'zustand/react/shallow'
+import { useShallow } from "zustand/react/shallow";
 
 import { UserContext } from "../App";
 
@@ -47,25 +47,33 @@ function getGame(id) {
 }
 
 function createGame(values) {
-  return axios.post(gamesUrl, values, { withCredentials: true, headers: applyCsrf() });
+  return axios.post(gamesUrl, values, {
+    withCredentials: true,
+    headers: applyCsrf(),
+  });
 }
 
 function updateGame(values) {
-  return axios.patch(`${gamesUrl}${values.id}/`, values, { withCredentials: true, headers: applyCsrf() });
+  return axios.patch(`${gamesUrl}${values.id}/`, values, {
+    withCredentials: true,
+    headers: applyCsrf(),
+  });
 }
 
 function deleteGameById(id) {
-  return axios.delete(`${gamesUrl}${id}/`, { withCredentials: true, headers: applyCsrf() });
+  return axios.delete(`${gamesUrl}${id}/`, {
+    withCredentials: true,
+    headers: applyCsrf(),
+  });
 }
 
 function joinGameById(id) {
-  return axios.post(`${gamesUrl}${id}/join/`, {}, { withCredentials: true, headers: applyCsrf()})
+  return axios.post(`${gamesUrl}${id}/join/`, {}, { withCredentials: true, headers: applyCsrf() });
 }
 
 function dropGameById(id) {
-  return axios.post(`${gamesUrl}${id}/drop/`, {}, { withCredentials: true, headers: applyCsrf()})
+  return axios.post(`${gamesUrl}${id}/drop/`, {}, { withCredentials: true, headers: applyCsrf() });
 }
-
 
 export const timeSlots = [
   { value: 0, text: "Midnight-4AM" },
@@ -82,7 +90,7 @@ export const timeSlots = [
  */
 export function useGames() {
   const queryClient = useQueryClient();
-  const [setSuccess, setError, setWarning] = useAlertStore(useShallow((s) => [ s.setSuccess, s.setError, s.setWarning]))
+  const [setSuccess, setError, setWarning] = useAlertStore(useShallow((s) => [s.setSuccess, s.setError, s.setWarning]));
   const { data, isLoading, error, status } = useQuery({
     queryKey: ["games"],
     queryFn: async () => {
@@ -93,13 +101,12 @@ export function useGames() {
           return {
             ...game,
             datetime: new Date(game.datetime),
-            players: game.players.filter(player => !player.standby),
-            standby: game.players.filter(player => player.standby),
+            players: game.players.filter((player) => !player.standby),
+            standby: game.players.filter((player) => player.standby),
             slot: Math.floor(new Date(game.datetime).getHours() / 4),
             datetime_open_release: game.datetime_open_release === null ? null : new Date(game.datetime_open_release),
             datetime_release: game.datetime_release === null ? null : new Date(game.datetime_release),
-            players: game.players.filter(player => !player.standby),
-            standby: game.players.filter(player => player.standby),
+            is_dm: user.isLoggedIn && user.username === game.dm_name,
           };
         })
         .sort((a, b) => {
@@ -109,23 +116,23 @@ export function useGames() {
     },
   });
 
-    const { mutate: joinGame, isLoading: isJoining } = useMutation({
-    mutationFn: async ({ id, name}) => {
-      const response = await joinGameById(id)
+  const { mutate: joinGame, isLoading: isJoining } = useMutation({
+    mutationFn: async ({ id, name }) => {
+      const response = await joinGameById(id);
       return response;
     },
-    onSuccess: (response, {id, name}) => {
+    onSuccess: (response, { id, name }) => {
       const rspUser = response.data;
       //unseenservant does not send an error if user is already in game
       if (rspUser?.game) {
         const current = data;
-        const currentIdx = data.findIndex(gm => gm.id == id);
+        const currentIdx = data.findIndex((gm) => gm.id == id);
         if (currentIdx >= 0) {
           if (rspUser.standby) {
-            current[currentIdx].standby.push(rspUser)
+            current[currentIdx].standby.push(rspUser);
             current[currentIdx].standingBy = true;
           } else {
-            current[currentIdx].players.push(rspUser)
+            current[currentIdx].players.push(rspUser);
             current[currentIdx].playing = true;
           }
           //optimistically change
@@ -140,17 +147,17 @@ export function useGames() {
         queryClient.refetchQueries({ queryKey: ["games"], exact: true });
       }
     },
-      onError: (error) => {
-        setError(error?.response?.data?.message || "Unknown error");
-    }
-    })
-  
+    onError: (error) => {
+      setError(error?.response?.data?.message || "Unknown error");
+    },
+  });
+
   const { mutate: dropGame, isLoading: isDropping } = useMutation({
-    mutationFn: async ({ id, name}) => {
-      const response = await dropGameById(id)
+    mutationFn: async ({ id, name }) => {
+      const response = await dropGameById(id);
       return response;
     },
-    onSuccess: (response, {id, name}) => {
+    onSuccess: (response, { id, name }) => {
       setSuccess(`You have dropped from game ${name}`);
       queryClient.refetchQueries({ queryKey: ["user_data"], exact: true });
       queryClient.refetchQueries({ queryKey: ["games"], exact: true });
@@ -164,9 +171,9 @@ export function useGames() {
       } else {
         setError(error?.response?.data?.message || "Unknown error");
       }
-    }
-  })
-  
+    },
+  });
+
   return {
     isLoading,
     data,
@@ -175,7 +182,7 @@ export function useGames() {
     joinGame,
     isJoining,
     dropGame,
-    isDropping
+    isDropping,
   };
 }
 
@@ -187,7 +194,7 @@ export function useGames() {
 export function useGame(id) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(id !== "new");
-  const [setSuccess, setError] = useAlertStore(useShallow((s) => [ s.setSuccess, s.setError]))
+  const [setSuccess, setError] = useAlertStore(useShallow((s) => [s.setSuccess, s.setError]));
 
   const navigate = useNavigate();
   const {
@@ -327,6 +334,7 @@ export function useGame(id) {
       level_max: 4,
       warnings: "",
       streaming: false,
+      play_test: false,
       datetime: nextWeek(),
       datetime_release: new Date(),
       datetime_open_release: tomorrow(),
