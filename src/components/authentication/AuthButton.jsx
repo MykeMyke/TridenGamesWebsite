@@ -11,11 +11,13 @@ import { UserContext } from "../../App";
  * is directly under Menu
  * @param closeMenu the close function
  * @param logout the logout function
- * @returns 
+ * @returns
  */
 function LoggedInMenu({ closeMenu, logout }) {
+  const navigate = useNavigate();
+
   return (
-    <>
+    <React.Fragment>
       <MenuItem onClick={() => navigate("/members")}>View member area</MenuItem>
       <MenuItem
         onClick={() => {
@@ -25,11 +27,10 @@ function LoggedInMenu({ closeMenu, logout }) {
       >
         Logout
       </MenuItem>
-    </>
-  )
+    </React.Fragment>
+  );
 }
 export default function AuthButton() {
-  const navigate = useNavigate();
   const { user, login, logout } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
 
