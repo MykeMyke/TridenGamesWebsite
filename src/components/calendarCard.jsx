@@ -21,6 +21,7 @@ import FilterMarker from "./filterMarker";
 import { useContext } from "react";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import GameCardActions from "./game/GameCardActions";
 
 const Players = ({ gameKey, players }) => {
   if (players && players.length > 0) {
@@ -55,7 +56,7 @@ const Controls = ({ game }) => {
   }
   return null;
 }
-const Game = ({ props, activeName, isLoading }) => {
+const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isDropping }) => {
   const {
     module,
     name,
@@ -203,10 +204,10 @@ const Game = ({ props, activeName, isLoading }) => {
           </Grid>
         )}
       </CardActions>
-      <CardActions sx={{ pt: 0.2 }}>
+      <CardActions sx={{ pt: 0.2 }} style={{ justifyContent: "center" }}>
         {isLoading ? null : (
-          <Typography variant="suffix" color="text.secondary">
-            {ReleaseDate(datetime_release, datetime_open_release)}
+          <Typography variant="suffix" color="text.secondary" alignItems="center" align={"center"}>
+            <GameCardActions joinGame={joinGame} isJoining={isJoining} dropGame={dropGame} {...props} />
           </Typography>
         )}
       </CardActions>
@@ -214,4 +215,5 @@ const Game = ({ props, activeName, isLoading }) => {
     </Card>
   );
 };
+
 export default Game;

@@ -25,7 +25,12 @@ export default function useUser() {
       const u = await getUserDetails();
       let us;
       if (u.data?.user_data) {
-        us = { ...u.data.user_data, loggedIn: true };
+        
+        us = {
+          ...u.data.user_data, loggedIn: true,
+          patreon: u.data.user_data.ranks?.filter(rank => rank.patreon).length,
+          credits: u.data.user_data.ranks.reduce((tot, rank) => tot + rank.max_games, 0)
+        }
       } else {
         us = { loggedIn: false };
       }

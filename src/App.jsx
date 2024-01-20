@@ -25,6 +25,8 @@ import RequireAuth from "./components/authentication/RequireAuth";
 import SnackbarAlert from "./components/SnackbarAlert";
 
 const queryClient = new QueryClient();
+//TODO since we already bit the bullet and re-added zustand for shared snackbar management, might
+// we well replace this context with a store too
 export const UserContext = createContext();
 
 function AppRoutes() {
