@@ -5,18 +5,18 @@ import Skeleton from "@mui/material/Skeleton";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, CardActions } from "@mui/material";
+import Button from "@mui/material/Button";
+import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
-
 import FullDescPopover from "./FullDescPopover";
 import CalendarAddPopover from "./CalendarAddPopover";
 import { toLocalString } from "../utils/formatting";
 import { checkTier } from "../utils/tier";
-import { ReleaseDate } from "../utils/releasedate";
 import FilterMarker from "./filterMarker";
 import { useNavigate } from "react-router-dom";
+import GameCardActions from "./game/GameCardActions";
 
 const Players = ({ gameKey, players }) => {
   if (players && players.length > 0) {
@@ -41,17 +41,17 @@ const Controls = ({ game }) => {
     if (game.is_dm) {
       return (
         <Button
-        aria-describedby={game.id}
-        variant="contained"
-        size="small"
-        sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1 }}
-        color="secondary"
-        onClick={() => navigate(`/members/games/edit/${game.id}`)}>Edit</Button>
+          aria-describedby={`dm-edit${game.id}`}
+          variant="contained"
+          size="small"
+          sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1, minWidth: "30px" }}
+          color="secondary"
+          onClick={() => navigate(`/members/games/edit/${game.id}`)}>✏️</Button>
       )
   }
   return null;
 }
-const Game = ({ props, activeName, isLoading }) => {
+const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isDropping }) => {
   const {
     module,
     name,
@@ -199,10 +199,10 @@ const Game = ({ props, activeName, isLoading }) => {
           </Grid>
         )}
       </CardActions>
-      <CardActions sx={{ pt: 0.2 }}>
+      <CardActions sx={{ pt: 0.2 }} style={{ justifyContent: "center" }}>
         {isLoading ? null : (
-          <Typography variant="suffix" color="text.secondary">
-            {ReleaseDate(datetime_release, datetime_open_release)}
+          <Typography variant="suffix" color="text.secondary" alignItems="center" align={"center"}>
+            <GameCardActions joinGame={joinGame} isJoining={isJoining} dropGame={dropGame} {...props} />
           </Typography>
         )}
       </CardActions>
@@ -210,4 +210,5 @@ const Game = ({ props, activeName, isLoading }) => {
     </Card>
   );
 };
+
 export default Game;

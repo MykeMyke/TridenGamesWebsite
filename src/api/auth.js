@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiHost, applyCsrf } from "./utils";
+import { hasDMRank } from "../utils/ranks";
 
 export function getUserDetails() {
   return axios.get(`${apiHost}/auth/user_details`, { withCredentials: true });
@@ -20,12 +21,16 @@ export default function useUser() {
   const queryClient = useQueryClient();
   const { data, isFetching, status } = useQuery({
     queryKey: ["user_data"],
-
     queryFn: async () => {
       const u = await getUserDetails();
       let us;
       if (u.data?.user_data) {
-        us = { ...u.data.user_data, loggedIn: true };
+        us = {
+          ...u.data.user_data, loggedIn: true,
+          patreon: u.data.user_data.ranks?.filter(rank => rank.patreon).length,
+          credits: u.data.user_data.ranks?.reduce((tot, rank) => tot + rank.max_games, 0) || 0,
+          isDm: hasDMRank(u.data.user_data.ranks)
+        }
       } else {
         us = { loggedIn: false };
       }

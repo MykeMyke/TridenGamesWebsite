@@ -5,6 +5,7 @@ import { AppBar, Box, Toolbar, Grid, Button } from "@mui/material";
 
 import "../styles/Global.css";
 import AuthButton from "./authentication/AuthButton";
+import JoinDiscordButton from "./authentication/JoinDiscordButton";
 
 <link
   rel="stylesheet"
@@ -98,25 +99,7 @@ const Header = () => {
               alignItems: "center",
             }}
           >
-            <Button
-              variant="contained"
-              href="https://discord.gg/JDB6BYTK9T"
-              target="_blank"
-              rel="noreferrer"
-              color="accent"
-              sx={{
-                width: "85px",
-                py: 0.5,
-                px: 0,
-                lineHeight: "1.2",
-                my: 1.5,
-                textAlign: "center",
-                fontSize: "0.75rem",
-              }}
-              className="HeaderButton"
-            >
-              Join our Discord
-            </Button>
+            <JoinDiscordButton/>
             <AuthButton />
           </Box>
         </Toolbar>

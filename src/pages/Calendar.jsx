@@ -11,6 +11,8 @@ import NameFilter from "../components/nameFilter";
 import useLocalStorage, { deleteFromStorage } from "@rehooks/local-storage";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
+import JoinDiscordButton from "../components/authentication/JoinDiscordButton";
+import LoginButton from "../components/authentication/LoginButton";
 
 // the prefix serves as a namespace so we will not delete other keys, unless they pick this name
 // leave this the same unless you have a reason to change this
@@ -39,7 +41,7 @@ function nameFilterFn(gameData, activeName) {
               .includes(activeName.toLocaleLowerCase())) ||
             (player.discord_id &&
               player.discord_id.toString().toLocaleLowerCase() ===
-                activeName.toLocaleLowerCase()))
+              activeName.toLocaleLowerCase()))
       )) ||
      (gameData.standby &&
       gameData.standby.some(
@@ -51,7 +53,7 @@ function nameFilterFn(gameData, activeName) {
               .includes(activeName.toLocaleLowerCase())) ||
             (player.discord_id &&
               player.discord_id.toString().toLocaleLowerCase() ===
-                activeName.toLocaleLowerCase()))
+              activeName.toLocaleLowerCase()))
       )) ||
     (gameData.dm_name &&
       gameData.dm_name
@@ -83,30 +85,44 @@ function createSlots(storedSlot) {
   return [];
 }
 
+function DiscordButton({children}) {
+  return (
+    <JoinDiscordButton color="secondary" sx={{
+      py: 0.5,
+      px: 0.5,
+      lineHeight: "1.2",
+      textAlign: "center",
+      fontSize: "0.75rem",
+    }}>{children}</JoinDiscordButton>
+
+  )
+
+}
 export default function Calendar() {
   const [localName, setLocalName] = useLocalStorage(nameFilterKey, "");
   const [activeName, setActiveName] = useState(localName);
   const [localSlots, setLocalSlots] = useLocalStorage(slotsKey, "");
   const [slots, setSlots] = useState(createSlots(localSlots));
   const { user, isLoading: userLoading } = useContext(UserContext);
-  const { data, isLoading } = useGames();
+  const { data, isLoading, joinGame, dropGame } = useGames();
   const userModifiedData = useMemo(() => {
-  if (data && user.loggedIn) {
-    return data.map(game => {
-      return {
-        ...game,
-        is_dm: !!(game.dm_name === user.username),
-        playing: !!(game.players.indexOf(user.username) >= 0),
-        standingBy: !!(game.standby.indexOf(user.username) >= 0)
-      }
-    })
-  } else {
-    return data?.map(game => {
-      return { ...game, is_dm: false, playing: false };
-    }) || [];
-  }
+    if (data && user.loggedIn) {
+      return data.map(game => {
+        return {
+          ...game,
+          is_dm: !!(game.dm_name.toLowerCase() === user.username.toLowerCase()),
+          playing: !!(game.players.indexOf(user.username) >= 0),
+          playing: game.players.findIndex(p => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
+          standingBy: game.standby.findIndex(p => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
+        }
+      })
+    } else {
+      return data?.map(game => {
+        return { ...game, is_dm: false, playing: false };
+      }) || [];
+    }
   }, [data, user])
-  
+
   const filtered = useMemo(() => {
     if (isLoading || !data) {
       return [
@@ -145,7 +161,7 @@ export default function Calendar() {
       deleteFromStorage(slotsKey);
     }
   }, [setLocalSlots, slots]);
-  
+
   const navigate = useNavigate();
   return (
     <>
@@ -170,7 +186,7 @@ export default function Calendar() {
               <Skeleton animation="wave" />
             ) : (
               <>
-                There are <strong>{data.length} games</strong> scheduled in the
+                <strong>{data.length} game{data.length === 1 ? "" : "s"}</strong> in the
                 next {checkDaysToGo(lastDate)} days
               </>
             )}
@@ -180,18 +196,18 @@ export default function Calendar() {
               <Skeleton animation="wave" />
             ) : (
               <>
-                Signups to games on{" "}
-                <a
-                  href="https://discord.gg/JDB6BYTK9T"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  the Triden Discord server
-                </a>
-                .
+                  {user.loggedIn ?
+                    <>{user.credit_max ? `${user.credit_available}/${user.credit_max} credit${user.credit_max === 1 ? "" : "s"}` : "No credtits"} available</>
+                    : <><DiscordButton>Join Our Discord</DiscordButton> and <LoginButton  sx={{
+                px: 0,
+                lineHeight: "1.2",
+                my: 1.5,
+                textAlign: "center",
+                fontSize: "0.75rem",
+            }}>Login</LoginButton> to play</>}
               </>
             )}
-          </Typography>{" "}
+          </Typography>
           <Typography variant="subtitle1" color="text.primary">
             {isLoading ? (
               <Skeleton animation="wave" />
@@ -241,8 +257,10 @@ export default function Calendar() {
               props={gameData}
               isLoading={isLoading}
               activeName={activeName}
+              joinGame={joinGame}
+              dropGame={dropGame}
             />
-            </Grid>
+          </Grid>
         ))}
         {user?.loggedIn ? (
           <Box>

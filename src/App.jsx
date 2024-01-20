@@ -22,8 +22,11 @@ import ErrorPage from "./pages/ErrorPage";
 import AuthErrorPage from "./pages/AuthErrorPage";
 import useUser from "./api/auth";
 import RequireAuth from "./components/authentication/RequireAuth";
+import SnackbarAlert from "./components/SnackbarAlert";
 
 const queryClient = new QueryClient();
+//TODO since we already bit the bullet and re-added zustand for shared snackbar management, might
+// we well replace this context with a store too
 export const UserContext = createContext();
 
 function AppRoutes() {
@@ -70,7 +73,7 @@ function AppRoutes() {
                 <Route
                   path="/members/games/new"
                   element={
-                    <RequireAuth>
+                    <RequireAuth requireDm>
                       <NewGamePage />
                     </RequireAuth>
                   }
@@ -78,7 +81,7 @@ function AppRoutes() {
                 <Route
                   path="/members/games/edit/:id"
                   element={
-                    <RequireAuth>
+                    <RequireAuth requireDm>
                       <EditGamePage />
                     </RequireAuth>
                   }
@@ -100,6 +103,7 @@ function App() {
     <ThemeProvider theme={TridenTheme}>
       <QueryClientProvider client={queryClient}>
         <AppRoutes />
+        <SnackbarAlert/>
       </QueryClientProvider>
     </ThemeProvider>
   );

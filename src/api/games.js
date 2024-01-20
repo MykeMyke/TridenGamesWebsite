@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import moment from "moment";
 import * as Yup from "yup";
 import axios from "axios";
+import useAlertStore from "../stores/useAlertStore";
+import { useShallow } from 'zustand/react/shallow'
 
 import { UserContext } from "../App";
 
@@ -56,6 +58,15 @@ function deleteGameById(id) {
   return axios.delete(`${gamesUrl}${id}/`, { withCredentials: true, headers: applyCsrf() });
 }
 
+function joinGameById(id) {
+  return axios.post(`${gamesUrl}${id}/join/`, {}, { withCredentials: true, headers: applyCsrf()})
+}
+
+function dropGameById(id) {
+  return axios.post(`${gamesUrl}${id}/drop/`, {}, { withCredentials: true, headers: applyCsrf()})
+}
+
+
 export const timeSlots = [
   { value: 0, text: "Midnight-4AM" },
   { value: 1, text: "4AM-8AM" },
@@ -70,15 +81,15 @@ export const timeSlots = [
  * @returns the games, formatted for use
  */
 export function useGames() {
-  const { user } = useContext(UserContext);
-  const { data, isLoading, isFetching, error, status } = useQuery({
+  const queryClient = useQueryClient();
+  const [setSuccess, setError, setWarning] = useAlertStore(useShallow((s) => [ s.setSuccess, s.setError, s.setWarning]))
+  const { data, isLoading, error, status } = useQuery({
     queryKey: ["games"],
     queryFn: async () => {
       const rsp = await getGames();
 
       const data = rsp.data
         .map((game) => {
-
           return {
             ...game,
             datetime: new Date(game.datetime),
@@ -87,7 +98,8 @@ export function useGames() {
             slot: Math.floor(new Date(game.datetime).getHours() / 4),
             datetime_open_release: game.datetime_open_release === null ? null : new Date(game.datetime_open_release),
             datetime_release: game.datetime_release === null ? null : new Date(game.datetime_release),
-            is_dm: user.isLoggedIn && user.username === game.dm_name,
+            players: game.players.filter(player => !player.standby),
+            standby: game.players.filter(player => player.standby),
           };
         })
         .sort((a, b) => {
@@ -97,11 +109,73 @@ export function useGames() {
     },
   });
 
+    const { mutate: joinGame, isLoading: isJoining } = useMutation({
+    mutationFn: async ({ id, name}) => {
+      const response = await joinGameById(id)
+      return response;
+    },
+    onSuccess: (response, {id, name}) => {
+      const rspUser = response.data;
+      //unseenservant does not send an error if user is already in game
+      if (rspUser?.game) {
+        const current = data;
+        const currentIdx = data.findIndex(gm => gm.id == id);
+        if (currentIdx >= 0) {
+          if (rspUser.standby) {
+            current[currentIdx].standby.push(rspUser)
+            current[currentIdx].standingBy = true;
+          } else {
+            current[currentIdx].players.push(rspUser)
+            current[currentIdx].playing = true;
+          }
+          //optimistically change
+          queryClient.setQueryData(["games"], current);
+        }
+        setSuccess(`You have joined ${name}`);
+        queryClient.refetchQueries({ queryKey: ["user_data"], exact: true });
+        queryClient.refetchQueries({ queryKey: ["games"], exact: true });
+      } else {
+        setWarning("You are already in this game");
+        //refetch the query, if this is the case, likely updated in discord while web session active
+        queryClient.refetchQueries({ queryKey: ["games"], exact: true });
+      }
+    },
+      onError: (error) => {
+        setError(error?.response?.data?.message || "Unknown error");
+    }
+    })
+  
+  const { mutate: dropGame, isLoading: isDropping } = useMutation({
+    mutationFn: async ({ id, name}) => {
+      const response = await dropGameById(id)
+      return response;
+    },
+    onSuccess: (response, {id, name}) => {
+      setSuccess(`You have dropped from game ${name}`);
+      queryClient.refetchQueries({ queryKey: ["user_data"], exact: true });
+      queryClient.refetchQueries({ queryKey: ["games"], exact: true });
+    },
+    onError: (error) => {
+      if (error?.response?.status === 400) {
+        setWarning(error?.response?.data?.message || "Unknown error");
+        //refresh games list, likely droppped from discord
+        queryClient.refetchQueries({ queryKey: ["user_data"], exact: true });
+        queryClient.refetchQueries({ queryKey: ["games"], exact: true });
+      } else {
+        setError(error?.response?.data?.message || "Unknown error");
+      }
+    }
+  })
+  
   return {
-    isLoading: isFetching,
+    isLoading,
     data,
     error,
     status,
+    joinGame,
+    isJoining,
+    dropGame,
+    isDropping
   };
 }
 
@@ -113,15 +187,9 @@ export function useGames() {
 export function useGame(id) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(id !== "new");
-  const [errorMessage, setErrorMessage] = useState();
-  const [successMessage, setSuccessMessage] = useState();
+  const [setSuccess, setError] = useAlertStore(useShallow((s) => [ s.setSuccess, s.setError]))
+
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  useEffect(() => {
-    if (searchParams.get("created") === "true") {
-      setSuccessMessage("Game has been created");
-    }
-  }, [searchParams]);
   const {
     data: game,
     status,
@@ -161,6 +229,7 @@ export function useGame(id) {
     },
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["games"] });
+      setSuccess("Game has been deleted");
       navigate("/calendar");
     },
   });
@@ -178,23 +247,24 @@ export function useGame(id) {
     },
     onSuccess: (response) => {
       if (id === "new") {
-        navigate(`/members/games/edit/${response.data.id}?created=true`);
+        setSuccess("Game has been created");
+        navigate(`/members/games/edit/${response.data.id}`);
       } else {
-        setSuccessMessage("Game has been updated");
+        setSuccess("Game has been updated");
       }
     },
     onError: (error) => {
       if (error?.response?.status) {
         switch (error.response.status) {
           case 400:
-            setErrorMessage(error.response.data?.message || error.message);
+            setError(error.response.data?.message || error.message);
             const fieldErrors = error.response?.data.errors;
             formik.setErrors(fieldErrors);
             break;
           case 403:
           case 500:
           default:
-            setErrorMessage(error.response.data?.message || error.message);
+            setError(error.response.data?.message || error.message);
         }
       }
     },
@@ -272,8 +342,6 @@ export function useGame(id) {
     isLoading,
     formik,
     saveGame,
-    errorMessage,
-    successMessage,
     deleteGame,
   };
 }

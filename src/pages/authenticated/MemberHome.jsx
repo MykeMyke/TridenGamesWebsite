@@ -5,12 +5,11 @@ import { Container, Box, Typography, Button, ButtonGroup } from "@mui/material";
 
 import RankWidget from "../../components/user/RankWidget";
 import { capitalise } from "../../utils/formatting";
-import { hasDMRank } from "../../utils/ranks";
 import { UserContext } from "../../App";
 
 export default function MemberHome() {
   const navigate = useNavigate();
-  const { user, isLoading, login, logout } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Container sx={{ margin: "auto", width: "100%" }}>
@@ -18,35 +17,63 @@ export default function MemberHome() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center",
           height: "70vh",
         }}
       >
-        <Typography>Welcome {capitalise(user?.username)}</Typography>
-        {hasDMRank(user?.ranks || []) && (
-          <ButtonGroup>
-            <Button variant="outlined" onClick={() => navigate("/members/games")}>
-              View my games
-            </Button>
-            <Button variant="outlined" onClick={() => navigate("/members/games/new")}>
-              Create new game
-            </Button>
-          </ButtonGroup>
-        )}
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: 1.8,
-          alignItems: "center",
-        }}
-      >
-        <Typography>Your roles:</Typography>
-        {(user?.ranks || []).map((rank) => {
-          return <RankWidget name={rank.name} />;
-        })}
+        <Typography variant="h2">Welcome {capitalise(user?.username)}</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 1.8,
+            alignItems: "center",
+          }}
+        >
+          <Typography>Roles:</Typography>
+          {(user?.ranks || []).map((rank) => {
+            return <RankWidget name={rank.name} />;
+          })}
+        </Box>
+        <Typography variant="h4" sx={{ mt: 2 }}>Player Options</Typography>
+        <Typography>
+          You have {user.credit_available} of {user.credit_max} available game credit{user.credit_max === 1 ? "" : "s"}
+          <Button
+            aria-describedby="nav-calendar"
+            variant="contained"
+            size="small"
+            sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, ml: 4, minWidth: "30px" }}
+            color="secondary"
+            onClick={() => navigate(`/calendar`)}>View on Calendar</Button>
+        </Typography>
+        {user?.isDm ? (
+          <>
+          <Typography variant="h4" sx={{ mt: 2 }}>Dungeon Master Options</Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 2, justifyContent: "center" }}>
+            <ButtonGroup>
+              <Button
+                aria-describedby="nav-calendar"
+                variant="contained"
+                size="small"
+                sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mx: 4, minWidth: "30px" }}
+                color="secondary"
+                onClick={() => navigate("/members/games")}>
+                View my games
+              </Button>
+              <Button
+                aria-describedby="nav-calendar"
+                variant="contained"
+                size="small"
+                sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, ml: 4, minWidth: "30px" }}
+                color="secondary"
+                onClick={() => navigate("/members/games/new")}>
+                Create new game
+              </Button>
+            </ButtonGroup>
+            </Box>
+            </>
+        ) : null}
       </Box>
     </Container>
   );
