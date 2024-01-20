@@ -1,18 +1,22 @@
-import "../styles/Global.css";
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { Box, Skeleton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+import { Box, Skeleton, Divider } from "@mui/material";
 import { Fab, Grid, Typography } from "@mui/material";
+
+import AddBoxIcon from "@mui/icons-material/AddBox";
+
+import useLocalStorage, { deleteFromStorage } from "@rehooks/local-storage";
+
+import { UserContext } from "../App";
 import { useGames } from "../api/games";
 import Game from "../components/calendarCard";
-import { checkDaysToGo } from "../utils/daysToGo";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import Divider from "@mui/material/Divider";
 import NameFilter from "../components/nameFilter";
-import useLocalStorage, { deleteFromStorage } from "@rehooks/local-storage";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../App";
+import { checkDaysToGo } from "../utils/daysToGo";
 import JoinDiscordButton from "../components/authentication/JoinDiscordButton";
 import LoginButton from "../components/authentication/LoginButton";
+
+import "../styles/Global.css";
 
 // the prefix serves as a namespace so we will not delete other keys, unless they pick this name
 // leave this the same unless you have a reason to change this
@@ -35,30 +39,17 @@ function nameFilterFn(gameData, activeName) {
       gameData.players.some(
         (player) =>
           player &&
-          ((player.discord_name &&
-            player.discord_name
-              .toLocaleLowerCase()
-              .includes(activeName.toLocaleLowerCase())) ||
-            (player.discord_id &&
-              player.discord_id.toString().toLocaleLowerCase() ===
-              activeName.toLocaleLowerCase()))
+          ((player.discord_name && player.discord_name.toLocaleLowerCase().includes(activeName.toLocaleLowerCase())) ||
+            (player.discord_id && player.discord_id.toString().toLocaleLowerCase() === activeName.toLocaleLowerCase()))
       )) ||
-     (gameData.standby &&
+    (gameData.standby &&
       gameData.standby.some(
         (player) =>
           player &&
-          ((player.discord_name &&
-            player.discord_name
-              .toLocaleLowerCase()
-              .includes(activeName.toLocaleLowerCase())) ||
-            (player.discord_id &&
-              player.discord_id.toString().toLocaleLowerCase() ===
-              activeName.toLocaleLowerCase()))
+          ((player.discord_name && player.discord_name.toLocaleLowerCase().includes(activeName.toLocaleLowerCase())) ||
+            (player.discord_id && player.discord_id.toString().toLocaleLowerCase() === activeName.toLocaleLowerCase()))
       )) ||
-    (gameData.dm_name &&
-      gameData.dm_name
-        .toLocaleLowerCase()
-        .includes(activeName.toLocaleLowerCase()))
+    (gameData.dm_name && gameData.dm_name.toLocaleLowerCase().includes(activeName.toLocaleLowerCase()))
   );
 }
 
@@ -74,30 +65,34 @@ function filterGames(data, activeName, slot) {
 
 function createSlots(storedSlot) {
   if (storedSlot) {
-    if (typeof storedSlot === 'number') {
+    if (typeof storedSlot === "number") {
       return [storedSlot];
     }
     return storedSlot
       .split("|")
       .filter((str) => str.length > 0)
-      .map((str) => parseInt(str))
+      .map((str) => parseInt(str));
   }
   return [];
 }
 
-function DiscordButton({children}) {
+function DiscordButton({ children }) {
   return (
-    <JoinDiscordButton color="secondary" sx={{
-      py: 0.5,
-      px: 0.5,
-      lineHeight: "1.2",
-      textAlign: "center",
-      fontSize: "0.75rem",
-    }}>{children}</JoinDiscordButton>
-
-  )
-
+    <JoinDiscordButton
+      color="secondary"
+      sx={{
+        py: 0.5,
+        px: 0.5,
+        lineHeight: "1.2",
+        textAlign: "center",
+        fontSize: "0.75rem",
+      }}
+    >
+      {children}
+    </JoinDiscordButton>
+  );
 }
+
 export default function Calendar() {
   const [localName, setLocalName] = useLocalStorage(nameFilterKey, "");
   const [activeName, setActiveName] = useState(localName);
@@ -107,21 +102,23 @@ export default function Calendar() {
   const { data, isLoading, joinGame, dropGame } = useGames();
   const userModifiedData = useMemo(() => {
     if (data && user.loggedIn) {
-      return data.map(game => {
+      return data.map((game) => {
         return {
           ...game,
           is_dm: !!(game.dm_name.toLowerCase() === user.username.toLowerCase()),
           playing: !!(game.players.indexOf(user.username) >= 0),
-          playing: game.players.findIndex(p => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
-          standingBy: game.standby.findIndex(p => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
-        }
-      })
+          playing: game.players.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
+          standingBy: game.standby.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
+        };
+      });
     } else {
-      return data?.map(game => {
-        return { ...game, is_dm: false, playing: false };
-      }) || [];
+      return (
+        data?.map((game) => {
+          return { ...game, is_dm: false, playing: false };
+        }) || []
+      );
     }
-  }, [data, user])
+  }, [data, user]);
 
   const filtered = useMemo(() => {
     if (isLoading || !data) {
@@ -164,31 +161,22 @@ export default function Calendar() {
 
   const navigate = useNavigate();
   return (
-    <>
-      <Grid
-        container
-        spacing={1}
-        direction="row"
-        alignItems="center"
-        justifyContent="flex-start"
-        sx={{ mb: 2 }}
-      >
+    <React.Fragment>
+      <Grid container spacing={1} direction="row" alignItems="center" justifyContent="flex-start" sx={{ mb: 2 }}>
         <Grid item sx={{ ml: 1.5, pr: 1.5 }}>
           <img src="/img/TridenAvatar2048.png" alt="Triden Games" className="Logo" />
         </Grid>
         <Grid item xs={9}>
-          <Typography
-            variant="h5"
-            color="text.primary"
-            sx={{ fontSize: "1.2rem" }}
-          >
+          <Typography variant="h5" color="text.primary" sx={{ fontSize: "1.2rem" }}>
             {isLoading ? (
               <Skeleton animation="wave" />
             ) : (
-              <>
-                <strong>{data.length} game{data.length === 1 ? "" : "s"}</strong> in the
-                next {checkDaysToGo(lastDate)} days
-              </>
+              <React.Fragment>
+                <strong>
+                  {data.length} game{data.length === 1 ? "" : "s"}
+                </strong>{" "}
+                in the next {checkDaysToGo(lastDate)} days
+              </React.Fragment>
             )}
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
@@ -196,15 +184,30 @@ export default function Calendar() {
               <Skeleton animation="wave" />
             ) : (
               <>
-                  {user.loggedIn ?
-                    <>{user.credit_max ? `${user.credit_available}/${user.credit_max} credit${user.credit_max === 1 ? "" : "s"}` : "No credtits"} available</>
-                    : <><DiscordButton>Join Our Discord</DiscordButton> and <LoginButton  sx={{
-                px: 0,
-                lineHeight: "1.2",
-                my: 1.5,
-                textAlign: "center",
-                fontSize: "0.75rem",
-            }}>Login</LoginButton> to play</>}
+                {user.loggedIn ? (
+                  <>
+                    {user.credit_max
+                      ? `${user.credit_available}/${user.credit_max} credit${user.credit_max === 1 ? "" : "s"}`
+                      : "No credtits"}{" "}
+                    available
+                  </>
+                ) : (
+                  <React.Fragment>
+                    <DiscordButton>Join Our Discord</DiscordButton> and{" "}
+                    <LoginButton
+                      sx={{
+                        px: 0,
+                        lineHeight: "1.2",
+                        my: 1.5,
+                        textAlign: "center",
+                        fontSize: "0.75rem",
+                      }}
+                    >
+                      Login
+                    </LoginButton>{" "}
+                    to play
+                  </React.Fragment>
+                )}
               </>
             )}
           </Typography>
@@ -212,47 +215,23 @@ export default function Calendar() {
             {isLoading ? (
               <Skeleton animation="wave" />
             ) : (
-              <>
-                Hover over or press the Players / Waitlist box for the list of
-                who is signed up...
-              </>
+              <>Hover over or press the Players / Waitlist box for the list of who is signed up...</>
             )}
           </Typography>
           <Typography variant="subtitle1" color="text.primary">
             {isLoading ? (
               <Skeleton animation="wave" />
             ) : (
-              <>
-                Use the filters to search for your games, or for games as
-                certain times.
-              </>
+              <>Use the filters to search for your games, or for games as certain times.</>
             )}
           </Typography>
         </Grid>
       </Grid>
       <Divider variant="middle" sx={{ mb: 2.5 }} />
-      <NameFilter
-        data={data}
-        slots={slots}
-        setSlots={setSlots}
-        activeName={activeName}
-        setActiveName={setActiveName}
-      />
-      <Grid
-        container
-        spacing={3}
-        justify="center"
-        sx={{ px: 2, mb: 3, position: "relative" }}
-      >
+      <NameFilter data={data} slots={slots} setSlots={setSlots} activeName={activeName} setActiveName={setActiveName} />
+      <Grid container spacing={3} justify="center" sx={{ px: 2, mb: 3, position: "relative" }}>
         {filtered.map((gameData) => (
-          <Grid
-            key={`${gameData.dm_name}_${gameData.datetime}_${gameData.id}`}
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-          >
+          <Grid key={`${gameData.dm_name}_${gameData.datetime}_${gameData.id}`} item xs={12} sm={6} md={4} lg={3}>
             <Game
               props={gameData}
               isLoading={isLoading}
@@ -276,6 +255,6 @@ export default function Calendar() {
           </Box>
         ) : null}
       </Grid>
-    </>
+    </React.Fragment>
   );
 }

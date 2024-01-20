@@ -8,6 +8,8 @@ import axios from "axios";
 import useAlertStore from "../stores/useAlertStore";
 import { useShallow } from "zustand/react/shallow";
 
+import { UserContext } from "../App";
+
 import { apiHost, applyCsrf } from "./utils";
 import { nextWeek, tomorrow } from "../utils/datetime";
 
@@ -45,24 +47,15 @@ function getGame(id) {
 }
 
 function createGame(values) {
-  return axios.post(gamesUrl, values, {
-    withCredentials: true,
-    headers: applyCsrf(),
-  });
+  return axios.post(gamesUrl, values, { withCredentials: true, headers: applyCsrf() });
 }
 
 function updateGame(values) {
-  return axios.patch(`${gamesUrl}${values.id}/`, values, {
-    withCredentials: true,
-    headers: applyCsrf(),
-  });
+  return axios.patch(`${gamesUrl}${values.id}/`, values, { withCredentials: true, headers: applyCsrf() });
 }
 
 function deleteGameById(id) {
-  return axios.delete(`${gamesUrl}${id}/`, {
-    withCredentials: true,
-    headers: applyCsrf(),
-  });
+  return axios.delete(`${gamesUrl}${id}/`, { withCredentials: true, headers: applyCsrf() });
 }
 
 function joinGameById(id) {
@@ -102,15 +95,10 @@ export function useGames() {
             players: game.players.filter((player) => !player.standby),
             standby: game.players.filter((player) => player.standby),
             slot: Math.floor(new Date(game.datetime).getHours() / 4),
-            datetime_open_release:
-              game.datetime_open_release === null
-                ? null
-                : new Date(game.datetime_open_release),
-            datetime_release:
-              game.datetime_release === null
-                ? null
-                : new Date(game.datetime_release),
-            is_dm: user.isLoggedIn && user.username === game.dm_name,
+            datetime_open_release: game.datetime_open_release === null ? null : new Date(game.datetime_open_release),
+            datetime_release: game.datetime_release === null ? null : new Date(game.datetime_release),
+            players: game.players.filter((player) => !player.standby),
+            standby: game.players.filter((player) => player.standby),
           };
         })
         .sort((a, b) => {
@@ -215,9 +203,7 @@ export function useGame(id) {
           ...game.data,
           datetime: moment(game.data.datetime).toDate(),
           datetime_release: moment(game.data.datetime_release).toDate(),
-          datetime_open_release: moment(
-            game.data.datetime_open_release
-          ).toDate(),
+          datetime_open_release: moment(game.data.datetime_open_release).toDate(),
         };
       }
       throw Error("Cannot parse game");
@@ -290,9 +276,7 @@ export function useGame(id) {
       module: Yup.string().label("Module Code").required(req),
       description: Yup.string().label("Description").required(req).min(1, req),
       warnings: Yup.string().label("Warnings"),
-      datetime: Yup.date()
-        .required()
-        .min(new Date(), "Game start must be in the future"),
+      datetime: Yup.date().required().min(new Date(), "Game start must be in the future"),
       datetime_release: Yup.date()
         .label("Patreon Release")
         .required()
@@ -323,8 +307,7 @@ export function useGame(id) {
             if (value.getTime() <= context.parent.datetime_release.getTime()) {
               return context.createError({
                 path: "datetime_open_release",
-                message: ({ label }) =>
-                  `${label} must be after Patreon Release`,
+                message: ({ label }) => `${label} must be after Patreon Release`,
               });
             }
             return true;
