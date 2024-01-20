@@ -174,7 +174,7 @@ export default function Calendar() {
               <Skeleton animation="wave" />
             ) : (
               <>
-                <strong>{data.length} game{data.length === 1 ? "" : "s"}</strong> scheduled in the
+                <strong>{data.length} game{data.length === 1 ? "" : "s"}</strong> in the
                 next {checkDaysToGo(lastDate)} days
               </>
             )}
