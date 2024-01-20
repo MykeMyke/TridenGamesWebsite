@@ -36,7 +36,7 @@ const Header = () => {
                   };
                 }}
                 to="/"
-                activeClassName="is-active"
+                activeclassname="is-active"
               >
                 About <br></br>Triden
               </NavLink>
@@ -52,7 +52,7 @@ const Header = () => {
                   };
                 }}
                 to="/calendar"
-                activeClassName="is-active"
+                activeclassname="is-active"
               >
                 Games <br></br>Calendar
               </NavLink>
@@ -68,7 +68,7 @@ const Header = () => {
                   };
                 }}
                 to="/team"
-                activeClassName="is-active"
+                activeclassname="is-active"
               >
                 Meet The <br></br>Team
               </NavLink>
@@ -84,7 +84,7 @@ const Header = () => {
                   };
                 }}
                 to="/benefits"
-                activeClassName="is-active"
+                activeclassname="is-active"
               >
                 Member <br></br>Benefits
               </NavLink>

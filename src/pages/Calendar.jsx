@@ -43,6 +43,18 @@ function nameFilterFn(gameData, activeName) {
               player.discord_id.toString().toLocaleLowerCase() ===
               activeName.toLocaleLowerCase()))
       )) ||
+     (gameData.standby &&
+      gameData.standby.some(
+        (player) =>
+          player &&
+          ((player.discord_name &&
+            player.discord_name
+              .toLocaleLowerCase()
+              .includes(activeName.toLocaleLowerCase())) ||
+            (player.discord_id &&
+              player.discord_id.toString().toLocaleLowerCase() ===
+              activeName.toLocaleLowerCase()))
+      )) ||
     (gameData.dm_name &&
       gameData.dm_name
         .toLocaleLowerCase()

@@ -14,11 +14,7 @@ import FullDescPopover from "./FullDescPopover";
 import CalendarAddPopover from "./CalendarAddPopover";
 import { toLocalString } from "../utils/formatting";
 import { checkTier } from "../utils/tier";
-import { checkPlaying } from "../utils/checkPlaying";
-import { checkWaitlisted } from "../utils/checkWaitlisted";
 import FilterMarker from "./filterMarker";
-import { useContext } from "react";
-import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import GameCardActions from "./game/GameCardActions";
 
@@ -68,9 +64,9 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
     datetime_release,
     datetime_open_release,
     players,
+    standby,
   } = props;
 
-  const { user } = useContext(UserContext);
   return (
     <Card raised={true} sx={{ maxWidth: 450 }}>
       <CardContent sx={{ pt: 0.75, pb: 0.2, "&:last-child": { pb: 0 } }}>
@@ -167,7 +163,7 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
               title={
                 <Players
                   gameKey={`${dm_name}_${datetime}_playing`}
-                  players={checkPlaying(players)}
+                  players={players}
                 />
               }
               placement="top-start"
@@ -177,7 +173,7 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
                   Players
                 </Typography>
                 <Typography variant="h6" color="text.primary">
-                  {checkPlaying(players).length} / {max_players}
+                  {players.length} / {max_players}
                 </Typography>
               </Box>
             </Tooltip>
@@ -186,7 +182,7 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
               title={
                 <Players
                   gameKey={`${dm_name}_${datetime}_waitlisted`}
-                  players={checkWaitlisted(players)}
+                  players={standby}
                 />
               }
               placement="top-start"
@@ -196,7 +192,7 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
                   Waitlist
                 </Typography>
                 <Typography variant="h6" color="text.primary">
-                  {checkWaitlisted(players).length}
+                  {standby.length}
                 </Typography>
               </Box>
             </Tooltip>
