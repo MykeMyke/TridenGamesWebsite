@@ -3,9 +3,11 @@ import React, { forwardRef, useEffect, useState } from "react";
 import { FormikProvider, useFormikContext } from "formik";
 import { useParams } from "react-router";
 
-import { Dialog, DialogActions, DialogTitle, DialogContent } from "@mui/material";
-import { Grid, TextField, Button, Checkbox, FormControlLabel } from "@mui/material";
-import { Box, Typography, IconButton, Snackbar, Alert as MuiAlert } from "@mui/material";
+import { Dialog, DialogActions } from "@mui/material";
+import { DialogTitle, DialogContent } from "@mui/material";
+import { Grid, TextField, Button, Box, Typography } from "@mui/material";
+import { IconButton, Snackbar, Alert as MuiAlert } from "@mui/material";
+import { Divider, Checkbox, FormControlLabel, Tooltip } from "@mui/material";
 import { Close } from "@mui/icons-material";
 
 import RealmSelector from "../../components/game/RealmSelector";
@@ -43,7 +45,11 @@ const ConfirmDialog = ({ name, onClose, onConfirm }) => {
         <Button color="primary" variant="contained" onClick={() => onClose()}>
           Cancel
         </Button>
-        <Button color="secondary" variant="contained" onClick={() => onConfirm()}>
+        <Button
+          color="secondary"
+          variant="contained"
+          onClick={() => onConfirm()}
+        >
           Delete
         </Button>
       </DialogActions>
@@ -52,19 +58,61 @@ const ConfirmDialog = ({ name, onClose, onConfirm }) => {
 };
 
 function GamePage(props) {
-  const { formik, isLoading, deleteGame } = useGame(props.id);
+  const {
+    formik,
+    saveGame,
+    isLoading,
+    errorMessage,
+    successMessage,
+    deleteGame,
+  } = useGame(props.id);
+  const [errorOpen, setErrorOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  useEffect(() => {
+    if (saveGame.error) {
+      setErrorOpen(true);
+    }
+  }, [saveGame.error]);
+  useEffect(() => {
+    if (successMessage) {
+      setSuccessOpen(true);
+    }
+  }, [successMessage]);
 
   return (
-    <FormikProvider value={formik}>
-      <GameForm isLoading={isLoading} deleteGame={deleteGame} />
-    </FormikProvider>
+    <React.Fragment>
+      <Snackbar
+        open={errorOpen}
+        autoHideDuration={6000}
+        onClose={() => setErrorOpen(false)}
+      >
+        <Alert severity="error">{errorMessage}</Alert>
+      </Snackbar>
+      <Snackbar
+        open={successOpen}
+        autoHideDuration={6000}
+        onClose={() => setSuccessOpen(false)}
+      >
+        <Alert severity="success">{successMessage}</Alert>
+      </Snackbar>
+      <FormikProvider value={formik}>
+        <GameForm isLoading={isLoading} deleteGame={deleteGame} />
+      </FormikProvider>
+    </React.Fragment>
   );
 }
 
 function GameForm(props) {
-  const { values, errors, handleSubmit, handleChange, setFieldValue, setValues } = useFormikContext();
+  const {
+    values,
+    errors,
+    handleSubmit,
+    handleChange,
+    setFieldValue,
+    setValues,
+  } = useFormikContext();
   const [showDelete, setShowDelete] = useState(false);
-  
+
   return (
     <form onSubmit={handleSubmit}>
       {showDelete ? (
@@ -78,7 +126,13 @@ function GameForm(props) {
         />
       ) : null}
       <Grid rowSpacing={"0.8em"} item container sx={{ width: "100%" }}>
-        <Grid item container columnSpacing={2} rowSpacing={"0.8em"} columns={{ xs: 12, md: 12 }}>
+        <Grid
+          item
+          container
+          columnSpacing={2}
+          rowSpacing={"0.8em"}
+          columns={{ xs: 12, md: 12 }}
+        >
           <Grid item xs={12} sm={7}>
             <TextField
               fullWidth
@@ -192,28 +246,47 @@ function GameForm(props) {
               }}
             />
           </Grid>
-          <Grid item xs={6} md={6}>
-            <FormControlLabel
-              control={<Checkbox checked={values.streaming} />}
-              label="Streaming"
-              onChange={(evt) => setFieldValue("streaming", evt.target.checked)}
-            />
-          </Grid>
         </Grid>
         <Grid item xs={12} container columnSpacing={2}>
           <Grid item xs={6} md={6}>
             <DateTimeSelector label="Patreon Release" name="datetime_release" />
           </Grid>
           <Grid item xs={6} md={6}>
-            <DateTimeSelector label="General Release" name="datetime_open_release" />
+            <DateTimeSelector
+              label="General Release"
+              name="datetime_open_release"
+            />
           </Grid>
         </Grid>
-        <Grid item xs={6} md={6}>
-          <FormControlLabel
-            control={<Checkbox checked={values.ready} />}
-            label="Ready"
-            onChange={(evt) => setFieldValue("ready", evt.target.checked)}
-          />
+
+        <Grid item xs={12} md={12}>
+          <Divider fullWidth />
+          <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+            <Tooltip title="Set to indicate that game is going to be streamed">
+              <FormControlLabel
+                control={<Checkbox checked={values.streaming} />}
+                label="Streaming"
+
+                onChange={(evt) => setFieldValue("streaming", evt.target.checked)}
+
+              />
+            </Tooltip>
+            <Tooltip title="Set to indicate that game is a playtest">
+              <FormControlLabel
+                control={<Checkbox checked={values.play_test} />}
+                label="Playtest"
+                onChange={(evt) => setFieldValue("play_test", evt.target.checked)}
+              />
+            </Tooltip>
+            <Tooltip title="Game is ready for release">
+              <FormControlLabel
+                control={<Checkbox checked={values.ready} />}
+                label="Ready"
+                onChange={(evt) => setFieldValue("ready", evt.target.checked)}
+              />
+            </Tooltip>
+          </Box>
+          <Divider fullWidth />
         </Grid>
         <Grid item xs={12} md={12}>
           <Button variant="outlined" type="submit" disabled={props.isLoading}>
