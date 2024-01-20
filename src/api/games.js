@@ -112,9 +112,6 @@ export function useGames() {
       const response = await joinGameById(id)
       return response;
     },
-    onSettled: () => {
-      
-    },
     onSuccess: (response, {id, name}) => {
       const rspUser = response.data;
       //unseenservant does not send an error if user is already in game
@@ -133,6 +130,7 @@ export function useGames() {
           queryClient.setQueryData(["games"], current);
         }
         setSuccess(`You have joined ${name}`);
+        queryClient.refetchQueries({ queryKey: ["user_data"], exact: true });
         queryClient.refetchQueries({ queryKey: ["games"], exact: true });
       } else {
         setWarning("You are already in this game");
@@ -152,12 +150,14 @@ export function useGames() {
     },
     onSuccess: (response, {id, name}) => {
       setSuccess(`You have dropped from game ${name}`);
+      queryClient.refetchQueries({ queryKey: ["user_data"], exact: true });
       queryClient.refetchQueries({ queryKey: ["games"], exact: true });
     },
     onError: (error) => {
       if (error?.response?.status === 400) {
         setWarning(error?.response?.data?.message || "Unknown error");
         //refresh games list, likely droppped from discord
+        queryClient.refetchQueries({ queryKey: ["user_data"], exact: true });
         queryClient.refetchQueries({ queryKey: ["games"], exact: true });
       } else {
         setError(error?.response?.data?.message || "Unknown error");

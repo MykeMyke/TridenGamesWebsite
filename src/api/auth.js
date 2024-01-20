@@ -21,7 +21,6 @@ export default function useUser() {
   const queryClient = useQueryClient();
   const { data, isFetching, status } = useQuery({
     queryKey: ["user_data"],
-
     queryFn: async () => {
       const u = await getUserDetails();
       let us;

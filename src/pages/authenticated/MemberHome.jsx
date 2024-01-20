@@ -9,7 +9,7 @@ import { UserContext } from "../../App";
 
 export default function MemberHome() {
   const navigate = useNavigate();
-  const { user, isLoading, login, logout } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Container sx={{ margin: "auto", width: "100%" }}>
