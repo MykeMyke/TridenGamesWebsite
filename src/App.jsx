@@ -73,7 +73,7 @@ function AppRoutes() {
                 <Route
                   path="/members/games/new"
                   element={
-                    <RequireAuth>
+                    <RequireAuth requireDm>
                       <NewGamePage />
                     </RequireAuth>
                   }
@@ -81,7 +81,7 @@ function AppRoutes() {
                 <Route
                   path="/members/games/edit/:id"
                   element={
-                    <RequireAuth>
+                    <RequireAuth requireDm>
                       <EditGamePage />
                     </RequireAuth>
                   }
