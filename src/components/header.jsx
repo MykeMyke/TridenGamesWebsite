@@ -1,30 +1,24 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
-import { AppBar, Box, Toolbar, Grid, Button } from "@mui/material";
+import { AppBar, Box, Toolbar, Grid } from "@mui/material";
 
-import "../styles/Global.css";
 import AuthButton from "./authentication/AuthButton";
 import JoinDiscordButton from "./authentication/JoinDiscordButton";
+import { UserContext } from "../App";
 
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/icon?family=Material+Icons"
-/>;
+import "../styles/Global.css";
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />;
 
 const Header = () => {
+  const { loggedIn } = useContext(UserContext);
+
   return (
     <Box sx={{ justifyContent: "space-between", color: "red" }}>
       <AppBar position="fixed">
         <Toolbar>
-          <Grid
-            container
-            direction="row"
-            spacing={1.8}
-            textAlign="center"
-            alignItems="center"
-            sx={{ mb: 0.6 }}
-          >
+          <Grid container direction="row" spacing={1.8} textAlign="center" alignItems="center" sx={{ mb: 0.6 }}>
             <Grid item>
               <NavLink
                 style={({ isActive }) => {
@@ -99,7 +93,7 @@ const Header = () => {
               alignItems: "center",
             }}
           >
-            <JoinDiscordButton/>
+            {!loggedIn && <JoinDiscordButton />}
             <AuthButton />
           </Box>
         </Toolbar>
