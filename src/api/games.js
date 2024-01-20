@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import moment from "moment";
 import * as Yup from "yup";
 import axios from "axios";
+import useAlertStore from "../stores/useAlertStore";
+import { useShallow } from 'zustand/react/shallow'
 
 import { UserContext } from "../App";
 
@@ -78,7 +80,6 @@ export function useGames() {
 
       const data = rsp.data
         .map((game) => {
-          console.info(user, user.isLoggedIn, user.username, game.dm_name);
           return {
             ...game,
             datetime: new Date(game.datetime),
@@ -111,15 +112,9 @@ export function useGames() {
 export function useGame(id) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(id !== "new");
-  const [errorMessage, setErrorMessage] = useState();
-  const [successMessage, setSuccessMessage] = useState();
+  const [setMessage, setSuccess, setError] = useAlertStore(useShallow((s) => [s.setMessage, s.setSuccess, s.setError]))
+
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  useEffect(() => {
-    if (searchParams.get("created") === "true") {
-      setSuccessMessage("Game has been created");
-    }
-  }, [searchParams]);
   const {
     data: game,
     status,
@@ -159,6 +154,7 @@ export function useGame(id) {
     },
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["games"] });
+      setSuccess("Game has been deleted");
       navigate("/calendar");
     },
   });
@@ -176,23 +172,24 @@ export function useGame(id) {
     },
     onSuccess: (response) => {
       if (id === "new") {
-        navigate(`/members/games/edit/${response.data.id}?created=true`);
+        setSuccess("Game has been created");
+        navigate(`/members/games/edit/${response.data.id}`);
       } else {
-        setSuccessMessage("Game has been updated");
+        setSuccess("Game has been updated");
       }
     },
     onError: (error) => {
       if (error?.response?.status) {
         switch (error.response.status) {
           case 400:
-            setErrorMessage(error.response.data?.message || error.message);
+            setError(error.response.data?.message || error.message);
             const fieldErrors = error.response?.data.errors;
             formik.setErrors(fieldErrors);
             break;
           case 403:
           case 500:
           default:
-            setErrorMessage(error.response.data?.message || error.message);
+            setError(error.response.data?.message || error.message);
         }
       }
     },
@@ -270,8 +267,6 @@ export function useGame(id) {
     isLoading,
     formik,
     saveGame,
-    errorMessage,
-    successMessage,
     deleteGame,
   };
 }

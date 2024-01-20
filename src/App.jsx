@@ -22,6 +22,7 @@ import ErrorPage from "./pages/ErrorPage";
 import AuthErrorPage from "./pages/AuthErrorPage";
 import useUser from "./api/auth";
 import RequireAuth from "./components/authentication/RequireAuth";
+import SnackbarAlert from "./components/SnackbarAlert";
 
 const queryClient = new QueryClient();
 export const UserContext = createContext();
@@ -100,6 +101,7 @@ function App() {
     <ThemeProvider theme={TridenTheme}>
       <QueryClientProvider client={queryClient}>
         <AppRoutes />
+        <SnackbarAlert/>
       </QueryClientProvider>
     </ThemeProvider>
   );

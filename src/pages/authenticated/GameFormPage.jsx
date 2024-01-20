@@ -52,44 +52,19 @@ const ConfirmDialog = ({ name, onClose, onConfirm }) => {
 };
 
 function GamePage(props) {
-  const { formik, saveGame, isLoading, errorMessage, successMessage, deleteGame } = useGame(props.id);
-  const [errorOpen, setErrorOpen] = useState(false);
-  const [successOpen, setSuccessOpen] = useState(false);
-  useEffect(() => {
-    if (saveGame.error) {
-      setErrorOpen(true);
-    }
-  }, [saveGame.error]);
-  useEffect(() => {
-    if (successMessage) {
-      setSuccessOpen(true);
-    }
-  }, [successMessage]);
+  const { formik, isLoading, deleteGame } = useGame(props.id);
 
   return (
-    <React.Fragment>
-      <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => setErrorOpen(false)}>
-        <Alert severity="error">{errorMessage}</Alert>
-      </Snackbar>
-      <Snackbar open={successOpen} autoHideDuration={6000} onClose={() => setSuccessOpen(false)}>
-        <Alert severity="success">{successMessage}</Alert>
-      </Snackbar>
-      <FormikProvider value={formik}>
-        <GameForm isLoading={isLoading} deleteGame={deleteGame} />
-      </FormikProvider>
-    </React.Fragment>
+    <FormikProvider value={formik}>
+      <GameForm isLoading={isLoading} deleteGame={deleteGame} />
+    </FormikProvider>
   );
 }
 
 function GameForm(props) {
   const { values, errors, handleSubmit, handleChange, setFieldValue, setValues } = useFormikContext();
   const [showDelete, setShowDelete] = useState(false);
-
-  const handleGameTimeChange = (e) => {
-    debugger;
-    setValues(values);
-  };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       {showDelete ? (
