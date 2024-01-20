@@ -35,7 +35,6 @@ export default function useUser() {
       } else {
         us = { loggedIn: false };
       }
-      console.info("USER", us);
       setUser(us);
       return us;
     },

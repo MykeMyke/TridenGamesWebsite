@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Container, Box, Typography, Button } from "@mui/material";
 import { UserContext } from "../../App";
+import JoinDiscordButton from "./JoinDiscordButton";
 
 function RequireAuthFragment({ title, subtitle }) {
   return (
@@ -9,7 +10,7 @@ function RequireAuthFragment({ title, subtitle }) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
         height: "70vh",
       }}
@@ -40,7 +41,7 @@ export default function RequireAuth({ requireDm = false, children }) {
   if (isLoading) {
     return <RequireAuthFragment title="Loading..."/>
   }
-  if (user?.loggedIn) {
+  if (!user?.loggedIn) {
     if (!requireDm) {
       return children;
     }
@@ -51,7 +52,9 @@ export default function RequireAuth({ requireDm = false, children }) {
     }
   }
 
-  return <RequireAuthFragment title="Access Denied" subtitle={<>This pages is for members only. <Button
+  return <RequireAuthFragment title="Access Denied" subtitle={<>This pages is for members only.
+    <Box sx={{ mt: 4 }}>
+    <JoinDiscordButton sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1 }} color="secondary"/> then <Button
     aria-describedby={`login-require-auth`}
     variant="contained"
     onClick={login}
@@ -60,5 +63,5 @@ export default function RequireAuth({ requireDm = false, children }) {
     color="secondary"
   >
     Login with Discord
-  </Button></>} />
+  </Button></Box></>} />
 }
