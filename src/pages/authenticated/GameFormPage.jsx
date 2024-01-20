@@ -45,7 +45,11 @@ const ConfirmDialog = ({ name, onClose, onConfirm }) => {
         <Button color="primary" variant="contained" onClick={() => onClose()}>
           Cancel
         </Button>
-        <Button color="secondary" variant="contained" onClick={() => onConfirm()}>
+        <Button
+          color="secondary"
+          variant="contained"
+          onClick={() => onConfirm()}
+        >
           Delete
         </Button>
       </DialogActions>
@@ -54,7 +58,14 @@ const ConfirmDialog = ({ name, onClose, onConfirm }) => {
 };
 
 function GamePage(props) {
-  const { formik, saveGame, isLoading, errorMessage, successMessage, deleteGame } = useGame(props.id);
+  const {
+    formik,
+    saveGame,
+    isLoading,
+    errorMessage,
+    successMessage,
+    deleteGame,
+  } = useGame(props.id);
   const [errorOpen, setErrorOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   useEffect(() => {
@@ -70,10 +81,18 @@ function GamePage(props) {
 
   return (
     <React.Fragment>
-      <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => setErrorOpen(false)}>
+      <Snackbar
+        open={errorOpen}
+        autoHideDuration={6000}
+        onClose={() => setErrorOpen(false)}
+      >
         <Alert severity="error">{errorMessage}</Alert>
       </Snackbar>
-      <Snackbar open={successOpen} autoHideDuration={6000} onClose={() => setSuccessOpen(false)}>
+      <Snackbar
+        open={successOpen}
+        autoHideDuration={6000}
+        onClose={() => setSuccessOpen(false)}
+      >
         <Alert severity="success">{successMessage}</Alert>
       </Snackbar>
       <FormikProvider value={formik}>
@@ -84,7 +103,14 @@ function GamePage(props) {
 }
 
 function GameForm(props) {
-  const { values, errors, handleSubmit, handleChange, setFieldValue, setValues } = useFormikContext();
+  const {
+    values,
+    errors,
+    handleSubmit,
+    handleChange,
+    setFieldValue,
+    setValues,
+  } = useFormikContext();
   const [showDelete, setShowDelete] = useState(false);
 
   return (
@@ -100,7 +126,13 @@ function GameForm(props) {
         />
       ) : null}
       <Grid rowSpacing={"0.8em"} item container sx={{ width: "100%" }}>
-        <Grid item container columnSpacing={2} rowSpacing={"0.8em"} columns={{ xs: 12, md: 12 }}>
+        <Grid
+          item
+          container
+          columnSpacing={2}
+          rowSpacing={"0.8em"}
+          columns={{ xs: 12, md: 12 }}
+        >
           <Grid item xs={12} sm={7}>
             <TextField
               fullWidth
@@ -220,7 +252,10 @@ function GameForm(props) {
             <DateTimeSelector label="Patreon Release" name="datetime_release" />
           </Grid>
           <Grid item xs={6} md={6}>
-            <DateTimeSelector label="General Release" name="datetime_open_release" />
+            <DateTimeSelector
+              label="General Release"
+              name="datetime_open_release"
+            />
           </Grid>
         </Grid>
 
@@ -231,7 +266,9 @@ function GameForm(props) {
               <FormControlLabel
                 control={<Checkbox checked={values.streaming} />}
                 label="Streaming"
+
                 onChange={(evt) => setFieldValue("streaming", evt.target.checked)}
+
               />
             </Tooltip>
             <Tooltip title="Set to indicate that game is a playtest">
