@@ -6,6 +6,28 @@ import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
 import stringAvatar from "../../utils/stringAvatar";
 import { UserContext } from "../../App";
 
+/**
+ * A separate function for the mutiple item logged in menu, because MUI complains if this
+ * is directly under Menu
+ * @param closeMenu the close function
+ * @param logout the logout function
+ * @returns 
+ */
+function LoggedInMenu({ closeMenu, logout }) {
+  return (
+    <>
+      <MenuItem onClick={() => navigate("/members")}>View member area</MenuItem>
+      <MenuItem
+        onClick={() => {
+          closeMenu();
+          logout();
+        }}
+      >
+        Logout
+      </MenuItem>
+    </>
+  )
+}
 export default function AuthButton() {
   const navigate = useNavigate();
   const { user, login, logout } = useContext(UserContext);
@@ -36,17 +58,7 @@ export default function AuthButton() {
         }}
       >
         {user?.loggedIn ? (
-          <React.Fragment>
-            <MenuItem onClick={() => navigate("/members")}>View member area</MenuItem>
-            <MenuItem
-              onClick={() => {
-                closeMenu();
-                logout();
-              }}
-            >
-              Logout
-            </MenuItem>
-          </React.Fragment>
+          <LoggedInMenu closeMenu={closeMenu} logout={logout} />
         ) : (
           <MenuItem onClick={login}>Login via discord</MenuItem>
         )}
