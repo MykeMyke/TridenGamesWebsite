@@ -5,6 +5,7 @@ export function ReleaseDate(patreonDate, generalDate) {
   let ReleaseDate = "";
   const now = moment();
   if (moment(generalDate) < now) {
+    ReleaseDate = "Available for General Signup";
   } else if (moment(generalDate) > now && moment(patreonDate) < now) {
     ReleaseDate =
       "Patreon Members can sign up now! Releases to everybody on " +
