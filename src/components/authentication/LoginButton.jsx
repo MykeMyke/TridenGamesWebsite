@@ -1,9 +1,9 @@
-import { useContext } from "react";
 import { Button } from "@mui/material"
-import { UserContext } from "../../App"
+import useUserStore from "../../stores/useUserStore"
 
 export default function LoginButton({ children, ...props }) {
-    const { login } = useContext(UserContext);
+    const login = useUserStore((s) =>  s.login)
+    
     return (
         <Button
             aria-describedby="login-btn"

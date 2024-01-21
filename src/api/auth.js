@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiHost, applyCsrf } from "./utils";
 import { hasDMRank } from "../utils/ranks";
+import useUserStore from "../stores/useUserStore";
+import { useShallow } from "zustand/react/shallow";
+
 
 export function getUserDetails() {
   return axios.get(`${apiHost}/auth/user_details`, { withCredentials: true });
@@ -17,7 +20,7 @@ function login() {
 }
 
 export default function useUser() {
-  const [user, setUser] = useState();
+  const [user, setUser, setIsLoading, setMethods] = useUserStore(useShallow((s) => [s.user, s.setUser, s.setIsLoading, s.setMethods]))
   const queryClient = useQueryClient();
   const { data, isFetching, status } = useQuery({
     queryKey: ["user_data"],
@@ -36,8 +39,11 @@ export default function useUser() {
       }
       setUser(us);
       return us;
-    },
+    }
   });
+  useEffect(() => {
+    setIsLoading(status === 'pending'); 
+  }, [status])
 
   const logoutMutation = useMutation({
     queryKey: ["logout"],
@@ -49,11 +55,12 @@ export default function useUser() {
     },
   });
 
+  useEffect(() => {
+    setMethods({ in: login, out: logoutMutation.mutate })
+  }, [logoutMutation, setMethods])
   return {
-    user: user || { loggedIn: false },
-    loggedIn: user?.loggedIn || false,
+    user,
     login,
     logout: logoutMutation.mutate,
-    isLoading: isFetching,
   };
 }

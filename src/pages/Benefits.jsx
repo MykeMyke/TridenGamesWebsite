@@ -1,6 +1,7 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { ListItem, ListItemText, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
+import { List } from "@mui/material"
 import { Divider } from "@mui/material";
 import Button from "@mui/material/Button";
 
@@ -33,9 +34,9 @@ function Benefits() {
           <Typography variant="h4" sx={{ mt: 1, textAlign: "center" }}>
             Benefits for Triden supporters:{" "}
           </Typography>
-          <Typography variant="body1">
-            <ul>
-              <li>
+          <List sx={{ ml: 6, listStyleType: "disc" }}>
+            <ListItem sx={{ pl: 0, py: 0, display: "list-item"}}>
+              <ListItemText>
                 <strong>For Players:</strong> there is early signup access to
                 the Resident DM schedule of one shots every month as well access
                 to fully featured compendiums in both D&D Beyond and Roll20.
@@ -44,14 +45,18 @@ function Benefits() {
                   <a href="/calendar">calendar</a>
                 </strong>{" "}
                 of upcoming games.
-              </li>
-              <li>
+              </ListItemText>
+            </ListItem>
+            <ListItem sx={{ pl: 0, py: 0, display: "list-item"}}>
+              <ListItemText>
                 {" "}
                 <strong>For DMs:</strong> there is access to adventure modules
                 as well as maps, art, music and more to help you run awesome
                 games!
-              </li>
-              <li>
+              </ListItemText>
+              </ListItem>
+            <ListItem sx={{ pl: 0, py: 0, display: "list-item"}}>
+              <ListItemText sx={{listStyleType: "disc"}}>
                 {" "}
                 <strong>For Writers:</strong> there is access to guides,
                 templates, advice from experienced authors, map making asset
@@ -64,9 +69,9 @@ function Benefits() {
                   <a href="/tridenverse">Tridenverse</a>
                 </strong>
                 !
-              </li>
-            </ul>
-          </Typography>
+                </ListItemText>
+              </ListItem>
+          </List>
           <Typography variant="body1" sx={{ mb: 4 }}>
             Triden is able to share resources with its members because they are
             contributing to the purchase. As an LLP and by paying careful
