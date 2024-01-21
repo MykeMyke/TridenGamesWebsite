@@ -82,7 +82,7 @@ function DiscordButton({ children }) {
       color="secondary"
       sx={{
         py: 0.5,
-        px: 0.5,
+        px: 0.8,
         lineHeight: "1.2",
         textAlign: "center",
         fontSize: "0.75rem",
@@ -211,20 +211,6 @@ export default function Calendar() {
               </>
             )}
           </Typography>
-          <Typography variant="subtitle1" color="text.primary">
-            {isLoading ? (
-              <Skeleton animation="wave" />
-            ) : (
-              <>Hover over or press the Players / Waitlist box for the list of who is signed up...</>
-            )}
-          </Typography>
-          <Typography variant="subtitle1" color="text.primary">
-            {isLoading ? (
-              <Skeleton animation="wave" />
-            ) : (
-              <>Use the filters to search for your games, or for games as certain times.</>
-            )}
-          </Typography>
         </Grid>
       </Grid>
       <Divider variant="middle" sx={{ mb: 2.5 }} />
@@ -241,7 +227,7 @@ export default function Calendar() {
             />
           </Grid>
         ))}
-        {user?.loggedIn ? (
+        {user?.isDm ? (
           <Box>
             <Fab
               variant="extended"

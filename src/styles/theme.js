@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 
 const primaryColor = "#191919";
 const secondaryColor = "#630000";
@@ -35,4 +35,4 @@ const TridenTheme = createTheme({
   },
 });
 
-export default TridenTheme;
+export default responsiveFontSizes(TridenTheme);
