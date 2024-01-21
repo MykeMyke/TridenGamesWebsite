@@ -9,10 +9,10 @@ export default function DateTimeSelector(props) {
   const { values, errors, setFieldValue } = useFormikContext();
   const mValue = useMemo(() => {
     if (values[props.name]) {
-      if (navigator?.language.indexOf('en-GB') > -1) {
-        moment.locale('en-GB');
+      if (navigator?.language.indexOf("en-GB") > -1) {
+        moment.locale("en-GB");
       } else {
-        moment.locale('en');
+        moment.locale("en");
       }
       return moment(values[props.name]);
     } else {
@@ -20,11 +20,13 @@ export default function DateTimeSelector(props) {
     }
   }, [values[props.name], navigator]);
 
-  console.info(moment.localeData().longDateFormat('L'))
+  console.info(moment.localeData().longDateFormat("L"));
   const error = errors?.[props.name];
   return (
     <LocalizationProvider dateAdapter={AdapterMoment} dateFormats={"YYYY"}>
       <DateTimePicker
+        disabled={props.disabled}
+        sx={props.sx}
         label={props.label}
         value={mValue}
         ampm={false}
@@ -32,7 +34,7 @@ export default function DateTimeSelector(props) {
           setFieldValue(props.name, val.toDate());
           props?.onChange(val.toDate());
         }}
-        format={`${moment.localeData().longDateFormat('L')} HH:MM`}
+        format={`${moment.localeData().longDateFormat("L")} HH:MM`}
         shouldDisableDate={(val) => {
           return !!error ? val.toDate().getTime() === mValue.toDate().getTime() : false;
         }}
