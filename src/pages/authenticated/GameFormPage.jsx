@@ -12,8 +12,9 @@ import { Close } from "@mui/icons-material";
 
 import RealmSelector from "../../components/game/RealmSelector";
 import VariantSelector from "../../components/game/VariantSelector";
-import TierSelector from "../../components/game/TierSelector";
+import LevelRangeSelector from "../../components/game/LevelRangeSelector";
 import DateTimeSelector from "../../components/game/DateTimeSelector";
+import TimeDetails from "../../components/game/TimeDetails";
 import { useGame } from "../../api/games";
 
 const Alert = forwardRef((props, ref) => {
@@ -158,117 +159,83 @@ function GameForm(props) {
             label="Warnings"
           />
         </Grid>
-        <Grid item xs={12} md={9} container columnSpacing={2}>
-          <Grid item xs={3}>
-            <TextField
-              value={values.max_players}
-              onChange={handleChange}
-              label="Players"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TierSelector />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              name="level_min"
-              value={values.level_min || 1}
-              onChange={handleChange}
-              label="Min Level"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              name="level_max"
-              value={values.level_max || 4}
-              onChange={handleChange}
-              label="Max Level"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </Grid>
-        </Grid>
-        <Grid item xs={12} container columnSpacing={2}>
-          <Grid item xs={6} md={6}>
-            <DateTimeSelector
-              label="Game Start"
-              name="datetime"
-              onChange={(val) => {
-                const oneWeek = 1000 * 60 * 60 * 24 * 7; //id put this in a constant, above, but thats trivial perf gain
-                setValues({
-                  ...values,
-                  datetime: val,
-                  datetime_release: new Date(val.getTime() - 2 * oneWeek),
-                  datetime_open_release: new Date(val.getTime() - oneWeek),
-                });
-              }}
-            />
-          </Grid>
-        </Grid>
-        <Grid item xs={12} container columnSpacing={2}>
-          <Grid item xs={6} md={6}>
-            <DateTimeSelector label="Patreon Release" name="datetime_release" />
-          </Grid>
-          <Grid item xs={6} md={6}>
-            <DateTimeSelector label="General Release" name="datetime_open_release" />
-          </Grid>
-        </Grid>
 
-        <Grid item xs={12} md={12}>
-          <Divider fullWidth />
-          <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-            <Tooltip title="Set to indicate that game is going to be streamed">
-              <FormControlLabel
-                control={<Checkbox checked={values.streaming} />}
-                label="Streaming"
-                onChange={(evt) => setFieldValue("streaming", evt.target.checked)}
-              />
-            </Tooltip>
-            <Tooltip title="Set to indicate that game is a playtest">
-              <FormControlLabel
-                control={<Checkbox checked={values.play_test} />}
-                label="Playtest"
-                onChange={(evt) => setFieldValue("play_test", evt.target.checked)}
-              />
-            </Tooltip>
-            <Tooltip title="Game is ready for release">
-              <FormControlLabel
-                control={<Checkbox checked={values.ready} />}
-                label="Ready"
-                onChange={(evt) => setFieldValue("ready", evt.target.checked)}
-              />
-            </Tooltip>
-          </Box>
-          <Divider fullWidth />
+        <Grid item xs={12} md={4}>
+          <DateTimeSelector
+            label="Game Start"
+            name="datetime"
+            onChange={(val) => {
+              const oneWeek = 1000 * 60 * 60 * 24 * 7; //id put this in a constant, above, but thats trivial perf gain
+              setValues({
+                ...values,
+                datetime: val,
+                datetime_release: new Date(val.getTime() - 2 * oneWeek),
+                datetime_open_release: new Date(val.getTime() - oneWeek),
+              });
+            }}
+          />
         </Grid>
-        <Grid item xs={12} md={12}>
-          <Button variant="outlined" type="submit" disabled={props.isLoading}>
-            {values.id ? "Update Game" : "Create Game"}
-          </Button>
-          {values.id ? (
-            <Button
-              variant="outlined"
-              onClick={() => {
-                setShowDelete(true);
-                return false;
-              }}
-              disabled={props.isLoading}
-            >
-              Delete Game
-            </Button>
-          ) : null}
+        <Grid item xs={4} md={3}>
+          <TextField
+            value={values.max_players}
+            onChange={handleChange}
+            label="Players"
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </Grid>
+        <Grid item xs={8} md={5}>
+          <LevelRangeSelector />
         </Grid>
       </Grid>
+      <TimeDetails />
+      <Grid item xs={12} md={12}>
+        <Divider fullWidth />
+        <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+          <Tooltip title="Set to indicate that game is going to be streamed">
+            <FormControlLabel
+              control={<Checkbox checked={values.streaming} />}
+              label="Streaming"
+              onChange={(evt) => setFieldValue("streaming", evt.target.checked)}
+            />
+          </Tooltip>
+          <Tooltip title="Set to indicate that game is a playtest">
+            <FormControlLabel
+              control={<Checkbox checked={values.play_test} />}
+              label="Playtest"
+              onChange={(evt) => setFieldValue("play_test", evt.target.checked)}
+            />
+          </Tooltip>
+          <Tooltip title="Game is ready for release">
+            <FormControlLabel
+              control={<Checkbox checked={values.ready} />}
+              label="Ready"
+              onChange={(evt) => setFieldValue("ready", evt.target.checked)}
+            />
+          </Tooltip>
+        </Box>
+        <Divider fullWidth />
+      </Grid>
+      <Box sx={{ margin: "0.8em 0", display: "flex", justifyContent: "center", gap: "4px" }}>
+        <Button variant="contained" type="submit" disabled={props.isLoading} sx={{ minWidth: "12em" }}>
+          {values.id ? "Update Game" : "Create Game"}
+        </Button>
+        {values.id ? (
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => {
+              setShowDelete(true);
+              return false;
+            }}
+            disabled={props.isLoading}
+          >
+            Delete Game
+          </Button>
+        ) : null}
+      </Box>
     </form>
   );
 }
