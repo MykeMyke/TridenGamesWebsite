@@ -12,7 +12,7 @@ export default function GameCardActions({ id, is_dm, name, datetime_release, dat
     const { user } = useContext(UserContext);
     const now = new Date();
     if (!user?.loggedIn ) {
-        return <LoginButton/>
+        return ReleaseDate(datetime_release, datetime_open_release);
     }
 
     if (!is_dm) {
