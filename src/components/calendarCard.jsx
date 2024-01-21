@@ -175,7 +175,7 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
           <Grid container direction="row" justifyContent="space-between">
               <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
                 <Typography variant="body1" color="text.primary">
-                  Players <PlayerTooltip gameKey={`${dm_name}_${datetime}_waitlisted`}
+                  Players <PlayerTooltip gameKey={`${dm_name}_${datetime}_playing`}
                   players={players}>l</PlayerTooltip>
                 </Typography>
                 <Typography variant="h6" color="text.primary">
