@@ -3,13 +3,12 @@ import * as React from "react";
 import { Button } from "@mui/material";
 
 import { ReleaseDate } from "../../utils/releasedate";
-import { useContext } from "react";
-import { UserContext } from "../../App";
+import useUserStore from "../../stores/useUserStore";
 import LoginButton from "../authentication/LoginButton";
 
 
 export default function GameCardActions({ id, is_dm, name, datetime_release, datetime_open_release, playing, standingBy, joinGame, isJoining, dropGame }) {
-    const { user } = useContext(UserContext);
+    const user = useUserStore((s) => s.user);
     const now = new Date();
     if (!user?.loggedIn ) {
         return <LoginButton/>

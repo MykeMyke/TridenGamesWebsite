@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Box, Skeleton, Divider } from "@mui/material";
@@ -8,14 +8,13 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 
 import useLocalStorage, { deleteFromStorage } from "@rehooks/local-storage";
 
-import { UserContext } from "../App";
 import { useGames } from "../api/games";
 import Game from "../components/calendarCard";
 import NameFilter from "../components/nameFilter";
 import { checkDaysToGo } from "../utils/daysToGo";
 import JoinDiscordButton from "../components/authentication/JoinDiscordButton";
 import LoginButton from "../components/authentication/LoginButton";
-
+import useUserStore from "../stores/useUserStore";
 import "../styles/Global.css";
 
 // the prefix serves as a namespace so we will not delete other keys, unless they pick this name
@@ -98,7 +97,7 @@ export default function Calendar() {
   const [activeName, setActiveName] = useState(localName);
   const [localSlots, setLocalSlots] = useLocalStorage(slotsKey, "");
   const [slots, setSlots] = useState(createSlots(localSlots));
-  const { user, isLoading: userLoading } = useContext(UserContext);
+  const user = useUserStore((s) => s.user);
   const { data, isLoading, joinGame, dropGame } = useGames();
   const userModifiedData = useMemo(() => {
     if (data && user.loggedIn) {

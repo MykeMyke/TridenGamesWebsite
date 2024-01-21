@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Container, Box, Typography } from "@mui/material";
-import { UserContext } from "../../App";
+import useUserStore from "../../stores/useUserStore";
+import { useShallow } from "zustand/react/shallow";
 import JoinDiscordButton from "./JoinDiscordButton";
 import LoginButton from "./LoginButton";
 
@@ -37,8 +38,7 @@ function RequireAuthFragment({ title, subtitle }) {
 }
 
 export default function RequireAuth({ requireDm = false, children }) {
-  const { user, isLoading } = useContext(UserContext);
-
+  const [user, isLoading] = useUserStore(useShallow((s) => [s.user, s.isLoading]))
   if (isLoading) {
     return <RequireAuthFragment title="Loading..." />
   }

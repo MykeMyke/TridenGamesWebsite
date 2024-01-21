@@ -23,16 +23,15 @@ import AuthErrorPage from "./pages/AuthErrorPage";
 import useUser from "./api/auth";
 import RequireAuth from "./components/authentication/RequireAuth";
 import SnackbarAlert from "./components/SnackbarAlert";
+import useUserStore from "./stores/useUserStore";
 
 const queryClient = new QueryClient();
 //TODO since we already bit the bullet and re-added zustand for shared snackbar management, might
 // we well replace this context with a store too
-export const UserContext = createContext();
 
 function AppRoutes() {
-  const user = useUser();
+  useUser(); //initialize user methods
   return (
-    <UserContext.Provider value={user}>
       <Router>
         <Grid container direction="column" className="Background">
           <Grid item>
@@ -94,7 +93,6 @@ function AppRoutes() {
           </Grid>
         </Grid>
       </Router>
-    </UserContext.Provider>
   );
 }
 

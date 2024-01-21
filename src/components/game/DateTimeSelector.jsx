@@ -20,7 +20,6 @@ export default function DateTimeSelector(props) {
     }
   }, [values[props.name], navigator]);
 
-  console.info(moment.localeData().longDateFormat("L"));
   const error = errors?.[props.name];
   return (
     <LocalizationProvider dateAdapter={AdapterMoment} dateFormats={"YYYY"}>

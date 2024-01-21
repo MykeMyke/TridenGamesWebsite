@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
-
 import stringAvatar from "../../utils/stringAvatar";
-import { UserContext } from "../../App";
+import { Avatar, Menu, MenuItem } from "@mui/material";
+import useUserStore from "../../stores/useUserStore";
+import { useShallow } from "zustand/react/shallow";
 
 /**
  * A separate function for the mutiple item logged in menu, because MUI complains if this
@@ -17,7 +16,7 @@ function LoggedInMenu({ closeMenu, logout }) {
   const navigate = useNavigate();
 
   return (
-    <React.Fragment>
+    <>
       <MenuItem onClick={() => navigate("/members")}>View member area</MenuItem>
       <MenuItem
         onClick={() => {
@@ -27,13 +26,13 @@ function LoggedInMenu({ closeMenu, logout }) {
       >
         Logout
       </MenuItem>
-    </React.Fragment>
+    </>
   );
 }
 export default function AuthButton() {
-  const { user, login, logout } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [user, login, logout] = useUserStore(useShallow((s) => [s.user, s.login, s.logout]))
+  
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -42,7 +41,7 @@ export default function AuthButton() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Avatar onClick={openMenu} {...stringAvatar(user?.username || "")} />
       <Menu
         id="auth-menu"
@@ -64,6 +63,6 @@ export default function AuthButton() {
           <MenuItem onClick={login}>Login via discord</MenuItem>
         )}
       </Menu>
-    </React.Fragment>
+    </>
   );
 }

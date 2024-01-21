@@ -1,18 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 import { AppBar, Box, Toolbar, Grid } from "@mui/material";
 
 import AuthButton from "./authentication/AuthButton";
 import JoinDiscordButton from "./authentication/JoinDiscordButton";
-import { UserContext } from "../App";
+import useUserStore from "../stores/useUserStore";
 
 import "../styles/Global.css";
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />;
 
 const Header = () => {
-  const { loggedIn } = useContext(UserContext);
+  const user = useUserStore((s) => s.user);
 
   return (
     <Box sx={{ justifyContent: "space-between", color: "red" }}>
@@ -93,7 +93,7 @@ const Header = () => {
               alignItems: "center",
             }}
           >
-            {!loggedIn && <JoinDiscordButton />}
+            {!user.loggedIn && <JoinDiscordButton />}
             <AuthButton />
           </Box>
         </Toolbar>

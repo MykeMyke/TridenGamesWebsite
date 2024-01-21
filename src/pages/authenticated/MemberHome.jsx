@@ -1,15 +1,12 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { Container, Box, Typography, Button, ButtonGroup } from "@mui/material";
-
 import RankWidget from "../../components/user/RankWidget";
 import { capitalise } from "../../utils/formatting";
-import { UserContext } from "../../App";
+import useUserStore from "../../stores/useUserStore";
 
 export default function MemberHome() {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const user = useUserStore((s) => s.user);
 
   return (
     <Container sx={{ margin: "auto", width: "100%" }}>
