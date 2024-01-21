@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
  * Get the appropriate host
  */
 export const apiHost =
-  process.env.NODE_ENV === "development2" ? "http://127.0.0.1:8000" : "https://unseen-servant.tridengames.com";
+  process.env.NODE_ENV === "development" ? "http://127.0.0.1:8000" : "https://unseen-servant.tridengames.com";
 
 /**
  * Apply the csrf headers
