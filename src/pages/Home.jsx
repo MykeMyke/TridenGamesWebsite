@@ -56,7 +56,7 @@ function Home() {
               my: 0.6,
             }}
           />
-          <Typography variant="h5" color="text.primary" sx={{ mt: 2, mb: 8 }}>
+          <Typography variant="h5" color="text.primary" sx={{ mt: 2, mb: 2 }}>
             We are a community server for D&D 5e, organised on{" "}
             <strong>
               <a
