@@ -9,7 +9,7 @@ import DateTimeSelector from "./DateTimeSelector";
 
 export default function TimeDetails(props) {
   const [showDetail, setShowDetail] = useState(false);
-  const [stagedRelease, setStagedRelease] = useState(false);
+  const [stagedRelease, setStagedRelease] = useState(true);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "row", margin: "0.8em 0", justifyContent: "space-around" }}>
