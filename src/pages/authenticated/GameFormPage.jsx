@@ -3,7 +3,7 @@ import React, { forwardRef, useEffect, useState } from "react";
 import { FormikProvider, useFormikContext } from "formik";
 import { useParams } from "react-router";
 
-import { Dialog, DialogActions } from "@mui/material";
+import { Dialog, DialogActions, Container } from "@mui/material";
 import { DialogTitle, DialogContent } from "@mui/material";
 import { Grid, TextField, Button, Box, Typography } from "@mui/material";
 import { IconButton, Snackbar, Alert as MuiAlert } from "@mui/material";
@@ -70,7 +70,7 @@ function GamePage(props) {
   }, [successMessage]);
 
   return (
-    <React.Fragment>
+    <Container>
       <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => setErrorOpen(false)}>
         <Alert severity="error">{errorMessage}</Alert>
       </Snackbar>
@@ -80,7 +80,7 @@ function GamePage(props) {
       <FormikProvider value={formik}>
         <GameForm isLoading={isLoading} deleteGame={deleteGame} />
       </FormikProvider>
-    </React.Fragment>
+    </Container>
   );
 }
 
