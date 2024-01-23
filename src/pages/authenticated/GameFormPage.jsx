@@ -17,9 +17,6 @@ import DateTimeSelector from "../../components/game/DateTimeSelector";
 import TimeDetails from "../../components/game/TimeDetails";
 import { useGame } from "../../api/games";
 
-const Alert = forwardRef((props, ref) => {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export function EditGamePage() {
   const { id } = useParams();
@@ -55,28 +52,10 @@ const ConfirmDialog = ({ name, onClose, onConfirm }) => {
 };
 
 function GamePage(props) {
-  const { formik, saveGame, isLoading, errorMessage, successMessage, deleteGame } = useGame(props.id);
-  const [errorOpen, setErrorOpen] = useState(false);
-  const [successOpen, setSuccessOpen] = useState(false);
-  useEffect(() => {
-    if (saveGame.error) {
-      setErrorOpen(true);
-    }
-  }, [saveGame.error]);
-  useEffect(() => {
-    if (successMessage) {
-      setSuccessOpen(true);
-    }
-  }, [successMessage]);
-
+  const { formik, isLoading, deleteGame } = useGame(props.id);
+  
   return (
     <Container>
-      <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => setErrorOpen(false)}>
-        <Alert severity="error">{errorMessage}</Alert>
-      </Snackbar>
-      <Snackbar open={successOpen} autoHideDuration={6000} onClose={() => setSuccessOpen(false)}>
-        <Alert severity="success">{successMessage}</Alert>
-      </Snackbar>
       <FormikProvider value={formik}>
         <GameForm isLoading={isLoading} deleteGame={deleteGame} />
       </FormikProvider>

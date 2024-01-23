@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -9,6 +9,7 @@ import useAlertStore from "../stores/useAlertStore";
 import { useShallow } from "zustand/react/shallow";
 import { apiHost, applyCsrf } from "./utils";
 import { nextWeek, tomorrow } from "../utils/datetime";
+import useUserStore from "../stores/useUserStore";
 
 const gamesUrl = `${apiHost}/api/games/`;
 
@@ -79,6 +80,8 @@ export const timeSlots = [
 export function useGames() {
   const queryClient = useQueryClient();
   const [setSuccess, setError, setWarning] = useAlertStore(useShallow((s) => [s.setSuccess, s.setError, s.setWarning]));
+  const user = useUserStore((s) => s.user);
+  
   const { data, isLoading, error, status } = useQuery({
     queryKey: ["games"],
     queryFn: async () => {
@@ -163,9 +166,28 @@ export function useGames() {
     },
   });
 
+  const userModifiedData = useMemo(() => {
+    if (data && user.loggedIn) {
+      return data.map((game) => {
+        return {
+          ...game,
+          is_dm: !!(game.dm_name.toLowerCase() === user.username.toLowerCase()),
+          playing: game.players.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
+          standingBy: game.standby.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
+        };
+      });
+    } else {
+      return (
+        data?.map((game) => {
+          return { ...game, is_dm: false, playing: false };
+        }) || []
+      );
+    }
+  }, [data, user]);
+
   return {
     isLoading,
-    data,
+    data: userModifiedData,
     error,
     status,
     joinGame,
@@ -184,7 +206,7 @@ export function useGame(id) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(id !== "new");
   const [setSuccess, setError] = useAlertStore(useShallow((s) => [s.setSuccess, s.setError]));
-
+  
   const navigate = useNavigate();
   const {
     data: game,

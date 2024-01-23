@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import * as React from "react";
 
-function FilterMarker({ gameData, activeName }) {
+function FilterMarker({ gameData, activeName, ...props }) {
   let cls = "filter ";
   let text = "";
   if (activeName && activeName !== "" && !Array.isArray(activeName)) {
@@ -28,7 +28,7 @@ function FilterMarker({ gameData, activeName }) {
   } else {
     cls += "filter-inactive";
   }
-  return <Box className={cls}>{text}</Box>;
+  return <Box className={cls} {...props}>{text}</Box>;
 }
 
 export default FilterMarker;

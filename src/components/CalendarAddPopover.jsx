@@ -20,7 +20,7 @@ export default function CalendarAddPopover(props) {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div>
+    <>
       <Button
         aria-describedby={id}
         variant="contained"
@@ -28,6 +28,7 @@ export default function CalendarAddPopover(props) {
         size="small"
         sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1, minWidth: "30px" }}
         color="secondary"
+        {...props}
       >
         📆
       </Button>
@@ -44,6 +45,6 @@ export default function CalendarAddPopover(props) {
       >
         <CalendarLink game={game} />
       </Popover>
-    </div>
+    </>
   );
 }

@@ -15,9 +15,9 @@ import CalendarAddPopover from "./CalendarAddPopover";
 import { toLocalString } from "../utils/formatting";
 import { checkTier } from "../utils/tier";
 import FilterMarker from "./filterMarker";
-import { useNavigate } from "react-router-dom";
 import GameCardActions from "./game/GameCardActions";
 import { ClickAwayListener } from "@mui/material";
+import CalendarGameControls from "./CalendarGameControls";
 
 const PlayerTooltip = ({ gameKey, players }) => {
     const [open, setOpen] = React.useState(false);
@@ -59,21 +59,6 @@ const Players = ({ gameKey, players }) => {
 
 const SKELETON_SX = { maxWidth: 450, width: "100%" };
 
-const Controls = ({ game }) => {
-  const navigate = useNavigate();
-    if (game.is_dm) {
-      return (
-        <Button
-          aria-describedby={`dm-edit${game.id}`}
-          variant="contained"
-          size="small"
-          sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1, minWidth: "30px" }}
-          color="secondary"
-          onClick={() => navigate(`/members/games/edit/${game.id}`)}>✏️</Button>
-      )
-  }
-  return null;
-}
 const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isDropping }) => {
   const {
     module,
@@ -155,7 +140,7 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
             <>
               <FullDescPopover game={props} />{" "}
               <CalendarAddPopover game={props} />
-              <Controls game={props}/>
+              <CalendarGameControls game={props}/>
             </>
           )}
         </Grid>
