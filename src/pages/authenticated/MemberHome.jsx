@@ -117,7 +117,7 @@ export default function MemberHome() {
     }
     return my;
   }, [games])
-  console.info(myGames, games);
+
   return (
     <Container sx={{ margin: "auto", width: "100%" }}>
       <Box
