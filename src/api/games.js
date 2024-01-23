@@ -187,7 +187,7 @@ export function useGames() {
 
   return {
     isLoading,
-    data: userModifiedData,
+    data: userModifiedData || data,
     error,
     status,
     joinGame,
