@@ -168,7 +168,7 @@ export default function Calendar() {
                   <>
                     {user.credit_max
                       ? `${user.credit_available}/${user.credit_max} credit${user.credit_max === 1 ? "" : "s"}`
-                      : "No credtits"}{" "}
+                      : "No credits"}{" "}
                     available
                   </>
                 ) : (
