@@ -9,6 +9,9 @@ export default defineConfig({
     outDir: "./build",
   },
   plugins: [react()],
+  optimizeDeps: {
+    include: ['@mui/material/Tooltip'] //goddam Popper styled.default is not a function
+  },
   server: {
     host: "127.0.0.1",
     port: 3000,

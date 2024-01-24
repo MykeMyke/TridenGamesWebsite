@@ -1,8 +1,7 @@
-import moment from "moment";
+import { format } from "date-fns";
 
 export function toLocalString(dateTime) {
-  let dt = moment(dateTime);
-  return dt.format("llll");
+  return format(dateTime, 'eee, LLL d, yyyy h:mm a');
 }
 
 export function capitalise(string) {

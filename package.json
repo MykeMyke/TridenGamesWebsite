@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "https://unseen-servant.tridengames.com",
   "dependencies": {
+    "@date-io/date-fns": "^3.0.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^4.5.8",
@@ -21,6 +22,7 @@
     "axios": "^0.26.1",
     "babel-plugin-macros": "^3.1.0",
     "calendar-link": "2.1.1",
+    "date-fns": "^3.3.1",
     "ejs": "^3.1.9",
     "formik": "^2.4.5",
     "formik-mui": "^5.0.0-alpha.0",
