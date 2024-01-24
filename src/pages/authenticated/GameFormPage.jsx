@@ -17,7 +17,6 @@ import DateTimeSelector from "../../components/game/DateTimeSelector";
 import TimeDetails from "../../components/game/TimeDetails";
 import { useGame } from "../../api/games";
 
-
 export function EditGamePage() {
   const { id } = useParams();
   return <GamePage id={id} />;
@@ -53,7 +52,7 @@ const ConfirmDialog = ({ name, onClose, onConfirm }) => {
 
 function GamePage(props) {
   const { formik, isLoading, deleteGame } = useGame(props.id);
-  
+
   return (
     <Container>
       <FormikProvider value={formik}>
@@ -156,6 +155,7 @@ function GameForm(props) {
         </Grid>
         <Grid item xs={4} md={3}>
           <TextField
+            name="max_players"
             value={values.max_players}
             onChange={handleChange}
             label="Players"
