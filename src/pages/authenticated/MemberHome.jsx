@@ -1,6 +1,18 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Grid, Box, Typography, Button, ButtonGroup, Collapse, List, ListItem, ListItemText } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Box,
+  Divider,
+  Typography,
+  Button,
+  ButtonGroup,
+  Collapse,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -23,11 +35,15 @@ function PlayerList({ players }) {
     <>
       {players.length ? (
         <List sx={{ listStyle: "decimal", ml: 4 }}>
-          {players.map(player => <ListItem sx={{ display: "list-item" }}><ListItemText>{player.discord_name}</ListItemText></ListItem>)}
+          {players.map((player) => (
+            <ListItem sx={{ display: "list-item" }}>
+              <ListItemText>{player.discord_name}</ListItemText>
+            </ListItem>
+          ))}
         </List>
       ) : null}
     </>
-  )
+  );
 }
 
 function MyGamesRow({ game }) {
@@ -38,35 +54,33 @@ function MyGamesRow({ game }) {
       <TableRow>
         <TableCell colSpan={2} display="flex">
           <Grid container spacing={0}>
-            <Grid item xs={12}
+            <Grid
+              item
+              xs={12}
               container
               direction="row"
               justifyContent="space-between"
               alignItems="center"
-              sx={{ mt: 0.2 }}>
-              <Typography
-                color="text.primary"
-                marginRight={3}
-              >
+              sx={{ mt: 0.2 }}
+            >
+              <Typography color="text.primary" marginRight={3}>
                 {toLocalString(game.datetime)}
               </Typography>
               <div>
                 <CalendarGameControls game={game} />
-                <CalendarAddPopover game={game} sx={{ height: "50%", pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1, minWidth: "30px" }} />
+                <CalendarAddPopover
+                  game={game}
+                  sx={{ height: "50%", pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1, minWidth: "30px" }}
+                />
               </div>
             </Grid>
-            <Grid item xs={1}><IconButton valign="top"
-              aria-label="expand row"
-              size="small"
-              onClick={() => setOpen(!open)}
-            >{open ? <KeyboardArrowDown /> : <KeyboardArrowUp />}
-            </IconButton></Grid>
+            <Grid item xs={1}>
+              <IconButton valign="top" aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+                {open ? <KeyboardArrowDown /> : <KeyboardArrowUp />}
+              </IconButton>
+            </Grid>
             <Grid item xs={11}>
-              <Typography
-                marginRight={3}
-              >
-                {game.name}
-              </Typography>
+              <Typography marginRight={3}>{game.name}</Typography>
             </Grid>
             <Grid item xs={1}></Grid>
             <Grid item xs={7}>
@@ -88,7 +102,9 @@ function MyGamesRow({ game }) {
                   <Typography fontWeight="bold">Warnings:</Typography> {game.warnings}
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography fontWeight="bold">Playing {game.players.length} / {game.max_players}:</Typography>
+                  <Typography fontWeight="bold">
+                    Playing {game.players.length} / {game.max_players}:
+                  </Typography>
                   <PlayerList players={game.players} />
                 </Grid>
                 <Grid item xs={6}>
@@ -97,12 +113,18 @@ function MyGamesRow({ game }) {
                 </Grid>
               </Grid>
             </Collapse>
-            <Grid item container xs={12} sx={{justifyContent: "center"}}><FilterMarker activeName={user.discord_name} gameData={game} sx={{ px: 4, minWidth: 220, maxWidth: 400 }} /></Grid>
+            <Grid item container xs={12} sx={{ justifyContent: "center" }}>
+              <FilterMarker
+                activeName={user.discord_name}
+                gameData={game}
+                sx={{ px: 4, minWidth: 220, maxWidth: 400 }}
+              />
+            </Grid>
           </Grid>
         </TableCell>
       </TableRow>
     </>
-  )
+  );
 }
 export default function MemberHome() {
   const navigate = useNavigate();
@@ -111,12 +133,12 @@ export default function MemberHome() {
 
   const myGames = useMemo(() => {
     const my = {
-      playing: games.filter(game => game.playing),
-      standingBy: games.filter(game => game.standingBy),
-      dm: games.filter(game => game.is_dm)
-    }
+      playing: games.filter((game) => game.playing),
+      standingBy: games.filter((game) => game.standingBy),
+      dm: games.filter((game) => game.is_dm),
+    };
     return my;
-  }, [games])
+  }, [games]);
 
   return (
     <Container sx={{ margin: "auto", width: "100%" }}>
@@ -147,16 +169,26 @@ export default function MemberHome() {
           <TableHead>
             <TableCell />
             <TableCell rowSpan={12}>
-              <Typography variant="h5">{games?.length ? games.length : isLoading ? " " : "No"} Upcoming Game{games.length == 1 ? "" : "s"}</Typography>
-              <Typography variant="subtitle2">{games.length ? ` (${myGames.playing.length} playing, ${myGames.standingBy.length} standby, ${myGames.dm.length} DM)` : ""} {user.credit_available} / {user.credit_max} credit{user.credit_max === 1 ? "" : "s"}</Typography>
-              <ButtonGroup variant="outlined" sx={{ display: 'flex', justifyContent: "center", gap: 2 }}>
+              <Typography variant="h5">
+                {games?.length ? games.length : isLoading ? " " : "No"} Upcoming Game{games.length == 1 ? "" : "s"}
+              </Typography>
+              <Typography variant="subtitle2">
+                {games.length
+                  ? ` (${myGames.playing.length} playing, ${myGames.standingBy.length} standby, ${myGames.dm.length} DM)`
+                  : ""}{" "}
+                {user.credit_available} / {user.credit_max} credit{user.credit_max === 1 ? "" : "s"}
+              </Typography>
+              <ButtonGroup variant="outlined" sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
                 <Button
                   aria-describedby="nav-calendar"
                   variant="contained"
                   size="small"
                   sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, minWidth: "30px" }}
                   color="secondary"
-                  onClick={() => navigate(`/calendar`)}>Calendar</Button>
+                  onClick={() => navigate(`/calendar`)}
+                >
+                  Calendar
+                </Button>
                 {user?.isDm ? (
                   <>
                     <Button
@@ -165,7 +197,8 @@ export default function MemberHome() {
                       size="small"
                       color="secondary"
                       sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, minWidth: "30px" }}
-                      onClick={() => navigate("/members/games")}>
+                      onClick={() => navigate("/members/games")}
+                    >
                       View DM games
                     </Button>
                     <Button
@@ -174,16 +207,33 @@ export default function MemberHome() {
                       size="small"
                       sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, minWidth: "30px" }}
                       color="secondary"
-                      onClick={() => navigate("/members/games/new")}>
+                      onClick={() => navigate("/members/games/new")}
+                    >
                       Create Game
                     </Button>
                   </>
                 ) : null}
               </ButtonGroup>
             </TableCell>
-
           </TableHead>
-          {games.map(game => <MyGamesRow game={game} />)}
+          <Divider>Playing</Divider>
+          {(myGames.playing.length && myGames.playing.map((game) => <MyGamesRow game={game} />)) || (
+            <Typography textAlign="center" sx={{ padding: "2em", opacity: "0.6" }}>
+              You are not confirmed playing in any upcoming games
+            </Typography>
+          )}
+          <Divider>Waitlisted</Divider>
+          {(myGames.standingBy.length && myGames.standingBy.map((game) => <MyGamesRow game={game} />)) || (
+            <Typography textAlign="center" sx={{ padding: "2em", opacity: "0.6" }}>
+              Not waitlisted for any upcoming games
+            </Typography>
+          )}
+          <Divider>DMing</Divider>
+          {(myGames.dm.length && myGames.dm.map((game) => <MyGamesRow game={game} />)) || (
+            <Typography textAlign="center" sx={{ padding: "2em", opacity: "0.6" }}>
+              You are not the DM for any upcoming games
+            </Typography>
+          )}
         </TableContainer>
       </Box>
     </Container>
