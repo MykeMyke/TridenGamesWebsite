@@ -33,7 +33,7 @@ export default function DateTimeSelector(props) {
           setFieldValue(props.name, val.toDate());
           props?.onChange(val.toDate());
         }}
-        format={`${moment.localeData().longDateFormat("L")} HH:MM`}
+        format={`${moment.localeData().longDateFormat("L")} HH:mm`}
         shouldDisableDate={(val) => {
           return !!error ? val.toDate().getTime() === mValue.toDate().getTime() : false;
         }}
