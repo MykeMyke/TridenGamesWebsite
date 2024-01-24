@@ -99,25 +99,6 @@ export default function Calendar() {
   const [slots, setSlots] = useState(createSlots(localSlots));
   const user = useUserStore((s) => s.user);
   const { data, isLoading, joinGame, dropGame } = useGames();
-  const userModifiedData = useMemo(() => {
-    if (data && user.loggedIn) {
-      return data.map((game) => {
-        return {
-          ...game,
-          is_dm: !!(game.dm_name.toLowerCase() === user.username.toLowerCase()),
-          playing: !!(game.players.indexOf(user.username) >= 0),
-          playing: game.players.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
-          standingBy: game.standby.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
-        };
-      });
-    } else {
-      return (
-        data?.map((game) => {
-          return { ...game, is_dm: false, playing: false };
-        }) || []
-      );
-    }
-  }, [data, user]);
 
   const filtered = useMemo(() => {
     if (isLoading || !data) {
@@ -136,8 +117,8 @@ export default function Calendar() {
         dummyGame("twelve"),
       ];
     }
-    return filterGames(userModifiedData, activeName, slots);
-  }, [isLoading, userModifiedData, activeName, slots, user]);
+    return filterGames(data, activeName, slots);
+  }, [isLoading, data, activeName, slots, user]);
 
   const lastDate = useMemo(() => {
     return data?.map((a) => a.datetime).reverse()[0] || new Date();
@@ -187,7 +168,7 @@ export default function Calendar() {
                   <>
                     {user.credit_max
                       ? `${user.credit_available}/${user.credit_max} credit${user.credit_max === 1 ? "" : "s"}`
-                      : "No credtits"}{" "}
+                      : "No credits"}{" "}
                     available
                   </>
                 ) : (
