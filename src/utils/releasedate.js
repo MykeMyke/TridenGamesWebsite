@@ -1,19 +1,19 @@
-import moment from "moment";
+import { isBefore, isAfter } from "date-fns";
 import { toLocalString } from "./formatting";
 
 export function ReleaseDate(patreonDate, generalDate) {
   let ReleaseDate = "";
-  const now = moment();
-  if (moment(generalDate) < now) {
+  const now = new Date();
+  if (isBefore(generalDate, now)) {
     ReleaseDate = "Available for General Signup";
-  } else if (moment(generalDate) > now && moment(patreonDate) < now) {
+  } else if (isAfter(generalDate, now) && isBefore(patreonDate, now)) {
     ReleaseDate =
       "Patreon Members can sign up now! Releases to everybody on " +
       toLocalString(generalDate);
-  } else if (moment(patreonDate) > now) {
+  } else if (isAfter(patreonDate, now)) {
     ReleaseDate =
       "Releases to Patreon Members on " + toLocalString(patreonDate);
-  } else if (moment(generalDate) > now) {
+  } else if (isAfter(generalDate, now)) {
     ReleaseDate = "Releases to everybody on " + toLocalString(generalDate);
   } else {
     ReleaseDate = "Something strange is going on with these dates...";

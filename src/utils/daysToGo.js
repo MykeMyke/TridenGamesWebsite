@@ -1,7 +1,4 @@
-import moment from "moment";
-
+import { differenceInDays } from 'date-fns';
 export function checkDaysToGo(targetDate) {
-  const end = moment(targetDate);
-  const start = moment();
-  return end.diff(start, "days");
+  return differenceInDays(targetDate, new Date())
 }

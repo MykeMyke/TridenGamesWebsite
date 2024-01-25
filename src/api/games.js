@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import moment from "moment";
 import * as Yup from "yup";
 import axios from "axios";
 import useAlertStore from "../stores/useAlertStore";
@@ -220,9 +219,9 @@ export function useGame(id) {
       if (game?.data) {
         return {
           ...game.data,
-          datetime: moment(game.data.datetime).toDate(),
-          datetime_release: moment(game.data.datetime_release).toDate(),
-          datetime_open_release: moment(game.data.datetime_open_release).toDate(),
+          datetime: game.data.datetime,
+          datetime_release: game.data.datetime_release,
+          datetime_open_release: game.data.datetime_open_release
         };
       }
       throw Error("Cannot parse game");

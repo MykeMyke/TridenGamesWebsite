@@ -1,28 +1,26 @@
 import { useMemo } from "react";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { useFormikContext } from "formik";
-import moment from "moment/min/moment-with-locales";
+import { enGB, enUS } from "date-fns/locale";
 
 export default function DateTimeSelector(props) {
   const { values, errors, setFieldValue } = useFormikContext();
-  const mValue = useMemo(() => {
-    if (values[props.name]) {
-      if (navigator?.language.indexOf("en-GB") > -1) {
-        moment.locale("en-GB");
-      } else {
-        moment.locale("en");
-      }
-      return moment(values[props.name]);
+   const locale = useMemo(() => {
+    if (navigator?.language.indexOf("en-GB") > -1) {
+      return enGB;
     } else {
-      return undefined;
+      return enUS;
     }
-  }, [values[props.name], navigator]);
+  }, [ navigator])
+  const mValue = useMemo(() => {
+      return values[props.name];
+  }, [values[props.name]]);
 
   const error = errors?.[props.name];
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment} dateFormats={"YYYY"}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} locale={locale} dateFormats={"YYYY"}>
       <DateTimePicker
         disabled={props.disabled}
         sx={props.sx}
@@ -30,12 +28,11 @@ export default function DateTimeSelector(props) {
         value={mValue}
         ampm={false}
         onChange={(val) => {
-          setFieldValue(props.name, val.toDate());
-          props?.onChange(val.toDate());
+          setFieldValue(props.name, val);
+          props?.onChange(val);
         }}
-        format={`${moment.localeData().longDateFormat("L")} HH:mm`}
         shouldDisableDate={(val) => {
-          return !!error ? val.toDate().getTime() === mValue.toDate().getTime() : false;
+          return !!error ? val.getTime() === mValue.getTime() : false;
         }}
         slotProps={{
           textField: {
