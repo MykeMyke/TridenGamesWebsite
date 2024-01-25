@@ -10,10 +10,10 @@ export default function VariantSelector(props) {
     <FormControl fullWidth error={!!errors.variant}>
       <InputLabel>Game Variant</InputLabel>
       <Select id="variant" name="variant" value={values.variant} label="Game Variant" onChange={handleChange}>
-        <MenuItem value={"Resident AL"}>Resident AL</MenuItem>
-        <MenuItem value={"Guest AL DM"}>Guest AL</MenuItem>
+        <MenuItem value={"Resident AL"}>Resident Adventurer's League</MenuItem>
+        <MenuItem value={"Guest AL DM"}>Community DM Adventurer's League</MenuItem>
         <Divider fullWidth />
-        <MenuItem value={"Epic AL"}>AL Epic</MenuItem>
+        <MenuItem value={"Epic AL"}>Epic Adventurers League</MenuItem>
         <MenuItem value={"Non-AL One Shot"}>Non-AL One Shot</MenuItem>
         <MenuItem value={"Campaign"}>Campaign</MenuItem>
       </Select>

@@ -11,8 +11,8 @@ export default function RealmSelector(props) {
       <InputLabel>Realm</InputLabel>
       <Select id="realm" name="realm" value={values.realm}  label="Realm" onChange={handleChange}>
         <MenuItem value={"Forgotten Realms"}>Forgotten Realms</MenuItem>
-        <MenuItem value={"Wildemount"}>Ebberon</MenuItem>
-        <MenuItem value={"Eberron"}>Ravnica</MenuItem>
+        <MenuItem value={"Eberron"}>Eberron</MenuItem>
+        <MenuItem value={"Ravnica"}>Ravnica</MenuItem>
         <MenuItem value={"Misthunters"}>Misthunters</MenuItem>
         <MenuItem value={"Strixhaven"}>Strixhaven</MenuItem>
         <MenuItem value={"Wildemount"}>Wildemount</MenuItem>
