@@ -20,35 +20,33 @@ import { ClickAwayListener } from "@mui/material";
 import CalendarGameControls from "./CalendarGameControls";
 
 const PlayerTooltip = ({ gameKey, players }) => {
-    const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
-      <Tooltip disableFocusListener disableTouchListener disableHoverListener
+      <Tooltip
+        disableFocusListener
+        disableTouchListener
+        disableHoverListener
         onMouseOver={() => setOpen(true)}
         onMouseOut={() => setOpen(false)}
         open={open}
-              title={
-                <Players
-                  gameKey={gameKey}
-                  players={players}
-                />
-              }
-
-      ><Button size="small" sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1, minWidth: "30px" }}
-        onClick={() => setOpen(true)}>ℹ️</Button></Tooltip>
+        title={<Players gameKey={gameKey} players={players} />}
+      >
+        <Button size="small" sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, mr: 1, minWidth: "30px" }} onClick={() => setOpen(true)}>
+          ℹ️
+        </Button>
+      </Tooltip>
     </ClickAwayListener>
-  )
-}
+  );
+};
 
 const Players = ({ gameKey, players }) => {
   if (players && players.length > 0) {
     return (
       <ol className="mouseover-list">
         {players.map((player) => (
-          <li key={`${gameKey}_pname_${player.discord_name}`}>
-            {player.discord_name}
-          </li>
+          <li key={`${gameKey}_pname_${player.discord_name}`}>{player.discord_name}</li>
         ))}
       </ol>
     );
@@ -78,22 +76,13 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
   return (
     <Card raised={true} sx={{ maxWidth: 450 }}>
       <CardContent sx={{ pt: 0.75, pb: 0.2, "&:last-child": { pb: 0 } }}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Grid container direction="row" justifyContent="space-between" alignItems="center">
           {isLoading ? (
             <Skeleton height={74} sx={SKELETON_SX} />
           ) : (
             <>
               <Box>
-                <Typography
-                  variant="cardmain"
-                  color="text.primary"
-                  marginRight={3}
-                >
+                <Typography variant="cardmain" color="text.primary" marginRight={3}>
                   {toLocalString(datetime)}
                 </Typography>
                 <Typography variant="subtitle2" color="text.secondary">
@@ -105,11 +94,7 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
           {isLoading ? (
             <Skeleton height={12} sx={SKELETON_SX} />
           ) : (
-            <Typography
-              variant="subtitle"
-              color="text.primary"
-              sx={{ mr: 1 }}
-            >
+            <Typography variant="subtitle" color="text.primary" sx={{ mr: 1 }}>
               {module}
             </Typography>
           )}
@@ -127,20 +112,13 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
             {name}
           </Typography>
         )}
-        <Grid
-          container
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          sx={{ mt: 0.2 }}
-        >
+        <Grid container direction="row" justifyContent="flex-start" alignItems="center" sx={{ mt: 0.2 }}>
           {isLoading ? (
             <Skeleton height={36} sx={SKELETON_SX} />
           ) : (
             <>
-              <FullDescPopover game={props} />{" "}
-              <CalendarAddPopover game={props} />
-              <CalendarGameControls game={props}/>
+              <FullDescPopover game={props} /> <CalendarAddPopover game={props} />
+              <CalendarGameControls game={props} />
             </>
           )}
         </Grid>
@@ -158,25 +136,29 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
           <Skeleton height={72} sx={SKELETON_SX} />
         ) : (
           <Grid container direction="row" justifyContent="space-between">
-              <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
-                <Typography variant="body1" color="text.primary">
-                  Players <PlayerTooltip gameKey={`${dm_name}_${datetime}_playing`}
-                  players={players}>l</PlayerTooltip>
-                </Typography>
-                <Typography variant="h6" color="text.primary">
-                  {players.length} / {max_players}
-                </Typography>
-              </Box>
+            <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
+              <Typography variant="body1" color="text.primary">
+                Players{" "}
+                <PlayerTooltip gameKey={`${dm_name}_${datetime}_playing`} players={players}>
+                  l
+                </PlayerTooltip>
+              </Typography>
+              <Typography variant="h6" color="text.primary">
+                {players.length} / {max_players}
+              </Typography>
+            </Box>
             <Divider orientation="vertical" variant="middle" flexItem />
-              <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
-                <Typography variant="body1" color="text.primary">
-                   Waitlist <PlayerTooltip gameKey={`${dm_name}_${datetime}_waitlisted`}
-                  players={standby}>l</PlayerTooltip>
-                </Typography>
-                <Typography variant="h6" color="text.primary">
-                  {standby.length}
-                </Typography>
-              </Box>
+            <Box p={1} textAlign="center" sx={{ flexGrow: 1 }}>
+              <Typography variant="body1" color="text.primary">
+                Waitlist{" "}
+                <PlayerTooltip gameKey={`${dm_name}_${datetime}_waitlisted`} players={standby}>
+                  l
+                </PlayerTooltip>
+              </Typography>
+              <Typography variant="h6" color="text.primary">
+                {standby.length}
+              </Typography>
+            </Box>
           </Grid>
         )}
       </CardActions>
@@ -187,7 +169,7 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
           </Typography>
         )}
       </CardActions>
-      <FilterMarker activeName={activeName} gameData={props}></FilterMarker>
+      <FilterMarker gameData={props}></FilterMarker>
     </Card>
   );
 };

@@ -63,15 +63,6 @@ function dropGameById(id) {
   return axios.post(`${gamesUrl}${id}/drop/`, {}, { withCredentials: true, headers: applyCsrf() });
 }
 
-export const timeSlots = [
-  { value: 0, text: "Midnight-4AM" },
-  { value: 1, text: "4AM-8AM" },
-  { value: 2, text: "8AM-Noon" },
-  { value: 3, text: "Noon-4PM" },
-  { value: 4, text: "4PM-8PM" },
-  { value: 5, text: "8PM-Midnight" },
-];
-
 /**
  * The hook to get games
  * @returns the games, formatted for use
@@ -80,7 +71,7 @@ export function useGames() {
   const queryClient = useQueryClient();
   const [setSuccess, setError, setWarning] = useAlertStore(useShallow((s) => [s.setSuccess, s.setError, s.setWarning]));
   const user = useUserStore((s) => s.user);
-  
+
   const { data, isLoading, error, status } = useQuery({
     queryKey: ["games"],
     queryFn: async () => {
@@ -205,7 +196,7 @@ export function useGame(id) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(id !== "new");
   const [setSuccess, setError] = useAlertStore(useShallow((s) => [s.setSuccess, s.setError]));
-  
+
   const navigate = useNavigate();
   const {
     data: game,
@@ -221,7 +212,7 @@ export function useGame(id) {
           ...game.data,
           datetime: game.data.datetime,
           datetime_release: game.data.datetime_release,
-          datetime_open_release: game.data.datetime_open_release
+          datetime_open_release: game.data.datetime_open_release,
         };
       }
       throw Error("Cannot parse game");
@@ -308,7 +299,7 @@ export function useGame(id) {
               });
             }
             return true;
-          })
+          }),
         ),
       datetime_open_release: Yup.date()
         .label("General Release")
@@ -329,7 +320,7 @@ export function useGame(id) {
               });
             }
             return true;
-          })
+          }),
         ),
     }),
     initialValues: {
