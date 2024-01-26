@@ -88,9 +88,6 @@ function Filters() {
     return (allTimeSlots || []).map((slot) => slot.text);
   }, [allTimeSlots]);
   const { filterString, filterCount } = useMemo(() => {
-    if (!name?.length && !slots?.length) {
-      return { filterString: "", filterCount: 0 };
-    }
     const fs = [];
     if (name?.length) {
       fs.push(`Name: ${name}`);
@@ -116,8 +113,9 @@ function Filters() {
       fs.push(`Play Test? ${playTest ? "Yes" : "No"}`);
     }
     if (streaming !== undefined) {
-      fs.push(`Streaming? ${playTest ? "Yes" : "No"}`);
+      fs.push(`Streaming? ${streaming ? "Yes" : "No"}`);
     }
+
     return {
       filterString: fs.join(", "),
       filterCount: fs.length,
@@ -168,6 +166,11 @@ function Filters() {
               onClick={() => {
                 setName("");
                 setSlots([]);
+                setRealms([]);
+                setVariants([]);
+                setTiers([]);
+                setPlayTest(undefined);
+                setStreaming(undefined);
               }}
             >
               Clear
