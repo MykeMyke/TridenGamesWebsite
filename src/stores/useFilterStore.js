@@ -90,7 +90,7 @@ function filterGames(data, activeName, slot, realms, variants, tiers, playTests,
     //tier fn is odd, becuse we have games that can span ranges, and people can seelct multiple different tiers
     //would be nice to have a jest test setup, but logic is if:
     // 1) game min >= tier min AND
-    // 2) game main < next tier up's min
+    // 2) game min < next tier up's min
     // then it qualifies.  we also loop through tiers so somebody could pick tiers 2,4 if they had the itching
     let tierFn;
     if (tiers?.length) {
