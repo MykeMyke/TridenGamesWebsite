@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { ChevronLeft } from "@mui/icons-material";
 import useFilterStore from "../stores/useFilterStore";
+import useUserStore from "../stores/useUserStore";
 
 function TernaryFilter({ label, name, value, onChange }) {
   return (
@@ -39,6 +40,7 @@ function TernaryFilter({ label, name, value, onChange }) {
 
 function Filters() {
   const [open, setOpen] = useState(false);
+  const user = useUserStore((s) => s.user);
   const [
     allTimeSlots,
     allRealms,
@@ -89,18 +91,39 @@ function Filters() {
     if (!name?.length && !slots?.length) {
       return { filterString: "", filterCount: 0 };
     }
+    const fs = [];
+    if (name?.length) {
+      fs.push(`Name: ${name}`);
+    }
+    if (slots?.length) {
+      fs.push(
+        `Start Time: ${slots
+          .sort()
+          .map((slot) => timeStrings[slot])
+          .join(", ")}`,
+      );
+    }
+    if (realms?.length) {
+      fs.push(`Realm${realms.length == 1 ? "" : "s"}: ${realms.join(", ")}`);
+    }
+    if (variants?.length) {
+      fs.push(`Type${variants.length == 1 ? "" : "s"}: ${variants.join(", ")}`);
+    }
+    if (tiers?.length) {
+      fs.push(`Tier${tiers.length == 1 ? "" : "s"}: ${tiers.join(", ")}`);
+    }
+    if (playTest !== undefined) {
+      fs.push(`Play Test? ${playTest ? "Yes" : "No"}`);
+    }
+    if (streaming !== undefined) {
+      fs.push(`Streaming? ${playTest ? "Yes" : "No"}`);
+    }
     return {
-      filterString: `${name?.length ? `By Name: ${name}${slots?.length ? "," : ""} ` : ""}${
-        slots?.length
-          ? `Start Time: ${slots
-              .sort()
-              .map((slot) => timeStrings[slot])
-              .join(", ")}`
-          : ""
-      }`,
-      filterCount: (slots || []).length + (name?.length ? 1 : 0),
+      filterString: fs.join(", "),
+      filterCount: fs.length,
     };
-  }, [name, slots]);
+  }, [name, slots, realms, variants, tiers, playTest, streaming]);
+
   const realmVals = useMemo(() => {
     if (realms?.length) {
       return allRealms.filter((realm) => realms.includes(realm.value));
@@ -136,7 +159,7 @@ function Filters() {
         <span>Filters:</span>
         <Button color="secondary" variant="contained" onClick={() => setOpen(!open)}>
           Edit{filterCount ? ` (${filterCount})` : ""}
-        </Button>{" "}
+        </Button>
         {filterString?.length ? (
           <>
             <Button
@@ -156,7 +179,7 @@ function Filters() {
       <Drawer variant="temporary" BackdropProps={{ invisible: true }} open={open}>
         <Box
           sx={{
-            paddingTop: "75px",
+            paddingTop: "15px",
             maxWidth: "300px",
             display: "flex",
             flexDirection: "column",
@@ -170,19 +193,38 @@ function Filters() {
               <ChevronLeft />
               Close Filters
             </Button>
-          </Box>{" "}
+          </Box>
           <TextField
             className="Name-Filter"
             id="nameFilter"
             label="Filter by Discord Name"
-            helperText="{Discord Name"
+            helperText={
+              <>
+                Type Discord Name
+                {user?.discord_name ? (
+                  <>
+                    {" "}
+                    or
+                    <Button
+                      color="secondary"
+                      size="small"
+                      sx={{ ml: 2, height: "1.25rem", px: 2 }}
+                      variant="contained"
+                      onClick={() => setName(name === user.discord_name ? "" : user.discord_name)}
+                    >
+                      {name === user.discord_name ? "Clear" : "Me"}
+                    </Button>
+                  </>
+                ) : null}
+              </>
+            }
             variant="outlined"
             size="small"
             margin="dense"
             value={name}
             onChange={(evt) => setName(evt.target.value)}
           />
-          <Box sx={{ width: "100%", display: "grid", gridTemplateColumns: "50% 50%", mb: 2 }}>
+          <Box sx={{ width: "100%", display: "grid", gridTemplateColumns: "50% 50%" }}>
             {allTimeSlots.map((slot) => (
               <FormControlLabel
                 key={`${slot.value}_${slot.text}`}
@@ -244,6 +286,8 @@ function Filters() {
               setRealms([]);
               setVariants([]);
               setTiers([]);
+              setPlayTest(undefined);
+              setStreaming(undefined);
             }}
           >
             Clear All
