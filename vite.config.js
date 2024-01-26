@@ -10,7 +10,7 @@ export default defineConfig({
   },
   plugins: [react()],
   optimizeDeps: {
-    include: ['@mui/material/Tooltip'] //goddam Popper styled.default is not a function
+    include: ["@mui/material/Tooltip"], //goddam Popper styled.default is not a function
   },
   server: {
     host: "127.0.0.1",
