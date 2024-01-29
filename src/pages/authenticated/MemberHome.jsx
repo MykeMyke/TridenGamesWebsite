@@ -54,15 +54,7 @@ function MyGamesRow({ game }) {
       <TableRow>
         <TableCell colSpan={2} display="flex">
           <Grid container spacing={0}>
-            <Grid
-              item
-              xs={12}
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              sx={{ mt: 0.2 }}
-            >
+            <Grid item xs={12} container direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 0.2 }}>
               <Typography color="text.primary" marginRight={3}>
                 {toLocalString(game.datetime)}
               </Typography>
@@ -114,11 +106,7 @@ function MyGamesRow({ game }) {
               </Grid>
             </Collapse>
             <Grid item container xs={12} sx={{ justifyContent: "center" }}>
-              <FilterMarker
-                activeName={user.discord_name}
-                gameData={game}
-                sx={{ px: 4, minWidth: 220, maxWidth: 400 }}
-              />
+              <FilterMarker activeName={user.discord_name} gameData={game} sx={{ px: 4, minWidth: 220, maxWidth: 400 }} />
             </Grid>
           </Grid>
         </TableCell>
@@ -191,6 +179,16 @@ export default function MemberHome() {
                 </Button>
                 {user?.isDm ? (
                   <>
+                    <Button
+                      aria-describedby="nav-dm-profile"
+                      variant="contained"
+                      size="small"
+                      color="secondary"
+                      sx={{ pt: 0.25, pb: 0, mt: 0.4, mb: 1.1, minWidth: "30px" }}
+                      onClick={() => navigate("/members/dm_profile")}
+                    >
+                      My DM profile
+                    </Button>
                     <Button
                       aria-describedby="nav-calendar"
                       variant="contained"

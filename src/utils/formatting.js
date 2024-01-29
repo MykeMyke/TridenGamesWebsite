@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 
 export function toLocalString(dateTime) {
-  return format(dateTime, 'eee, LLL d, yyyy h:mm a');
+  return format(dateTime, "eee, LLL d, yyyy h:mm a");
 }
 
 export function capitalise(string) {
