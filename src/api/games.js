@@ -159,9 +159,10 @@ export function useGames() {
   const userModifiedData = useMemo(() => {
     if (data && user.loggedIn) {
       return data.map((game) => {
+        debugger;
         return {
           ...game,
-          is_dm: !!(game.dm_name.toLowerCase() === user.username.toLowerCase()),
+          is_dm: !!game.user_is_dm,
           playing: game.players.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
           standingBy: game.standby.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
         };
