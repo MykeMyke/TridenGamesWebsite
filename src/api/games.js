@@ -159,12 +159,11 @@ export function useGames() {
   const userModifiedData = useMemo(() => {
     if (data && user.loggedIn) {
       return data.map((game) => {
-        debugger;
         return {
           ...game,
           is_dm: !!game.user_is_dm,
-          playing: game.players.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
-          standingBy: game.standby.findIndex((p) => p.discord_name.toLowerCase() === user.username.toLowerCase()) >= 0,
+          playing: !!game.user_is_player,
+          standingBy: !!game.user_is_waitlisted,
         };
       });
     } else {
