@@ -4,7 +4,6 @@ import { Button } from "@mui/material";
 
 import { ReleaseDate } from "../../utils/releasedate";
 import useUserStore from "../../stores/useUserStore";
-import LoginButton from "../authentication/LoginButton";
 
 export default function GameCardActions({
   id,
@@ -29,7 +28,7 @@ export default function GameCardActions({
       return (
         <Button
           aria-describedby={`drop-${id}`}
-          variant="contained"
+          variant="outlined"
           disabled={isJoining}
           onClick={() => dropGame({ id, name })}
           size="small"
@@ -40,10 +39,7 @@ export default function GameCardActions({
         </Button>
       );
     }
-    if (
-      (user.patreon && datetime_release?.getTime() < now.getTime()) ||
-      datetime_open_release.getTime() < now.getTime()
-    ) {
+    if ((user.patreon && datetime_release?.getTime() < now.getTime()) || datetime_open_release.getTime() < now.getTime()) {
       return (
         <Button
           aria-describedby={`join-${id}`}
