@@ -82,13 +82,11 @@ export function useGames() {
           return {
             ...game,
             datetime: new Date(game.datetime),
-            players: game.players.filter((player) => !player.standby),
-            standby: game.players.filter((player) => player.standby),
+            players: game.players,
+            standby: game.waitlist,
             slot: Math.floor(new Date(game.datetime).getHours() / 4),
             datetime_open_release: game.datetime_open_release === null ? null : new Date(game.datetime_open_release),
             datetime_release: game.datetime_release === null ? null : new Date(game.datetime_release),
-            players: game.players.filter((player) => !player.standby),
-            standby: game.players.filter((player) => player.standby),
           };
         })
         .sort((a, b) => {
