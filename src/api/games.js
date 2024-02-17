@@ -243,10 +243,13 @@ export function useGame(id) {
   const saveGame = useMutation({
     mutationFn: (values) => {
       setIsLoading(true);
+      //convert duration to length for unseen servant
+      let val = { ...values, length: values.duration };
+      delete val.duration;
       if (id === "new") {
-        return createGame(values);
+        return createGame(val);
       }
-      return updateGame(values);
+      return updateGame(val);
     },
     onSettled: () => {
       setIsLoading(false);
@@ -279,10 +282,10 @@ export function useGame(id) {
     validateOnChange: false,
     validateOnBlur: false,
     validationSchema: Yup.object().shape({
-      name: Yup.string().label("Name").required(req),
-      module: Yup.string().label("Module Code").required(req),
-      description: Yup.string().label("Description").required(req).min(1, req),
-      warnings: Yup.string().label("Warnings"),
+      name: Yup.string().label("Name").required(req).max(128, "${path} must be less than 128 characters"),
+      module: Yup.string().label("Module Code").required(req).max(32, "${path} must be less than 32 characters"),
+      description: Yup.string().label("Description").required(req),
+      duration: Yup.string().label("Length").required(req).max(48, "${path} must be less than 48 characters"),
       datetime: Yup.date().required().min(new Date(), "Game start must be in the future"),
       datetime_release: Yup.date()
         .label("Patreon Release")
@@ -337,7 +340,8 @@ export function useGame(id) {
       datetime: nextWeek(),
       datetime_release: new Date(),
       datetime_open_release: tomorrow(),
-      length: "4 hours",
+      //changed from duration to length for the form, as foo.length has special meeting in js
+      duration: "4 hours",
       ready: true,
     },
     onSubmit: (values) => {
