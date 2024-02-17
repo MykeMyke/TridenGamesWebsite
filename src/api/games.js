@@ -283,6 +283,17 @@ export function useGame(id) {
       module: Yup.string().label("Module Code").required(req),
       description: Yup.string().label("Description").required(req).min(1, req),
       warnings: Yup.string().label("Warnings"),
+      max_players: Yup.number()
+        .label("Players")
+        .test("max_players", (value, context) => {
+          if (context?.parent?.variant !== "Epic AL" && value > 8) {
+            return context.createError({
+              path: "max_players",
+              message: ({ label }) => `Only Epics may have more than 8 players`,
+            });
+          }
+          return true;
+        }),
       datetime: Yup.date().required().min(new Date(), "Game start must be in the future"),
       datetime_release: Yup.date()
         .label("Patreon Release")

@@ -157,6 +157,8 @@ function GameForm(props) {
           <TextField
             name="max_players"
             value={values.max_players}
+            error={!!errors.max_players}
+            helperText={errors.max_players}
             onChange={handleChange}
             label="Players"
             type="number"
