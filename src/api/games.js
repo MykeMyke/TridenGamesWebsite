@@ -185,6 +185,19 @@ export function useGames() {
   };
 }
 
+const minToTier = (min) => {
+  if (!min || min < 5) {
+    return 1;
+  }
+  if (min < 11) {
+    return 2;
+  }
+  if (min < 17) {
+    return 3;
+  }
+  return 4;
+};
+
 /**
  * Get a game by a hook and return a form and methods to manipulate
  * @param {*} id the pk of a game, or "new"
@@ -208,6 +221,7 @@ export function useGame(id) {
       if (game?.data) {
         return {
           ...game.data,
+          tier: minToTier(game.data.level_min),
           datetime: game.data.datetime,
           datetime_release: game.data.datetime_release,
           datetime_open_release: game.data.datetime_open_release,
