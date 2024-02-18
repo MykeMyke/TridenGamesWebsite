@@ -32,7 +32,11 @@ export default function DateTimeSelector(props) {
           props?.onChange(val);
         }}
         shouldDisableDate={(val) => {
-          return !!error ? val.getTime() === mValue.getTime() : false;
+          try {
+            return !!error ? val.getTime() === mValue.getTime() : false;
+          } catch {
+            return true;
+          }
         }}
         slotProps={{
           textField: {
