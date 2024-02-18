@@ -3,12 +3,12 @@ import React, { forwardRef, useEffect, useState } from "react";
 import { FormikProvider, useFormikContext } from "formik";
 import { useParams } from "react-router";
 
-import { Dialog, DialogActions, Container } from "@mui/material";
-import { DialogTitle, DialogContent } from "@mui/material";
+import { Dialog, DialogActions, Container, AccordionSummary, AccordionDetails } from "@mui/material";
+import { IconButton, Accordion, DialogTitle, DialogContent } from "@mui/material";
 import { Grid, TextField, Button, Box, Typography } from "@mui/material";
-import { IconButton, Snackbar, Alert as MuiAlert } from "@mui/material";
+
 import { Divider, Checkbox, FormControlLabel, Tooltip } from "@mui/material";
-import { Close } from "@mui/icons-material";
+import { Close, ExpandMore } from "@mui/icons-material";
 
 import RealmSelector from "../../components/game/RealmSelector";
 import VariantSelector from "../../components/game/VariantSelector";
@@ -138,7 +138,6 @@ function GameForm(props) {
             label="Warnings"
           />
         </Grid>
-
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between" }}>
           <DateTimeSelector
             label="Game Start"
@@ -181,35 +180,42 @@ function GameForm(props) {
             }}
           />
         </Grid>
-      </Grid>
-      <TimeDetails />
-      <LevelRangeSelector />
-      <Grid item xs={12} md={12}>
-        <Divider fullWidth />
-        <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-          <Tooltip title="Set to indicate that game is going to be streamed">
-            <FormControlLabel
-              control={<Checkbox checked={values.streaming} />}
-              label="Streaming"
-              onChange={(evt) => setFieldValue("streaming", evt.target.checked)}
-            />
-          </Tooltip>
-          <Tooltip title="Set to indicate that game is a playtest">
-            <FormControlLabel
-              control={<Checkbox checked={values.play_test} />}
-              label="Playtest"
-              onChange={(evt) => setFieldValue("play_test", evt.target.checked)}
-            />
-          </Tooltip>
-          <Tooltip title="Game is ready for release">
-            <FormControlLabel
-              control={<Checkbox checked={values.ready} />}
-              label="Ready"
-              onChange={(evt) => setFieldValue("ready", evt.target.checked)}
-            />
-          </Tooltip>
-        </Box>
-        <Divider fullWidth />
+        <Grid item xs={12}>
+          <Accordion sx={{ border: "1px solid lightgrey" }}>
+            <AccordionSummary expandIcon={<ExpandMore />}>Advanced Controls</AccordionSummary>
+            <AccordionDetails>
+              <TimeDetails />
+              <LevelRangeSelector />
+            </AccordionDetails>
+          </Accordion>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <Divider fullWidth />
+          <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+            <Tooltip title="Set to indicate that game is going to be streamed">
+              <FormControlLabel
+                control={<Checkbox checked={values.streaming} />}
+                label="Streaming"
+                onChange={(evt) => setFieldValue("streaming", evt.target.checked)}
+              />
+            </Tooltip>
+            <Tooltip title="Set to indicate that game is a playtest">
+              <FormControlLabel
+                control={<Checkbox checked={values.play_test} />}
+                label="Playtest"
+                onChange={(evt) => setFieldValue("play_test", evt.target.checked)}
+              />
+            </Tooltip>
+            <Tooltip title="Game is ready for release">
+              <FormControlLabel
+                control={<Checkbox checked={values.ready} />}
+                label="Ready"
+                onChange={(evt) => setFieldValue("ready", evt.target.checked)}
+              />
+            </Tooltip>
+          </Box>
+          <Divider fullWidth />
+        </Grid>
       </Grid>
       <Box sx={{ margin: "0.8em 0", display: "flex", justifyContent: "center", gap: "4px" }}>
         <Button variant="contained" type="submit" disabled={props.isLoading} sx={{ minWidth: "12em" }}>

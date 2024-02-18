@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormikContext } from "formik";
 
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 
 export default function LevelRangeSelector(props) {
   const { values, setValues } = useFormikContext();
@@ -9,7 +9,7 @@ export default function LevelRangeSelector(props) {
   const handleChange = () => {};
 
   return (
-    <React.Fragment>
+    <Box sx={{ display: "flex", justifyContent: "space-around" }}>
       <TextField
         sx={{ width: "6em" }}
         name="level_min"
@@ -32,6 +32,6 @@ export default function LevelRangeSelector(props) {
           shrink: true,
         }}
       />
-    </React.Fragment>
+    </Box>
   );
 }
