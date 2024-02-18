@@ -152,7 +152,18 @@ function GameForm(props) {
               });
             }}
           />
-
+          <TextField
+            name="duration"
+            value={values.duration}
+            error={!!errors.duration}
+            helperText={errors.duration}
+            onChange={handleChange}
+            label="Game Duration (Hours)"
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
           <TextField
             name="max_players"
             value={values.max_players}
@@ -166,19 +177,6 @@ function GameForm(props) {
             }}
           />
           <TierSelector />
-
-          <TextField
-            name="duration"
-            value={values.duration}
-            error={!!errors.duration}
-            helperText={errors.duration}
-            onChange={handleChange}
-            label="Game Duration (Hours)"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
         </Grid>
         <Grid item xs={12}>
           <Accordion sx={{ border: "1px solid lightgrey" }}>
