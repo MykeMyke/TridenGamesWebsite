@@ -308,6 +308,7 @@ export function useGame(id) {
           }
           return true;
         }),
+      duration: Yup.number().label("Duration"),
       datetime: Yup.date().required().min(new Date(), "Game start must be in the future"),
       datetime_release: Yup.date()
         .label("Patreon Release")
