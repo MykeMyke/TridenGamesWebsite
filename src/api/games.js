@@ -298,6 +298,7 @@ export function useGame(id) {
       description: Yup.string().label("Description").required(req).min(1, req),
       warnings: Yup.string().label("Warnings"),
       max_players: Yup.number()
+        .integer("You can't have fractions of a player")
         .label("Players")
         .test("max_players", (value, context) => {
           if (context?.parent?.variant !== "Epic AL" && value > 8) {
@@ -308,6 +309,11 @@ export function useGame(id) {
           }
           return true;
         }),
+      duration: Yup.number()
+        .label("Duration")
+        .integer("Whole hours only")
+        .max(8, "Games longer than 8 hours are unreasonable")
+        .min(1, "Games cannot be instantaneous"),
       datetime: Yup.date().required().min(new Date(), "Game start must be in the future"),
       datetime_release: Yup.date()
         .label("Patreon Release")
@@ -362,7 +368,7 @@ export function useGame(id) {
       datetime: nextWeek(),
       datetime_release: new Date(),
       datetime_open_release: tomorrow(),
-      length: "4 hours",
+      duration: 4,
       ready: true,
     },
     onSubmit: (values) => {

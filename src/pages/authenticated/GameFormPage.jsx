@@ -138,7 +138,7 @@ function GameForm(props) {
           />
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-around" }}>
           <DateTimeSelector
             label="Game Start"
             name="datetime"
@@ -152,8 +152,7 @@ function GameForm(props) {
               });
             }}
           />
-        </Grid>
-        <Grid item xs={4} md={3}>
+
           <TextField
             name="max_players"
             value={values.max_players}
@@ -166,12 +165,23 @@ function GameForm(props) {
               shrink: true,
             }}
           />
-        </Grid>
-        <Grid item xs={8} md={5}>
-          <LevelRangeSelector />
+
+          <TextField
+            name="duration"
+            value={values.duration}
+            error={!!errors.duration}
+            helperText={errors.duration}
+            onChange={handleChange}
+            label="Game Duration (Hours)"
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
         </Grid>
       </Grid>
       <TimeDetails />
+      <LevelRangeSelector />
       <Grid item xs={12} md={12}>
         <Divider fullWidth />
         <Box sx={{ display: "flex", justifyContent: "space-around" }}>
