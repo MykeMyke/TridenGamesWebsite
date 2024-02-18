@@ -14,6 +14,7 @@ import RealmSelector from "../../components/game/RealmSelector";
 import VariantSelector from "../../components/game/VariantSelector";
 import LevelRangeSelector from "../../components/game/LevelRangeSelector";
 import DateTimeSelector from "../../components/game/DateTimeSelector";
+import TierSelector from "../../components/game/TierSelector";
 import TimeDetails from "../../components/game/TimeDetails";
 import { useGame } from "../../api/games";
 
@@ -138,7 +139,7 @@ function GameForm(props) {
           />
         </Grid>
 
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-around" }}>
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between" }}>
           <DateTimeSelector
             label="Game Start"
             name="datetime"
@@ -165,6 +166,7 @@ function GameForm(props) {
               shrink: true,
             }}
           />
+          <TierSelector />
 
           <TextField
             name="duration"
