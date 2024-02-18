@@ -62,7 +62,7 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
     module,
     name,
     datetime,
-    length,
+    duration,
     max_players,
     dm_name,
     level_min,
@@ -80,16 +80,14 @@ const Game = ({ props, activeName, isLoading, joinGame, isJoining, dropGame, isD
           {isLoading ? (
             <Skeleton height={74} sx={SKELETON_SX} />
           ) : (
-            <>
-              <Box>
-                <Typography variant="cardmain" color="text.primary" marginRight={3}>
-                  {toLocalString(datetime)}
-                </Typography>
-                <Typography variant="subtitle2" color="text.secondary">
-                  {length} {checkTier(level_min, level_max)}
-                </Typography>
-              </Box>
-            </>
+            <Box>
+              <Typography variant="cardmain" color="text.primary">
+                {toLocalString(datetime)}
+              </Typography>
+              <Typography variant="subtitle2" color="text.secondary">
+                {(duration && `${checkTier(level_min, level_max)} - ${duration} hours`) || `${checkTier(level_min, level_max)}`}
+              </Typography>
+            </Box>
           )}
           {isLoading ? (
             <Skeleton height={12} sx={SKELETON_SX} />

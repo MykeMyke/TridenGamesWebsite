@@ -1,20 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useShallow } from "zustand/react/shallow";
 
 import { Box, Skeleton, Divider } from "@mui/material";
 import { Fab, Grid, Typography } from "@mui/material";
 
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { useShallow } from "zustand/react/shallow";
-import { useGames } from "../api/games";
-import Game from "../components/calendarCard";
+
 import Filters from "../components/Filters";
-import { checkDaysToGo } from "../utils/daysToGo";
 import JoinDiscordButton from "../components/authentication/JoinDiscordButton";
 import LoginButton from "../components/authentication/LoginButton";
-import useUserStore from "../stores/useUserStore";
-import "../styles/Global.css";
 import useFilterStore from "../stores/useFilterStore";
+import { checkDaysToGo } from "../utils/daysToGo";
+import useUserStore from "../stores/useUserStore";
+import Game from "../components/calendarCard";
+import { useGames } from "../api/games";
+
+import "../styles/Global.css";
 
 function dummyGame(name) {
   return { dm_name: name, datetime: Math.random() };

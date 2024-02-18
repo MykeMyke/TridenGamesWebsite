@@ -362,7 +362,7 @@ export function useGame(id) {
       datetime: nextWeek(),
       datetime_release: new Date(),
       datetime_open_release: tomorrow(),
-      length: "4 hours",
+      duration: 4,
       ready: true,
     },
     onSubmit: (values) => {
