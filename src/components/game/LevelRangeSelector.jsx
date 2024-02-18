@@ -4,9 +4,7 @@ import { useFormikContext } from "formik";
 import { Box, TextField } from "@mui/material";
 
 export default function LevelRangeSelector(props) {
-  const { values, setValues } = useFormikContext();
-
-  const handleChange = () => {};
+  const { values, handleChange } = useFormikContext();
 
   return (
     <Box sx={{ display: "flex", justifyContent: "space-around" }}>
