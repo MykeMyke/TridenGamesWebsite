@@ -342,7 +342,7 @@ export function useGame(id) {
                 message: ({ label }) => `${label} must be before Game Time`,
               });
             }
-            if (value.getTime() <= context.parent.datetime_release.getTime()) {
+            if (value.getTime() < context.parent.datetime_release.getTime()) {
               return context.createError({
                 path: "datetime_open_release",
                 message: ({ label }) => `${label} must be after Patreon Release`,

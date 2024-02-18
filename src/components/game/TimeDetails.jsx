@@ -11,9 +11,10 @@ export default function TimeDetails(props) {
   const [stagedRelease, setStagedRelease] = useState(true);
 
   const datetimeOpenRelease = values["datetime_open_release"];
+  const datetimeRelease = values["datetime_release"];
 
   useEffect(() => {
-    if (!stagedRelease) {
+    if (!stagedRelease || !datetimeRelease) {
       setFieldValue("datetime_release", datetimeOpenRelease);
     }
   }, [stagedRelease, datetimeOpenRelease]);
