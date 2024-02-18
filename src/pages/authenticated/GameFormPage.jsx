@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useState } from "react";
-
+import { addWeeks } from "date-fns";
 import { FormikProvider, useFormikContext } from "formik";
 import { useParams } from "react-router";
 
@@ -143,12 +143,11 @@ function GameForm(props) {
             label="Game Start"
             name="datetime"
             onChange={(val) => {
-              const oneWeek = 1000 * 60 * 60 * 24 * 7; //id put this in a constant, above, but thats trivial perf gain
               setValues({
                 ...values,
                 datetime: val,
-                datetime_release: new Date(val.getTime() - 2 * oneWeek),
-                datetime_open_release: new Date(val.getTime() - oneWeek),
+                datetime_release: values.staged ? addWeeks(val, -2) : values.datetime_release,
+                datetime_open_release: addWeeks(val, -1),
               });
             }}
           />

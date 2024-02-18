@@ -6,8 +6,8 @@ import * as Yup from "yup";
 import axios from "axios";
 import useAlertStore from "../stores/useAlertStore";
 import { useShallow } from "zustand/react/shallow";
+import { addHours } from "date-fns";
 import { apiHost, applyCsrf } from "./utils";
-import { nextWeek, tomorrow } from "../utils/datetime";
 import useUserStore from "../stores/useUserStore";
 
 const gamesUrl = `${apiHost}/api/games/`;
@@ -222,9 +222,10 @@ export function useGame(id) {
         return {
           ...game.data,
           tier: minToTier(game.data.level_min),
-          datetime: game.data.datetime,
-          datetime_release: game.data.datetime_release,
-          datetime_open_release: game.data.datetime_open_release,
+          staged: game.data.datetime_release !== null,
+          datetime: game.data.datetime ? new Date(game.data.datetime) : null,
+          datetime_release: game.data.datetime_release ? new Date(game.data.datetime_release) : null,
+          datetime_open_release: game.data.datetime_open_release ? new Date(game.data.datetime_open_release) : null,
         };
       }
       throw Error("Cannot parse game");
@@ -316,16 +317,18 @@ export function useGame(id) {
         .min(1, "Games cannot be instantaneous"),
       datetime: Yup.date().required().min(new Date(), "Game start must be in the future"),
       datetime_release: Yup.date()
+        .nullable()
         .label("Patreon Release")
-        .required()
         .test(
           ("datetime_release",
           (value, context) => {
-            if (value.getTime() >= context.parent.datetime.getTime()) {
-              return context.createError({
-                path: "datetime_release",
-                message: ({ label }) => `${label} must be before Game Time`,
-              });
+            if (context.parent.staged) {
+              if (!value || value.getTime() >= context.parent.datetime.getTime()) {
+                return context.createError({
+                  path: "datetime_release",
+                  message: ({ label }) => `${label} must be before Game Time`,
+                });
+              }
             }
             return true;
           }),
@@ -342,7 +345,7 @@ export function useGame(id) {
                 message: ({ label }) => `${label} must be before Game Time`,
               });
             }
-            if (value.getTime() < context.parent.datetime_release.getTime()) {
+            if (context.parent.staged && value.getTime() < context.parent.datetime_release.getTime()) {
               return context.createError({
                 path: "datetime_open_release",
                 message: ({ label }) => `${label} must be after Patreon Release`,
@@ -365,9 +368,10 @@ export function useGame(id) {
       warnings: "",
       streaming: false,
       play_test: false,
-      datetime: nextWeek(),
-      datetime_release: new Date(),
-      datetime_open_release: tomorrow(),
+      datetime: addHours(new Date(), 337), //2 weeks + 1  hour, rather than calling addHours(addWeeks(..))
+      datetime_release: addHours(new Date(), 1),
+      datetime_open_release: addHours(new Date(), 169), //see above
+      staged: true,
       duration: 4,
       ready: true,
     },
