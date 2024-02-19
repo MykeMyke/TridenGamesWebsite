@@ -185,7 +185,7 @@ export function useGames() {
   };
 }
 
-const minToTier = (min) => {
+export const minToTier = (min) => {
   if (!min || min < 5) {
     return 1;
   }
@@ -298,6 +298,42 @@ export function useGame(id) {
       module: Yup.string().label("Module Code").required(req),
       description: Yup.string().label("Description").required(req).min(1, req),
       warnings: Yup.string().label("Warnings"),
+      level_min: Yup.number()
+        .integer()
+        .label("Min Level")
+        .test("level_min", (value, context) => {
+          if (value < 1 || value > 20) {
+            return context.createError({
+              path: "level_min",
+              message: ({ label }) => `Must be between 1 and 20`,
+            });
+          }
+          if (context?.parent?.level_max < value) {
+            return context.createError({
+              path: "level_min",
+              message: ({ label }) => `Min cannot be greater than Max`,
+            });
+          }
+          return true;
+        }),
+      level_max: Yup.number()
+        .integer()
+        .label("Max Level")
+        .test("level_max", (value, context) => {
+          if (value < 1 || value > 20) {
+            return context.createError({
+              path: "level_max",
+              message: ({ label }) => `Must be between 1 and 20`,
+            });
+          }
+          if (context?.parent?.level_min > value) {
+            return context.createError({
+              path: "level_max",
+              message: ({ label }) => `Max cannot be less than Min`,
+            });
+          }
+          return true;
+        }),
       max_players: Yup.number()
         .integer("You can't have fractions of a player")
         .label("Players")
