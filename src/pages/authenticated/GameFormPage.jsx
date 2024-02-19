@@ -64,8 +64,12 @@ function GamePage(props) {
 }
 
 function GameForm(props) {
-  const { values, errors, handleSubmit, handleChange, setFieldValue, setValues } = useFormikContext();
+  const { values, errors, handleSubmit, handleChange, setFieldValue, setValues, isValid, validateForm } = useFormikContext();
   const [showDelete, setShowDelete] = useState(false);
+
+  useEffect(() => {
+    validateForm();
+  }, [values]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -215,7 +219,7 @@ function GameForm(props) {
         </Grid>
       </Grid>
       <Box sx={{ margin: "0.8em 0", display: "flex", justifyContent: "center", gap: "4px" }}>
-        <Button variant="contained" type="submit" disabled={props.isLoading} sx={{ minWidth: "12em" }}>
+        <Button variant="contained" type="submit" disabled={props.isLoading || !isValid} sx={{ minWidth: "12em" }}>
           {values.id ? "Update Game" : "Create Game"}
         </Button>
         {values.id ? (
