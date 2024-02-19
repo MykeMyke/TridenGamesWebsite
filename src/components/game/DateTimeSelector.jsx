@@ -20,16 +20,16 @@ export default function DateTimeSelector(props) {
 
   const error = errors?.[props.name];
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={locale} dateFormats={"YYYY"}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={locale}>
       <DateTimePicker
         disabled={props.disabled}
         sx={props.sx}
         label={props.label}
-        value={mValue}
+        value={mValue || null}
         ampm={false}
         onChange={(val) => {
           setFieldValue(props.name, val);
-          props?.onChange(val);
+          props?.onChange?.(val);
         }}
         shouldDisableDate={(val) => {
           try {
