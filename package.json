@@ -19,7 +19,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "async": "^3.2.5",
-    "axios": "^0.26.1",
+    "axios": "^1.6.0",
     "babel-plugin-macros": "^3.1.0",
     "calendar-link": "2.1.1",
     "date-fns": "^3.3.1",
