@@ -9,11 +9,12 @@ export default function CalendarLink(props) {
   const { game } = props;
   const event = {
     title: `${game.module} (on Triden)`,
-    description: `DM: ${game.dm_name}\nLevel: ${game.level_min }- ${game.level_max}\n\n${game.description.toString().replace(/\s*\n\s*/, "\n")}\nContent Warnings: ${game.warnings}`,
+    description: `DM: ${game.dm_name}\nLevel: ${game.level_min}- ${game.level_max}\n\n${game.description
+      .toString()
+      .replace(/\s*\n\s*/, "\n")}\nContent Warnings: ${game.warnings}`,
     start: new Date(game.datetime),
-    duration: [parseInt(game.length), 'hours'],
-    location: 'Roll20/Discord'
-    
+    duration: [parseInt(game.duration), "hours"],
+    location: "Roll20/Discord",
   };
   return (
     <React.Fragment>
@@ -46,9 +47,9 @@ export default function CalendarLink(props) {
             mb: 0.6,
           }}
         />
-      <Link href={ics(event)} underline="always" target="_blank">
+        <Link href={ics(event)} underline="always" target="_blank">
           .ics (Outlook, Apple, etc)
-      </Link>
+        </Link>
       </Grid>
     </React.Fragment>
   );
