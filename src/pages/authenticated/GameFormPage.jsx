@@ -205,7 +205,7 @@ function GameForm(props) {
             </Tooltip>
             <Tooltip title="Game is ready for release">
               <FormControlLabel
-                control={<Checkbox checked={values.ready} />}
+                control={<Checkbox checked={values.ready} disabled />}
                 label="Ready"
                 onChange={(evt) => setFieldValue("ready", evt.target.checked)}
               />

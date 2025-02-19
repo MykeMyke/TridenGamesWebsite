@@ -228,12 +228,14 @@ export function useGame(id) {
           datetime: game.data.datetime ? new Date(game.data.datetime) : null,
           datetime_release: game.data.datetime_release ? new Date(game.data.datetime_release) : null,
           datetime_open_release: game.data.datetime_open_release ? new Date(game.data.datetime_open_release) : null,
+          ready: true,
         };
       }
       throw Error("Cannot parse game");
     },
     enabled: id !== "new",
   });
+
   useEffect(() => {
     if (status === "success") {
       formik.setValues(game);
@@ -292,6 +294,7 @@ export function useGame(id) {
       }
     },
   });
+
   const formik = useFormik({
     validateOnChange: false,
     validateOnBlur: false,
