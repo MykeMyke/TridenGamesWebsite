@@ -137,6 +137,13 @@ export const resDMbios = [
   },
   {
     name: "TitanNorth",
-    image: "img/ResDMs/Placeholder.png",
+    style:
+      "Conductor of the weave and spinner of the tale - I try to offer the brightest of days and darkest of nights. I love an emotion generating rollercoaster of combat, exploration and role play (safely orchestrated) - in return I ask for kindness, fun and your creativity. So, don your gear and grab your math rocks - adventure on my friends!",
+    location: "Alberta, Canada",
+    favmonster: "The Ancient,, The Land, Lord Strahd von Zarovich",
+    favmoment:
+      "Running a dungeon where I brought my characters baby and navigated the encounters using undead minions. I love the challenge of the non-optimized character – let the fun begin!",
+    otherinterests: "Walking, Mini-painting, Fantasy Football, Audiobooks",
+    image: "img/ResDMs/TitanNorth.png",
   },
 ];
