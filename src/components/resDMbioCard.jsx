@@ -13,24 +13,16 @@ const ResDMbio = (dm) => {
         <CardContent>
           <div alignItems="center" className="resDMbioCard">
             <div className="name">
-              <Typography
-                variant="h4"
-                color="text.primary"
-                sx={{ mb: 1, textAlign: "center" }}
-              >
+              <Typography variant="h4" color="text.primary" sx={{ mb: 1, textAlign: "center" }}>
                 {dm.name}
               </Typography>
             </div>
-            <img src={dm.image} alt={dm.name} className="image" />
+            <img src={dm.image} alt={dm.name} className="image" style={{ paddingRight: "1rem" }} />
             <div className="location">
               <Divider variant="middle" sx={{ my: 0.8 }} />
               <Grid container>
                 <Grid item>
-                  <PlaceIcon
-                    color="primary"
-                    fontSize="small"
-                    sx={{ mr: 0.2 }}
-                  />
+                  <PlaceIcon color="primary" fontSize="small" sx={{ mr: 0.2 }} />
                 </Grid>
                 <Grid item>
                   <Typography variant="subtitle2" color="text.secondary">
@@ -40,15 +32,15 @@ const ResDMbio = (dm) => {
               </Grid>
               <Divider variant="middle" sx={{ my: 0.8 }} />
             </div>
-            <div className="superpowers">
+            <div className="style">
               <Typography variant="subtitle2" color="text.secondary">
-                <strong>Known for:</strong> {dm.superpowers}
+                <strong>Style:</strong> {dm.style}
               </Typography>
             </div>
             <div className="favMonster">
               <Divider variant="middle" sx={{ my: 0.8 }} />
               <Typography variant="subtitle2" color="text.secondary">
-                <strong>Favourite Monster:</strong> {dm.favMonster}
+                <strong>Favourite Monster:</strong> {dm.favmonster}
               </Typography>
             </div>
             <div className="favMoment">
@@ -56,7 +48,7 @@ const ResDMbio = (dm) => {
                 <React.Fragment>
                   <Divider variant="middle" sx={{ my: 0.8 }} />
                   <Typography variant="subtitle2" color="text.secondary">
-                    <strong>Favourite Moment:</strong> {dm.favMoment}
+                    <strong>Favourite Moment:</strong> {dm.favmoment}
                   </Typography>
                 </React.Fragment>
               )}
@@ -64,7 +56,7 @@ const ResDMbio = (dm) => {
             <div className="otherInterests">
               <Divider variant="middle" sx={{ my: 0.8 }} />
               <Typography variant="subtitle2" color="text.secondary">
-                <strong>Other Interests:</strong> {dm.otherInterests}
+                <strong>Other Interests:</strong> {dm.otherinterests}
               </Typography>
             </div>
             <div className="links">
@@ -72,18 +64,9 @@ const ResDMbio = (dm) => {
                 <React.Fragment>
                   <Divider variant="middle" sx={{ my: 0.8 }} />
                   <Typography variant="subtitle2" color="text.secondary">
-                    <Grid
-                      container
-                      spacing={1}
-                      direction="column"
-                      alignItems="center"
-                      sx={{ pt: 1 }}
-                    >
+                    <Grid container spacing={1} direction="column" alignItems="center" sx={{ pt: 1 }}>
                       <a href={dm.link1} target="_blank" rel="noreferrer">
                         {dm.link1name}
-                      </a>
-                      <a href={dm.link2} target="_blank" rel="noreferrer">
-                        {dm.link2name}
                       </a>
                     </Grid>
                   </Typography>
