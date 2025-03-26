@@ -99,14 +99,14 @@ export const resDMbios = [
   {
     name: "Death",
     style:
-      "No-ones allowed to ruin the fun! Except me. I like to have fast and efficient combats, which feel scary. I may be flippant on rulings (especially if I am bribed... like a cat.)",
+      "No-ones allowed to ruin the fun! I like to have fast and efficient combats, which feel scary. I may be flippant on rulings (especially if I am bribed... like a cat.)",
     location: "Melbourne, Australia",
     favmonster: "Archlich, or Elemental Cataclysym",
     favmoment: "\"It's gaslight o'clock\"",
     otherinterests: "Runescape, Magic the Gathering, getting my way.",
     link1name: "The Dm's Guild will forever have these modules (that I happened to write):",
     link1: "www.dmsguild.com/browse.php?author=Death%20101010",
-    image: "img/ResDMs/Placeholder.png",
+    image: "img/ResDMs/Death.png",
   },
   {
     name: "Talisus",
@@ -121,7 +121,7 @@ export const resDMbios = [
     otherinterests: "Programming, Ducks",
     link1name: "My Service Award Tracker",
     link1: "sei.to",
-    image: "img/ResDMs/Placeholder.png",
+    image: "img/ResDMs/Talisus.png",
   },
   {
     name: "Frobi",
@@ -133,7 +133,7 @@ export const resDMbios = [
     otherinterests: "Fantasy Grounds Unity, Writing, Teaching, Reading",
     link1name: "DM's Guild Stuff",
     link1: "https://www.dmsguild.com/browse.php?author=Rob%20Froberg",
-    image: "img/ResDMs/Placeholder.png",
+    image: "img/ResDMs/Frobi.png",
   },
   {
     name: "TitanNorth",
