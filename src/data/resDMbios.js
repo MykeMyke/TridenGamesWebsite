@@ -75,8 +75,15 @@ export const resDMbios = [
   },
   {
     name: "Lex",
+    style:
+      "Laid back, shenanigans welcome. Follows Wheaton's Law. Not a huge fan of players or DMs trying to 'Win D&D' or be adversarial.",
     location: "Baltimore, MD, USA",
     favmonster: "Remorhaz",
+    favmoment:
+      "Watching clerics successfully roll Divine Intervention at the thematically appropriate time. But really, its a lot of little moments when things just work, and the players lean into unconventional situations.",
+    otherinterests: "Anime, history, punk lifer, media analysis, adventure writer, Jack of all Trades.",
+    link1name: "DM's Guild Stuff",
+    link1: "https://www.dmsguild.com/browse.php?author=Lex%20Winter",
     image: "img/ResDMs/Lex.png",
   },
   {
@@ -93,8 +100,10 @@ export const resDMbios = [
       "I love my players to be having fun, doing silly voices for NPCs, and watching the party succeed after a good challenge! Bad puns will get you inspiration, and I love creative solutions to problems - convince me why it should work! Just not too much cheese please (I'm lactose intollerant.)",
     location: "Aberdeen, Scotland",
     favmonster: "Arcanaloth my beloved <3",
+    favmoment:
+      "During a heist in a bakery, the party sent the charismatic Bard and Warlock duo ahead to try to smooth talk the night watchman. Rather than talk to him, the two decided to hide from him by climbing into a huge vat of dough, to the watching Barbarian and Monk's horror. '...They're getting in the dough.'",
     otherinterests: "Art, Board Games, Lego, Horror Movies",
-    image: "img/ResDMs/Placeholder.png",
+    image: "img/ResDMs/Kael.png",
   },
   {
     name: "Death",
@@ -110,7 +119,16 @@ export const resDMbios = [
   },
   {
     name: "Talisus",
+    style:
+      "Tough, but fair! Always a focus on fun. I like to run challenging combats at all tier levels. Every experience is one to learn and improve from!",
+    location: "Springtown, Texas",
+    favmonster: "Elder Brain Dragon",
+    favmoment:
+      "When a player finally gets to roll on the Wild Magic Surge table, only to turn into a potted plant at the feet of the enemy!",
+    otherinterests: "Running and spending time with my wife, three children, and three cats.",
     image: "img/ResDMs/Placeholder.png",
+    link1name: "DM's Guild Stuff",
+    link1: "https://www.dmsguild.com/browse.php?author=N.%20M.%20Brickle",
   },
   {
     name: "Maluku",
